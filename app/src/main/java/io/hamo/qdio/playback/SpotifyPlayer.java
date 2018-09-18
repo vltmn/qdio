@@ -1,37 +1,41 @@
 package io.hamo.qdio.playback;
 
-import com.spotify.android.appremote.api.ConnectionParams;
-import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
-
-import com.spotify.protocol.client.Subscription;
-import com.spotify.protocol.types.PlayerState;
-import com.spotify.protocol.types.Track;
 
 public class SpotifyPlayer implements Player {
 
-    private SpotifyAppRemote mSpotifyAppRemote;
-    private long ms;
+    private SpotifyAppRemote spotifyAppRemote;
+    private static SpotifyPlayer ourInstance;
 
-    public SpotifyPlayer (SpotifyAppRemote mSpotifyAppRemote, long ms){
-        this.mSpotifyAppRemote = mSpotifyAppRemote;
-        this.ms = ms;
+
+    private SpotifyPlayer() {
     }
 
+    public static SpotifyPlayer getInstance(){
+        if(ourInstance == null) ourInstance = new SpotifyPlayer();
+        return ourInstance;
+    }
+
+    protected void setSpotifyRemote(SpotifyAppRemote spotifyRemote) {
+        this.spotifyAppRemote = spotifyRemote;
+    }
 
     @Override
     public void resume() {
-        mSpotifyAppRemote.getPlayerApi().resume();
+        spotifyAppRemote.getPlayerApi().resume();
 
     }
 
     @Override
     public void pause() {
-        mSpotifyAppRemote.getPlayerApi().pause();
+        spotifyAppRemote.getPlayerApi().pause();
     }
 
     @Override
     public void seek(long ms) {
-        mSpotifyAppRemote.getPlayerApi().seekTo(ms);
+        spotifyAppRemote.getPlayerApi().seekTo(ms);
     }
+
 }
+
+
