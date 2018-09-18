@@ -2,6 +2,8 @@ package io.hamo.qdio.playback;
 
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 
+import io.hamo.qdio.music.MusicObject;
+
 public class SpotifyPlayer implements Player {
 
     private SpotifyAppRemote spotifyAppRemote;
@@ -34,6 +36,11 @@ public class SpotifyPlayer implements Player {
     @Override
     public void seek(long ms) {
         spotifyAppRemote.getPlayerApi().seekTo(ms);
+    }
+
+    @Override
+    public void play(MusicObject obj) {
+        spotifyAppRemote.getPlayerApi().play(obj.getURI());
     }
 
 }
