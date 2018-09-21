@@ -2,6 +2,7 @@ package io.hamo.qdio.music;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import kaaes.spotify.webapi.android.models.ArtistSimple;
 
@@ -72,6 +73,26 @@ public class Track implements MusicObject {
     public String getURI() {
         return this.URI;
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Track track = (Track) o;
+        return durationMs == track.durationMs &&
+                isPlayable == track.isPlayable &&
+                Objects.equals(URI, track.URI) &&
+                Objects.equals(albumURI, track.albumURI) &&
+                Objects.equals(artistURI, track.artistURI) &&
+                Objects.equals(name, track.name) &&
+                Objects.equals(imageURL, track.imageURL);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(URI, albumURI, artistURI, durationMs, isPlayable, name, imageURL);
     }
 }
 

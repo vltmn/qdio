@@ -2,6 +2,7 @@ package io.hamo.qdio.music;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import kaaes.spotify.webapi.android.models.AlbumSimple;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
@@ -44,5 +45,22 @@ public class Album implements MusicObject {
 
     public List<String> getArtistURI() {
         return artistURI;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Album album = (Album) o;
+        return Objects.equals(URI, album.URI) &&
+                Objects.equals(name, album.name) &&
+                Objects.equals(imgageURL, album.imgageURL) &&
+                Objects.equals(artistURI, album.artistURI);
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(URI, name, imgageURL, artistURI);
     }
 }
