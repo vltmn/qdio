@@ -1,5 +1,9 @@
 package io.hamo.qdio.communication;
 
+import io.hamo.qdio.communication.entity.CommandMessage;
+
 public interface Communicator {
-    public void sendCommand(CommandMessage);
+    void sendCommand(CommandMessage commandMessage);
+
+
 }

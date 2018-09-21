@@ -1,19 +1,15 @@
 package io.hamo.qdio.communication;
 
-import android.Manifest;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.support.annotation.NonNull;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.util.SimpleArrayMap;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
-import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.connection.AdvertisingOptions;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
 import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
 import com.google.android.gms.nearby.connection.ConnectionResolution;
+import com.google.android.gms.nearby.connection.ConnectionsClient;
 import com.google.android.gms.nearby.connection.ConnectionsStatusCodes;
 import com.google.android.gms.nearby.connection.DiscoveredEndpointInfo;
 import com.google.android.gms.nearby.connection.DiscoveryOptions;
@@ -24,49 +20,41 @@ import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
 import com.google.android.gms.nearby.connection.Strategy;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import android.app.NotificationManager;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
-import io.hamo.qdio.R;
-
+import io.hamo.qdio.communication.entity.CommandMessage;
 
 
-/** A class that connects to Nearby Connections and provides convenience methods and callbacks. */
-public abstract class NearbyConnector extends AppCompatActivity {
-
-    /**
-     * These permissions are required before connecting to Nearby Connections. Only {@link
-     * Manifest.permission#ACCESS_COARSE_LOCATION} is considered dangerous, so the others should be
-     * granted just by having them in our AndroidManfiest.xml
-     */
-    private static final String[] REQUIRED_PERMISSIONS =
-            new String[] {
-                    Manifest.permission.BLUETOOTH,
-                    Manifest.permission.BLUETOOTH_ADMIN,
-                    Manifest.permission.ACCESS_WIFI_STATE,
-                    Manifest.permission.CHANGE_WIFI_STATE,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-            };
-
+public class NearbyCommunicator implements Communicator {
     public static final String SERVICE_ID = "Qdio";
     public static final Strategy STRATEGY = Strategy.P2P_STAR;
     public static final String roomAdmin = "admin";
-    public static final Context context = null;
 
+    private final ConnectionsClient connectionsClient;
 
+    private final MutableLiveData<Boolean> advertising;
+    private final MutableLiveData<Boolean> discovering;
+    private final MutableLiveData<Map<String, DiscoveredEndpointInfo>> endpointsFound;
+
+    public NearbyCommunicator(ConnectionsClient connectionsClient) {
+        this.connectionsClient = connectionsClient;
+        advertising = new MutableLiveData<>();
+        advertising.setValue(false);
+        discovering = new MutableLiveData<>();
+        discovering.setValue(false);
+        endpointsFound = new MutableLiveData<>();
+        endpointsFound.setValue(new HashMap<String, DiscoveredEndpointInfo>());
+
+    }
 
     private void startAdvertising() {
-        Nearby.getConnectionsClient(context).startAdvertising(
+        connectionsClient.startAdvertising(
                 roomAdmin,
                 SERVICE_ID,
                 mConnectionLifecycleCallback,
-                new AdvertisingOptions(STRATEGY))
+                new AdvertisingOptions.Builder().setStrategy(STRATEGY).build())
                 .addOnSuccessListener(
                         new OnSuccessListener<Void>() {
                             @Override
@@ -87,21 +75,31 @@ public abstract class NearbyConnector extends AppCompatActivity {
             new EndpointDiscoveryCallback() {
                 @Override
                 public void onEndpointFound(
-                        String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
+                        @NonNull String endpointId, @NonNull DiscoveredEndpointInfo discoveredEndpointInfo) {
                     // An endpoint was found!
+                    //TODO
+                    Log.i(getClass().getCanonicalName(), "found endpoint with ID: " + endpointId);
+                    Map<String, DiscoveredEndpointInfo> endpoints = endpointsFound.getValue();
+                    endpoints.put(endpointId, discoveredEndpointInfo);
+                    endpointsFound.setValue(endpoints);
                 }
 
                 @Override
-                public void onEndpointLost(String endpointId) {
+                public void onEndpointLost(@NonNull String endpointId) {
                     // A previously discovered endpoint has gone away.
+                    //TODO
+                    Log.i(getClass().getCanonicalName(), "lost endpoint with ID: " + endpointId);
+                    Map<String, DiscoveredEndpointInfo> endpoints = endpointsFound.getValue();
+                    endpoints.remove(endpointId);
+                    endpointsFound.setValue(endpoints);
                 }
             };
 
     private void startDiscovery() {
-        Nearby.getConnectionsClient(context).startDiscovery(
+        connectionsClient.startDiscovery(
                 SERVICE_ID,
                 mEndpointDiscoveryCallback,
-                new DiscoveryOptions(STRATEGY))
+                new DiscoveryOptions.Builder().setStrategy(STRATEGY).build())
                 .addOnSuccessListener(
                         new OnSuccessListener<Void>() {
                             @Override
@@ -118,42 +116,19 @@ public abstract class NearbyConnector extends AppCompatActivity {
                         });
     }
 
-    @Override
-    public void onEndpointFound(
-            String endpointId, DiscoveredEndpointInfo discoveredEndpointInfo) {
-        Nearby.getConnectionsClient(context).requestConnection(
-                roomAdmin,
-                endpointId,
-                mConnectionLifecycleCallback)
-                .addOnSuccessListener(
-                        new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unusedResult) {
-                                // We successfully requested a connection. Now both sides
-                                // must accept before the connection is established.
-                            }
-                        })
-                .addOnFailureListener(
-                        new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // Nearby Connections failed to request the connection.
-                            }
-                        });
-    }
 
     private final ConnectionLifecycleCallback mConnectionLifecycleCallback =
             new ConnectionLifecycleCallback() {
 
                 @Override
                 public void onConnectionInitiated(
-                        String endpointId, ConnectionInfo connectionInfo) {
+                        @NonNull String endpointId, @NonNull ConnectionInfo connectionInfo) {
                     // Automatically accept the connection on both sides.
-                    Nearby.getConnectionsClient(context).acceptConnection(endpointId, mPayloadCallback);
+                    connectionsClient.acceptConnection(endpointId, mPayloadCallback);
                 }
 
                 @Override
-                public void onConnectionResult(String endpointId, ConnectionResolution result) {
+                public void onConnectionResult(@NonNull String endpointId, ConnectionResolution result) {
                     switch (result.getStatus().getStatusCode()) {
                         case ConnectionsStatusCodes.STATUS_OK:
                             // We're connected! Can now start sending and receiving data.
@@ -174,45 +149,32 @@ public abstract class NearbyConnector extends AppCompatActivity {
                 }
             };
 
-    @Override
-    public void onConnectionInitiated(String endpointId, ConnectionInfo connectionInfo) {
-        new AlertDialog.Builder(context)
-                .setTitle("Accept connection to " + connectionInfo.getEndpointName())
-                .setMessage("Confirm the code " + connectionInfo.getAuthenticationToken() + " is also displayed on the other device")
-                .setPositiveButton("Accept", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // The user confirmed, so we can accept the connection.
-                        Nearby.getConnectionsClient(context).acceptConnection(endpointId, mPayloadCallback);
-                    }
-                })
-                .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // The user canceled, so we should reject the connection.
-                        Nearby.getConnectionsClient(context).rejectConnection(endpointId);
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
-    }
+
 
     private final PayloadCallback mPayloadCallback =
             new PayloadCallback() {
                 @Override
                 public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
-
+                    //TODO
                 }
 
                 @Override
                 public void onPayloadTransferUpdate(@NonNull String s, @NonNull PayloadTransferUpdate payloadTransferUpdate) {
-
+                    //TODO
                 }
             };
 
 
-    NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+    @Override
+    public void sendCommand(CommandMessage commandMessage) {
 
+    }
 
+    public LiveData<Boolean> getAdvertising() {
+        return advertising;
+    }
 
-
-
+    public LiveData<Boolean> getDiscovering() {
+        return discovering;
+    }
 }
