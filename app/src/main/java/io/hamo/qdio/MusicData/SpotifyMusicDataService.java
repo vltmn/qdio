@@ -31,8 +31,17 @@ public class SpotifyMusicDataService implements MusicDataService {
         return ourInstance;
     }
 
+    /*
+    MOCK CONSTRUCTOR
+     */
+    protected SpotifyMusicDataService(SpotifyService spotifyService) {
+        accessToken = "";
+        spotifyApi = null;
+        this.spotifyService = spotifyService;
+    }
+
     private SpotifyMusicDataService() {
-        this.accessToken = SpotifyAuthHelper.getInstance().getAccessToken();
+        accessToken = SpotifyAuthHelper.getInstance().getAccessToken();
         spotifyApi = new SpotifyApi();
         spotifyApi.setAccessToken(accessToken);
         spotifyService = spotifyApi.getService();
