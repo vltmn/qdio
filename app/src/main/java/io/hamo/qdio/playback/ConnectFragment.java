@@ -31,7 +31,7 @@ public class ConnectFragment extends Fragment {
                         .showAuthView(true)
                         .build();
 
-        SpotifyAppRemote.CONNECTOR.connect(getActivity(), connectionParams,
+        SpotifyAppRemote.CONNECTOR.connect(getContext(), connectionParams,
                 new Connector.ConnectionListener() {
 
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
