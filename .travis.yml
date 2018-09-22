@@ -1,0 +1,18 @@
+language: android
+env:
+  global:
+    - ANDROID_API_LEVEL=28
+
+android:
+  components:
+    - tools
+    - platform-tools
+    - tools
+    - build-tools-27.0.3
+    - android-$ANDROID_API_LEVEL
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+
+script:
+  - ./gradlew build test
