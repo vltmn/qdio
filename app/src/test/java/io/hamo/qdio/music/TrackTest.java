@@ -36,8 +36,8 @@ public class TrackTest {
         fromApi.artists.add(a1);
         fromApi.artists.add(a2);
         io.hamo.qdio.music.Track converted = new io.hamo.qdio.music.Track(fromApi);
-        assertTrue(converted.getArtistURI().contains(fromApi.artists.get(0).uri));
-        assertTrue(converted.getArtistURI().contains(fromApi.artists.get(1).uri));
+        assertTrue(converted.getArtists().contains(new Artist(fromApi.artists.get(0))));
+        assertTrue(converted.getArtists().contains(new Artist(fromApi.artists.get(1))));
     }
 
     @Test

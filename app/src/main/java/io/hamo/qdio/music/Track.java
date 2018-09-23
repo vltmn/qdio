@@ -10,16 +10,11 @@ public class Track implements MusicObject {
 
     private String URI;
     private String albumURI;
-    private List<String> artistURI = new ArrayList<>();
+    private List<Artist> artists = new ArrayList<>();
     private long durationMs;
     private boolean isPlayable;
     private String name;
     private String imageURL;
-
-
-    public Track(String URI) {
-        this.URI = URI;
-    }
 
     public Track(kaaes.spotify.webapi.android.models.Track track) {
         this.URI = track.uri;
@@ -28,7 +23,7 @@ public class Track implements MusicObject {
         }
         if (track.artists != null) {
             for (ArtistSimple a : track.artists) {
-                this.artistURI.add(a.uri);
+                this.artists.add(new Artist(a));
             }
         }
         this.durationMs = track.duration_ms;
@@ -49,10 +44,6 @@ public class Track implements MusicObject {
         return albumURI;
     }
 
-    public List<String> getArtistURI() {
-        return artistURI;
-    }
-
     public long getDurationMs() {
         return durationMs;
     }
@@ -67,6 +58,10 @@ public class Track implements MusicObject {
 
     public String getImageURL() {
         return imageURL;
+    }
+
+    public List<Artist> getArtists() {
+        return artists;
     }
 
     @Override
@@ -84,7 +79,7 @@ public class Track implements MusicObject {
                 isPlayable == track.isPlayable &&
                 Objects.equals(URI, track.URI) &&
                 Objects.equals(albumURI, track.albumURI) &&
-                Objects.equals(artistURI, track.artistURI) &&
+                Objects.equals(artists, track.artists) &&
                 Objects.equals(name, track.name) &&
                 Objects.equals(imageURL, track.imageURL);
     }
@@ -92,7 +87,7 @@ public class Track implements MusicObject {
     @Override
     public int hashCode() {
 
-        return Objects.hash(URI, albumURI, artistURI, durationMs, isPlayable, name, imageURL);
+        return Objects.hash(URI, albumURI, artists, durationMs, isPlayable, name, imageURL);
     }
 }
 
