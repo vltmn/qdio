@@ -14,10 +14,12 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import io.hamo.qdio.R;
 import io.hamo.qdio.music.Track;
@@ -64,6 +66,7 @@ public class SearchFragment extends Fragment {
                 progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
             }
         });
+
     }
 
     @Override
@@ -89,6 +92,21 @@ public class SearchFragment extends Fragment {
 
         DividerItemDecoration did = new DividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());
         recyclerView.addItemDecoration(did);
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if(newState != RecyclerView.SCROLL_STATE_DRAGGING) return;
+                View view = getView();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getContext()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (imm != null) {
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                }
+            }
+        });
 
         return view;
     }
