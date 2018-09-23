@@ -1,10 +1,13 @@
 package io.hamo.qdio.view.search;
 
 import android.arch.lifecycle.Observer;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -25,7 +28,18 @@ public class SearchFragment extends Fragment {
     private SearchFragmentListAdapter adapter;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
+    private OnSearchResultItemClickedListener onResultItemListener;
 
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            onResultItemListener = (OnSearchResultItemClickedListener) context;
+        } catch(ClassCastException cce) {
+            throw new ClassCastException(context.toString() + " must implement " + OnSearchResultItemClickedListener.class.getSimpleName());
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +67,7 @@ public class SearchFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
@@ -67,14 +81,17 @@ public class SearchFragment extends Fragment {
 
         //set recyclerview fixedsize for performance
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
         //construct adapter with empty list
-        adapter = new SearchFragmentListAdapter(new ArrayList<Track>());
+        adapter = new SearchFragmentListAdapter(new ArrayList<Track>(), onResultItemListener);
         recyclerView.setAdapter(adapter);
+
+        DividerItemDecoration did = new DividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());
+        recyclerView.addItemDecoration(did);
 
         return view;
     }
-
 
     private static class SearchOnQueryTextListener implements SearchView.OnQueryTextListener {
         private final long delayMs = SearchFragmentViewModel.SEARCH_DELAY;
@@ -109,6 +126,10 @@ public class SearchFragment extends Fragment {
             handler.postDelayed(currentRunnable, delayMs);
             return false;
         }
+    }
+
+    public interface OnSearchResultItemClickedListener {
+        void onSearchResultItemClicked(Track t);
     }
 
 }
