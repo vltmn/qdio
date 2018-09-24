@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
+import io.hamo.qdio.MusicData.auth.AccessTokenGenerator;
 import io.hamo.qdio.music.Album;
 import io.hamo.qdio.music.Artist;
 import io.hamo.qdio.music.Track;
@@ -17,38 +18,21 @@ import kaaes.spotify.webapi.android.SpotifyService;
 
 import kaaes.spotify.webapi.android.models.TracksPager;
 
-public class SpotifyMusicDataService implements MusicDataService {
-    private static SpotifyMusicDataService ourInstance;
+class SpotifyMusicDataService implements MusicDataService {
     private SpotifyService spotifyService;
     private final SpotifyApi spotifyApi;
+
     private String accessToken;
 
+    SpotifyMusicDataService(SpotifyApi sa, String accessToken) {
+        spotifyApi = sa;
+        this.spotifyService = sa.getService();
+        this.accessToken = accessToken;
 
-    public static SpotifyMusicDataService getInstance() {
-        if (ourInstance == null) {
-            ourInstance = new SpotifyMusicDataService();
-        }
-        return ourInstance;
-    }
-
-    /*
-    MOCK CONSTRUCTOR
-     */
-    protected SpotifyMusicDataService(SpotifyService spotifyService) {
-        accessToken = "";
-        spotifyApi = null;
-        this.spotifyService = spotifyService;
-    }
-
-    private SpotifyMusicDataService() {
-        accessToken = SpotifyAuthHelper.getInstance().getAccessToken();
-        spotifyApi = new SpotifyApi();
-        spotifyApi.setAccessToken(accessToken);
-        spotifyService = spotifyApi.getService();
     }
 
     private void generateNewAccessToken() {
-        this.accessToken = SpotifyAuthHelper.getInstance().getAccessToken();
+        this.accessToken = AccessTokenGenerator.getNewToken();
         spotifyApi.setAccessToken(accessToken);
         spotifyService = spotifyApi.getService();
     }

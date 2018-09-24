@@ -10,7 +10,7 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.hamo.qdio.MusicData.SpotifyMusicDataService;
+import io.hamo.qdio.MusicData.MusicDataServiceFactory;
 import io.hamo.qdio.music.Track;
 
 
@@ -22,8 +22,7 @@ public class SearchFragmentViewModel extends ViewModel {
         @Override
         public void onChanged(@Nullable String s) {
             try {
-                //TODO use our tracks
-                List<Track> tracks = SpotifyMusicDataService.getInstance().searchForTrack(s).call();
+                List<Track> tracks = MusicDataServiceFactory.getService().searchForTrack(s).call();
                 List<String> toSet = new ArrayList<>();
 
                 trackList.setValue(tracks);

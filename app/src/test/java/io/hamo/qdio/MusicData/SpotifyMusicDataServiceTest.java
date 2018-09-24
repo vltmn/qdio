@@ -15,6 +15,7 @@ import java.util.Map;
 import io.hamo.qdio.TestUtil.MusicData;
 import io.hamo.qdio.music.Artist;
 import io.hamo.qdio.music.Track;
+import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Pager;
 import kaaes.spotify.webapi.android.models.TracksPager;
@@ -28,10 +29,13 @@ public class SpotifyMusicDataServiceTest {
     SpotifyMusicDataService spotifyMusicDataService;
     @Mock
     SpotifyService spotifyService;
+    @Mock
+    SpotifyApi spotifyApi;
 
     @Before
     public void setUp() throws Exception {
-        spotifyMusicDataService = new SpotifyMusicDataService(spotifyService);
+        when(spotifyApi.getService()).thenReturn(spotifyService);
+        spotifyMusicDataService = new SpotifyMusicDataService(spotifyApi, "");
     }
 
     @Test

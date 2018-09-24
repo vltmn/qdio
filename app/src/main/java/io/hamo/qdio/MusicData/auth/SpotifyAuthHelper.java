@@ -1,4 +1,4 @@
-package io.hamo.qdio.MusicData;
+package io.hamo.qdio.MusicData.auth;
 
 import android.os.AsyncTask;
 import android.util.Base64;
@@ -18,15 +18,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
-public class SpotifyAuthHelper {
-    private static final SpotifyAuthHelper ourInstance = new SpotifyAuthHelper();
-
-    public static SpotifyAuthHelper getInstance() {
-        return ourInstance;
-    }
-
-    private SpotifyAuthHelper() {
-    }
+class SpotifyAuthHelper {
 
     public String getAccessToken() {
 
