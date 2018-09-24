@@ -4,22 +4,13 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 import io.hamo.qdio.music.MusicObject;
 
-public class SpotifyPlayer implements Player {
+class SpotifyPlayer implements Player {
 
     private SpotifyAppRemote spotifyAppRemote;
-    private static SpotifyPlayer ourInstance;
 
 
-    private SpotifyPlayer() {
-    }
-
-    public static SpotifyPlayer getInstance(){
-        if(ourInstance == null) ourInstance = new SpotifyPlayer();
-        return ourInstance;
-    }
-
-    protected void setSpotifyRemote(SpotifyAppRemote spotifyRemote) {
-        this.spotifyAppRemote = spotifyRemote;
+    SpotifyPlayer(SpotifyAppRemote spotifyAppRemote) {
+        this.spotifyAppRemote = spotifyAppRemote;
     }
 
     @Override

@@ -35,17 +35,12 @@ public class ConnectFragment extends Fragment {
                 new Connector.ConnectionListener() {
 
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        SpotifyPlayer.getInstance().setSpotifyRemote(spotifyAppRemote);
-                        Log.d("MainActivity", "Connected! Yay!");
-
-                        // Now you can start interacting with App Remote
-
+                        PlayerFactory.instantiatePlayer(spotifyAppRemote);
+                        Log.d(getClass().getSimpleName(), "Connected! Yay!");
                     }
 
                     public void onFailure(Throwable throwable) {
-                        Log.e("MyActivity", throwable.getMessage(), throwable);
-
-                        // Something went wrong when attempting to connect! Handle errors here
+                        Log.e(getClass().getSimpleName(), throwable.getMessage(), throwable);
                     }
                 });
     }
