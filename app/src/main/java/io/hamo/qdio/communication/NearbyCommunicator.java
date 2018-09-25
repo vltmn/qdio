@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import io.hamo.qdio.communication.entity.CommandMessage;
 
@@ -37,6 +39,7 @@ public class NearbyCommunicator implements Communicator {
     private final MutableLiveData<Boolean> advertising;
     private final MutableLiveData<Boolean> discovering;
     private final MutableLiveData<Map<String, DiscoveredEndpointInfo>> endpointsFound;
+    private final Queue<CommandMessage> inputMessageQueue = new ConcurrentLinkedQueue<>();
 
     public NearbyCommunicator(ConnectionsClient connectionsClient) {
         this.connectionsClient = connectionsClient;
@@ -154,7 +157,12 @@ public class NearbyCommunicator implements Communicator {
     private final PayloadCallback mPayloadCallback =
             new PayloadCallback() {
                 @Override
-                public void onPayloadReceived(@NonNull String s, @NonNull Payload payload) {
+                public void onPayloadReceived(@NonNull String msg, @NonNull Payload payload) {
+                    if (payload.getType() != Payload.Type.BYTES) {
+                        throw new RuntimeException(getClass().getSimpleName() + " received load was not byte");
+                    }
+                    CommandMessage commandMessage = JsonUtil.getInstance().deSerializeMessage(msg);
+                    inputMessageQueue.add(commandMessage);
                     //TODO
                 }
 
@@ -163,6 +171,20 @@ public class NearbyCommunicator implements Communicator {
                     //TODO
                 }
             };
+
+    private void sendPayload(String endpointId, Payload payload) {
+        if (payload.getType() != Payload.Type.BYTES) {
+            throw new RuntimeException(getClass().getSimpleName() + " received load was not Byte");
+        }
+
+    }
+
+    public void sendMessage(CommandMessage msg) {
+        String serialized = JsonUtil.getInstance().serialize(msg);
+        //TODO sendMessage
+    }
+
+
 
 
     @Override
