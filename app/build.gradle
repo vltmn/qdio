@@ -6,8 +6,8 @@ if(secretPropertiesFile.exists()){
     secretProperties.load(new FileInputStream(secretPropertiesFile))
 }
 else{
-    secretProperties.setProperty("spotifyClientId","")
-    secretProperties.setProperty("spotifyClientSecret","")
+    secretProperties.setProperty('spotifyClientId','"TEST"')
+    secretProperties.setProperty('spotifyClientSecret','"TEST"')
 }
 
 repositories {
