@@ -2,7 +2,13 @@ apply plugin: 'com.android.application'
 
 def secretPropertiesFile = rootProject.file("secrets.properties")
 def secretProperties = new Properties()
-secretProperties.load(new FileInputStream(secretPropertiesFile))
+if(secretPropertiesFile.exists()){
+    secretProperties.load(new FileInputStream(secretPropertiesFile))
+}
+else{
+    secretProperties.setProperty("spotifyClientId","")
+    secretProperties.setProperty("spotifyClientSecret","")
+}
 
 repositories {
     mavenCentral()
