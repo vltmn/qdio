@@ -1,0 +1,22 @@
+@startuml
+object Room
+object Track
+object Album
+object Artist
+object CommandMessage
+object CommandMessageQueue
+object TrackQueue
+object TrackHistory
+object PlayerState
+
+Room "1"--*"1" TrackQueue
+Room "1"--* "1" TrackHistory
+Room "1" --* "1" CommandMessageQueue
+CommandMessageQueue "1" --o "0.." CommandMessage
+TrackQueue "1"--o "0.." Track
+TrackHistory "1" --o "0.." Track
+Room "1" --* "1" PlayerState
+Track "1" --o "1.." Artist
+Track "1" --o "1" Album
+
+@enduml
