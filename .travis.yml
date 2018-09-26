@@ -16,3 +16,6 @@ android:
 
 script:
   - ./gradlew build test
+
+notifications:
+  slack: tda367projekt:e2ShsTaaDpSXYDzuFDNuDjVT
