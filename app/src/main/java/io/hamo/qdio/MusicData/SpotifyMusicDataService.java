@@ -127,6 +127,17 @@ class SpotifyMusicDataService implements MusicDataService {
         };
     }
 
+    @Override
+    public Callable<Track> getTrackFromUri(final String trackUri) {
+        final GetTrackAsyncTask asyncTask = new GetTrackAsyncTask(spotifyService);
+        return new Callable<Track>() {
+            @Override
+            public Track call() throws Exception {
+                return asyncTask.execute(trackUri).get();
+            }
+        };
+    }
+
     private static class GetAlbumAsyncTask extends AsyncTask<String, Void, Album> {
         private final SpotifyService spotifyService;
 
@@ -142,5 +153,24 @@ class SpotifyMusicDataService implements MusicDataService {
         }
     }
 
+    private static class GetTrackAsyncTask extends AsyncTask<String, Void, Track> {
+        private final SpotifyService spotifyService;
+
+        GetTrackAsyncTask(SpotifyService spotifyService) {
+            this.spotifyService = spotifyService;
+        }
+
+        @Override
+        protected Track doInBackground(String... strings) {
+            String trackUri = strings[0];
+            kaaes.spotify.webapi.android.models.Track track = spotifyService.getTrack(parseUri(trackUri));
+            return new Track(track);
+        }
+    }
+
+    private static String parseUri(String wholeId){
+        String parsedUri = wholeId.substring(wholeId.lastIndexOf(':')+1);
+        return parsedUri;
+    }
 
 }
