@@ -26,8 +26,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import javax.security.auth.callback.Callback;
-
 import io.hamo.qdio.communication.entity.CommandMessage;
 
 
@@ -188,7 +186,7 @@ public class NearbyCommunicator implements Communicator {
 
 
     @Override
-    public LiveData<CommandMessage> getIncomingMessages() {
+    public MutableLiveData<Queue<Payload>> getIncomingMessages() {
         return null;
     }
 
