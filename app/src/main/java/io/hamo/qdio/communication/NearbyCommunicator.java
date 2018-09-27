@@ -195,11 +195,6 @@ public class NearbyCommunicator implements Communicator {
     }
 
     @Override
-    public void onReceiveCommand(Callback callback) {
-        
-    }
-
-    @Override
     public IncomingMessageQueue getIncomingMessages() {
         return null;
     }
