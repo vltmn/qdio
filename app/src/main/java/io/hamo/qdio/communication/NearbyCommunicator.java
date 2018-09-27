@@ -184,13 +184,10 @@ public class NearbyCommunicator {
         //TODO sendMessage
     }
 
-
-    @Override
     public MutableLiveData<Queue<Payload>> getIncomingMessages() {
         return null;
     }
-
-    @Override
+    
     public void sendCommand(CommandMessage commandMessage) {
 
     }
