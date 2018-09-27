@@ -29,7 +29,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import io.hamo.qdio.communication.entity.CommandMessage;
 
 
-public class NearbyCommunicator implements Communicator {
+public class NearbyCommunicator {
     public static final String SERVICE_ID = "Qdio";
     public static final Strategy STRATEGY = Strategy.P2P_STAR;
     public static final String roomAdmin = "admin";
