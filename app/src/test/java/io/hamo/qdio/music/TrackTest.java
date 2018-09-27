@@ -50,15 +50,6 @@ public class TrackTest {
     }
 
     @Test
-    public void isPlayable() {
-        //Also checked with false and got the expected result
-        Track fromApi = new Track();
-        fromApi.is_playable=true;
-        io.hamo.qdio.music.Track converted = new io.hamo.qdio.music.Track(fromApi);
-        assertTrue(converted.isPlayable());
-    }
-
-    @Test
     public void getName() {
         Track fromApi = new Track();
         fromApi.name = "TEST123";

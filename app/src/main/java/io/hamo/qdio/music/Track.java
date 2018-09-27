@@ -12,9 +12,25 @@ public class Track implements MusicObject {
     private String albumURI;
     private List<Artist> artists = new ArrayList<>();
     private long durationMs;
-    private boolean isPlayable;
     private String name;
     private String imageURL;
+
+    public Track(com.spotify.protocol.types.Track track){
+        this.URI = track.uri;
+        if (track.album != null) {
+            this.albumURI = track.album.uri;
+        }
+        if (track.artists != null) {
+            for (com.spotify.protocol.types.Artist a : track.artists) {
+                this.artists.add(new Artist(a));
+            }
+        }
+        this.durationMs = track.duration;
+        this.name = track.name;
+        this.imageURL = track.imageUri.raw;
+
+    }
+
 
     public Track(kaaes.spotify.webapi.android.models.Track track) {
         this.URI = track.uri;
@@ -27,9 +43,6 @@ public class Track implements MusicObject {
             }
         }
         this.durationMs = track.duration_ms;
-        if (track.is_playable != null) {
-            this.isPlayable = track.is_playable;
-        }
         this.name = track.name;
         if (track.album != null) {
             this.imageURL = track.album.images != null && track.album.images.size() > 0 ?
@@ -48,9 +61,6 @@ public class Track implements MusicObject {
         return durationMs;
     }
 
-    public boolean isPlayable() {
-        return isPlayable;
-    }
 
     public String getName() {
         return name;
@@ -76,7 +86,6 @@ public class Track implements MusicObject {
         if (o == null || getClass() != o.getClass()) return false;
         Track track = (Track) o;
         return durationMs == track.durationMs &&
-                isPlayable == track.isPlayable &&
                 Objects.equals(URI, track.URI) &&
                 Objects.equals(albumURI, track.albumURI) &&
                 Objects.equals(artists, track.artists) &&
@@ -87,7 +96,7 @@ public class Track implements MusicObject {
     @Override
     public int hashCode() {
 
-        return Objects.hash(URI, albumURI, artists, durationMs, isPlayable, name, imageURL);
+        return Objects.hash(URI, albumURI, artists, durationMs, name, imageURL);
     }
 }
 
