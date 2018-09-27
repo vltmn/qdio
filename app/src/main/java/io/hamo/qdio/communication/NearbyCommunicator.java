@@ -187,17 +187,16 @@ public class NearbyCommunicator implements Communicator {
     }
 
 
-
+    @Override
+    public LiveData<CommandMessage> getIncomingMessages() {
+        return null;
+    }
 
     @Override
     public void sendCommand(CommandMessage commandMessage) {
 
     }
 
-    @Override
-    public IncomingMessageQueue getIncomingMessages() {
-        return null;
-    }
 
     public LiveData<Boolean> getAdvertising() {
         return advertising;
