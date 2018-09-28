@@ -23,7 +23,4 @@ public interface Communicator {
      */
     void sendCommand(CommandMessage commandMessage);
 
-
-
-
 }

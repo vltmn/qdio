@@ -5,6 +5,9 @@ import com.google.gson.Gson;
 
 import io.hamo.qdio.communication.entity.CommandMessage;
 
+/**
+ * Converts CommandMessage using Gson to Java object when communicating between Slave and Master
+ */
 public class JsonUtil {
     private Gson gson = new Gson();
     private static JsonUtil instance;
