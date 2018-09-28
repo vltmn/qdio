@@ -1,0 +1,1 @@
+adb shell "am broadcast -a io.hamo.qdio.demo_intent -e DATA '"'{"action":"ADD_SONG","value":"'$1'"}'"'"
