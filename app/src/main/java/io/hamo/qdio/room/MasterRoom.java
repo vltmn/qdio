@@ -21,29 +21,29 @@ public class MasterRoom implements Room {
     RoomType type = RoomType.MASTER;
 
 
-    public MasterRoom(Communicator com){
+    public MasterRoom(Communicator com) {
         this.communicator = com;
         com.getIncomingMessages().observeForever(new Observer<Queue<CommandMessage>>() {
             @Override
             public void onChanged(@Nullable Queue<CommandMessage> commandMessages) {
-                while(!commandMessages.isEmpty()){
+                while (!commandMessages.isEmpty()) {
                     CommandMessage cmdMsg = commandMessages.poll();
-                    switch (cmdMsg.getAction()){
+                    switch (cmdMsg.getAction()) {
                         case ADD_SONG:
                             try {
                                 addToQueue(MusicDataServiceFactory
                                         .getService()
                                         .getTrackFromUri(cmdMsg.getValue())
                                         .call());
-                            } catch(Exception e){
+                            } catch (Exception e) {
                                 Log.e(getClass().getSimpleName(), e.getMessage());
                             }
                             break;
                         case NOTIFY_UPDATE:
                             break;
-                            default:
-                                Log.w(getClass().getSimpleName(), "Bad command message");
-                                break;
+                        default:
+                            Log.w(getClass().getSimpleName(), "Bad command message");
+                            break;
                     }
                 }
             }
