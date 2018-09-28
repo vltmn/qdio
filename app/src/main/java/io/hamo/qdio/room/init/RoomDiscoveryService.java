@@ -10,6 +10,7 @@ import com.google.android.gms.nearby.Nearby;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
 import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
 import com.google.android.gms.nearby.connection.ConnectionResolution;
+import com.google.android.gms.nearby.connection.ConnectionsClient;
 import com.google.android.gms.nearby.connection.ConnectionsStatusCodes;
 import com.google.android.gms.nearby.connection.DiscoveredEndpointInfo;
 import com.google.android.gms.nearby.connection.DiscoveryOptions;
@@ -24,7 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Queue;
 
+import io.hamo.qdio.communication.Communicator;
+import io.hamo.qdio.communication.SlaveCommunicator;
 import io.hamo.qdio.room.Room;
+import io.hamo.qdio.room.SlaveRoom;
 
 public class RoomDiscoveryService {
     private final MutableLiveData<List<String>> endpointsAvailable = new MutableLiveData<>();
@@ -40,8 +44,9 @@ public class RoomDiscoveryService {
 
             @Override
             public void onEndpointFound(@NonNull String endpointId, @NonNull DiscoveredEndpointInfo discoveredEndpointInfo) {
+                String endpointName = discoveredEndpointInfo.getEndpointName();
                 List<String> endpoints = endpointsAvailable.getValue();
-                endpoints.add(endpointId);
+                endpoints.add(endpointName);
                 endpointsAvailable.postValue(endpoints);
             }
 
@@ -73,18 +78,15 @@ public class RoomDiscoveryService {
         return endpointsAvailable;
     }
 
-
-    public MutableLiveData<Queue<byte[]>> connectToHost(final String endpointId) {
+    protected MutableLiveData<Queue<Payload>> connectToMaster(final String endpointId) {
         List<String> endpoints = endpointsAvailable.getValue();
-        final MutableLiveData<Room> toReturn = new MutableLiveData<>();
-
         if (!endpoints.contains(endpointId)) {
             throw new RuntimeException("Tried to connect to an endpoint that does not exist");
         }
-
         final MutableLiveData<Queue<Payload>> incomingPayloadQueue = new MutableLiveData<>();
         incomingPayloadQueue.setValue(new ArrayDeque<Payload>());
         final PayloadCallback payloadCallback = new RoomPayloadCallback(incomingPayloadQueue);
+
         ConnectionLifecycleCallback lifecycleCallback = new ConnectionLifecycleCallback() {
             @Override
             public void onConnectionInitiated(@NonNull String endpointId, @NonNull ConnectionInfo connectionInfo) {
@@ -125,8 +127,14 @@ public class RoomDiscoveryService {
 
                     }
                 });
+        return incomingPayloadQueue;
+    }
 
-        return null;
+    public Room connectToRoom(final String endpointId) {
+        MutableLiveData<Queue<Payload>> queueMutableLiveData = connectToMaster(endpointId);
+        ConnectionsClient connectionsClient = Nearby.getConnectionsClient(context);
+        Communicator communicator = new SlaveCommunicator(endpointId, queueMutableLiveData, connectionsClient);
+        return new SlaveRoom(communicator);
     }
 
     private String getMyName() {

@@ -1,6 +1,5 @@
 package io.hamo.qdio.room.init;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,6 +10,7 @@ import com.google.android.gms.nearby.connection.AdvertisingOptions;
 import com.google.android.gms.nearby.connection.ConnectionInfo;
 import com.google.android.gms.nearby.connection.ConnectionLifecycleCallback;
 import com.google.android.gms.nearby.connection.ConnectionResolution;
+import com.google.android.gms.nearby.connection.ConnectionsClient;
 import com.google.android.gms.nearby.connection.ConnectionsStatusCodes;
 import com.google.android.gms.nearby.connection.Payload;
 import com.google.android.gms.nearby.connection.PayloadCallback;
@@ -18,12 +18,18 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
+import io.hamo.qdio.communication.Communicator;
+import io.hamo.qdio.communication.MasterCommunicator;
+import io.hamo.qdio.room.MasterRoom;
 import io.hamo.qdio.room.Room;
 
 public class RoomCreationService {
     private static final String ROOM_ID = "TEST";
+    private final List<String> endpointsConnected = new ArrayList<>();
     private final Context context;
 
     public RoomCreationService(Context context) {
@@ -34,9 +40,7 @@ public class RoomCreationService {
         return new AdvertisingOptions.Builder().setStrategy(NearbyUtil.STRATEGY).build();
     }
 
-    public LiveData<Queue<byte[]>> createRoom(final String myId) {
-        MutableLiveData<Room> toReturn = new MutableLiveData<>();
-
+    protected MutableLiveData<Queue<Payload>> createRoomInternal(final String myId) {
         MutableLiveData<Queue<Payload>> incomingPayloadQueue = new MutableLiveData<>();
         incomingPayloadQueue.setValue(new ArrayDeque<Payload>());
         final PayloadCallback payloadCallback = new RoomPayloadCallback(incomingPayloadQueue);
@@ -52,6 +56,7 @@ public class RoomCreationService {
                 switch (connectionResolution.getStatus().getStatusCode()) {
                     case ConnectionsStatusCodes.STATUS_OK:
                         Log.i(getClass().getSimpleName(), "Connected");
+                        endpointsConnected.add(endpointId);
                         break;
                     default:
                         Log.e(getClass().getSimpleName(), "Failed to connect to " + endpointId + " connectionResolution was: " + connectionResolution.toString());
@@ -60,7 +65,7 @@ public class RoomCreationService {
 
             @Override
             public void onDisconnected(@NonNull String endpointId) {
-
+                endpointsConnected.remove(endpointId);
             }
         };
         Nearby.getConnectionsClient(context)
@@ -69,7 +74,6 @@ public class RoomCreationService {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.i(getClass().getSimpleName(), "Successfully started advertising with id: " + myId);
-                        //TODO instantiate room and set toreturn to the value
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -78,6 +82,13 @@ public class RoomCreationService {
                         Log.e(getClass().getSimpleName(), "Failed to start advertising", e);
                     }
                 });
-        return null;
+        return incomingPayloadQueue;
+    }
+
+    public Room createRoom(final String myId) {
+        MutableLiveData<Queue<Payload>> payloadQueue = createRoomInternal(myId);
+        ConnectionsClient connectionsClient = Nearby.getConnectionsClient(context);
+        Communicator masterComm = new MasterCommunicator(payloadQueue, endpointsConnected, connectionsClient);
+        return new MasterRoom(masterComm);
     }
 }
