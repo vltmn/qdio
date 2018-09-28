@@ -181,6 +181,7 @@ public class NearbyCommunicator {
 
     public void sendMessage(CommandMessage msg) {
         String serialized = JsonUtil.getInstance().serialize(msg);
+<<<<<<< Updated upstream
         //TODO sendMessage
     }
 
@@ -189,8 +190,12 @@ public class NearbyCommunicator {
     }
     
     public void sendCommand(CommandMessage commandMessage) {
+=======
+>>>>>>> Stashed changes
 
+        //TODO sendMessage
     }
+    
 
 
     public LiveData<Boolean> getAdvertising() {
