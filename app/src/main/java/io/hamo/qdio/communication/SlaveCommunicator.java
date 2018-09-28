@@ -15,11 +15,15 @@ import java.util.Queue;
 
 import io.hamo.qdio.communication.entity.CommandMessage;
 
+/**
+ * Managing communication from guests to host
+ */
 public class SlaveCommunicator implements Communicator {
     private final MutableLiveData<Queue<CommandMessage>> messages;
     private final MutableLiveData<Queue<Payload>> incomingPayload;
     private final String masterEndpoint;
     private final ConnectionsClient connectionsClient;
+
 
 
     public SlaveCommunicator(

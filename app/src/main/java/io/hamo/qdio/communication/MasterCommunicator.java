@@ -15,6 +15,9 @@ import java.util.Queue;
 
 import io.hamo.qdio.communication.entity.CommandMessage;
 
+/**
+ * Managing communication from hosts to all units connected to its room
+ */
 public class MasterCommunicator implements Communicator {
 
     private final MutableLiveData<Queue<Payload>> payloadQueue;
