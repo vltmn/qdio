@@ -40,7 +40,7 @@ public class SlaveCommunicator implements Communicator {
                 while (!payloads.isEmpty()) {
                     Payload poll = payloads.poll();
                     String json = new String(poll.asBytes());
-                    CommandMessage commandMessage = JsonUtil.getInstance().deSerializeMessage(json);
+                    CommandMessage commandMessage = JsonUtil.getInstance().deserializeCommandMessage(json);
                     value.add(commandMessage);
                 }
                 //post the value to update the observers
@@ -56,7 +56,7 @@ public class SlaveCommunicator implements Communicator {
 
     @Override
     public void sendCommand(CommandMessage commandMessage) {
-        String serialized = JsonUtil.getInstance().serialize(commandMessage);
+        String serialized = JsonUtil.getInstance().serializeCommandMessage(commandMessage);
         connectionsClient.sendPayload(masterEndpoint, Payload.fromBytes(serialized.getBytes()))
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

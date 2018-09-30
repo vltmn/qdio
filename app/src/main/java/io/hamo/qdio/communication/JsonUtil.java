@@ -4,6 +4,7 @@ import com.google.android.gms.nearby.connection.Strategy;
 import com.google.gson.Gson;
 
 import io.hamo.qdio.communication.entity.CommandMessage;
+import io.hamo.qdio.room.SerializableRoom;
 
 /**
  * Converts CommandMessage using Gson to Java object when communicating between Slave and Master
@@ -17,12 +18,20 @@ public class JsonUtil {
     }
 
 
-    public CommandMessage deSerializeMessage(String msg) {
+    public CommandMessage deserializeCommandMessage(String msg) {
         return gson.fromJson(msg, CommandMessage.class);
     }
 
-    public String serialize(CommandMessage msg) {
+    public String serializeCommandMessage(CommandMessage msg) {
         return gson.toJson(msg);
+    }
+
+    public SerializableRoom deserializeRoom(String msg) {
+        return gson.fromJson(msg, SerializableRoom.class);
+    }
+
+    public String serializeRoom(SerializableRoom serializableRoom) {
+        return gson.toJson(serializableRoom);
     }
 
     public static JsonUtil getInstance(){

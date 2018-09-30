@@ -38,7 +38,7 @@ public class DemoRoomInitService {
             public void onReceive(Context context, Intent intent) {
                 Log.i(getClass().getSimpleName(), "Broadcast received!, data: " + intent.toString());
                 String json = intent.getStringExtra(DEMO_INTENT_EXTRA_KEY);
-                CommandMessage commandMessage = JsonUtil.getInstance().deSerializeMessage(json);
+                CommandMessage commandMessage = JsonUtil.getInstance().deserializeCommandMessage(json);
                 Log.i(getClass().getSimpleName(), "received commandmessage: " + commandMessage.toString());
                 Queue<CommandMessage> value = incomingMsgQueue.getValue();
                 value.add(commandMessage);
