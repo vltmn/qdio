@@ -40,9 +40,9 @@ public class DemoRoomInitService {
                 String json = intent.getStringExtra(DEMO_INTENT_EXTRA_KEY);
                 CommandMessage commandMessage = JsonUtil.getInstance().deSerializeMessage(json);
                 Log.i(getClass().getSimpleName(), "received commandmessage: " + commandMessage.toString());
-                //Queue<CommandMessage> value = incomingMsgQueue.getValue();
-                //value.add(commandMessage);
-                //incomingMsgQueue.postValue(value);
+                Queue<CommandMessage> value = incomingMsgQueue.getValue();
+                value.add(commandMessage);
+                incomingMsgQueue.postValue(value);
             }
         };
         IntentFilter intentFilter = new IntentFilter(DEMO_INTENT_ACTION);
