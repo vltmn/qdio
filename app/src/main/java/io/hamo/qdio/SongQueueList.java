@@ -1,5 +1,7 @@
 package io.hamo.qdio;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
@@ -9,8 +11,7 @@ public class SongQueueList {
     private Queue<MusicObject> queueList = new PriorityQueue<>();
 
 
-    public SongQueueList(Queue<MusicObject> queueList) {
-        this.queueList = queueList;
+    public SongQueueList() {
     }
 
     public void addSong(MusicObject musicObject) {
@@ -23,6 +24,10 @@ public class SongQueueList {
 
     public MusicObject peekSong() {
         return queueList.peek();
+    }
+
+    public List<MusicObject> getAsList() {
+        return new ArrayList<>(queueList);
     }
 
 }
