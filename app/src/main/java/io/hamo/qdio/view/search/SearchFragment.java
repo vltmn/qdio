@@ -23,23 +23,24 @@ import java.util.Objects;
 
 import io.hamo.qdio.R;
 import io.hamo.qdio.music.Track;
+import io.hamo.qdio.view.TrackListAdapter;
 
 
 public class SearchFragment extends Fragment {
     private SearchFragmentViewModel viewModel;
-    private SearchFragmentListAdapter adapter;
+    private TrackListAdapter adapter;
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
-    private OnSearchResultItemClickedListener onResultItemListener;
+    private TrackListAdapter.OnListItemClickedListener onResultItemListener;
 
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            onResultItemListener = (OnSearchResultItemClickedListener) context;
+            onResultItemListener = (TrackListAdapter.OnListItemClickedListener) context;
         } catch(ClassCastException cce) {
-            throw new ClassCastException(context.toString() + " must implement " + OnSearchResultItemClickedListener.class.getSimpleName());
+            throw new ClassCastException(context.toString() + " must implement " + TrackListAdapter.OnListItemClickedListener.class.getSimpleName());
         }
     }
 
@@ -87,7 +88,7 @@ public class SearchFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         //construct adapter with empty list
-        adapter = new SearchFragmentListAdapter(new ArrayList<Track>(), onResultItemListener);
+        adapter = new TrackListAdapter(new ArrayList<Track>(), onResultItemListener);
         recyclerView.setAdapter(adapter);
 
         DividerItemDecoration did = new DividerItemDecoration(recyclerView.getContext(), linearLayoutManager.getOrientation());
@@ -144,10 +145,6 @@ public class SearchFragment extends Fragment {
             handler.postDelayed(currentRunnable, delayMs);
             return false;
         }
-    }
-
-    public interface OnSearchResultItemClickedListener {
-        void onSearchResultItemClicked(Track t);
     }
 
 }

@@ -1,4 +1,4 @@
-package io.hamo.qdio.view.search;
+package io.hamo.qdio.view;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -14,8 +14,8 @@ import io.hamo.qdio.R;
 import io.hamo.qdio.music.Artist;
 import io.hamo.qdio.music.Track;
 
-public class SearchFragmentListAdapter extends RecyclerView.Adapter<SearchFragmentListAdapter.ViewHolder> {
-    private final SearchFragment.OnSearchResultItemClickedListener onResultItemListener;
+public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> {
+    private final OnListItemClickedListener onResultItemListener;
     private List<Track> data;
 
     @NonNull
@@ -35,7 +35,7 @@ public class SearchFragmentListAdapter extends RecyclerView.Adapter<SearchFragme
         viewHolder.bind(t, onResultItemListener);
     }
 
-    public SearchFragmentListAdapter(List<Track> results, SearchFragment.OnSearchResultItemClickedListener onResultItemListener) {
+    public TrackListAdapter(List<Track> results, OnListItemClickedListener onResultItemListener) {
         data = results;
         this.onResultItemListener = onResultItemListener;
     }
@@ -50,6 +50,10 @@ public class SearchFragmentListAdapter extends RecyclerView.Adapter<SearchFragme
         return data.size();
     }
 
+    public interface OnListItemClickedListener {
+        void onSearchResultItemClicked(Track t);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView songNameView;
         TextView artistNameView;
@@ -61,7 +65,7 @@ public class SearchFragmentListAdapter extends RecyclerView.Adapter<SearchFragme
         }
 
 
-        public void bind(final Track t, final SearchFragment.OnSearchResultItemClickedListener onSearchResultItemClickedListener) {
+        public void bind(final Track t, final OnListItemClickedListener onListItemClickedListener) {
             songNameView.setText(t.getName());
             StringBuilder builder = new StringBuilder();
             for (Artist a : t.getArtists()) {
@@ -73,7 +77,7 @@ public class SearchFragmentListAdapter extends RecyclerView.Adapter<SearchFragme
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onSearchResultItemClickedListener.onSearchResultItemClicked(t);
+                    onListItemClickedListener.onSearchResultItemClicked(t);
                 }
             });
         }
