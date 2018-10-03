@@ -1,6 +1,6 @@
 @startuml
 skinparam monochrome true
-object Room
+object Qdio
 object Track
 object Album
 object Artist
@@ -9,13 +9,13 @@ object CommandMessageQueue
 object TrackQueue
 object PlayerState
 
-Room "1"--*"1" TrackQueue
-Room "1"--* "0.." Track
-Room "1" --* "1" CommandMessageQueue
+Qdio "1"--*"1" TrackQueue
+Qdio "1"--* "0.." Track
+Qdio "1" --* "1" CommandMessageQueue
 CommandMessageQueue "1" --o "0.." CommandMessage
 TrackQueue "1"--o "0.." Track
 ' TrackHistory "1" --o "0.." Track
-Room "1" --* "1" PlayerState
+Qdio "1" --* "1" PlayerState
 Track "1" --o "1.." Artist
 Track "1" --o "1" Album
 
