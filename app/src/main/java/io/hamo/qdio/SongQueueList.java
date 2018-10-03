@@ -8,6 +8,9 @@ import java.util.Queue;
 
 import io.hamo.qdio.music.MusicObject;
 
+/**
+ * Holds the queue of songs as a List
+ */
 public class SongQueueList {
     private Queue<MusicObject> queueList = new ArrayDeque<>();
 

@@ -20,7 +20,6 @@ public class MasterRoom implements Room {
     SongHistory history;
     RoomType type = RoomType.MASTER;
 
-
     public MasterRoom(Communicator com) {
         this.communicator = com;
         com.getIncomingMessages().observeForever(new Observer<Queue<CommandMessage>>() {
