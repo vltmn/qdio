@@ -1,5 +1,6 @@
 package io.hamo.qdio;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -8,7 +9,7 @@ import java.util.Queue;
 import io.hamo.qdio.music.MusicObject;
 
 public class SongQueueList {
-    private Queue<MusicObject> queueList = new PriorityQueue<>();
+    private Queue<MusicObject> queueList = new ArrayDeque<>();
 
 
     public SongQueueList() {
