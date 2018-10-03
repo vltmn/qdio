@@ -15,13 +15,16 @@ import io.hamo.qdio.music.Track;
 
 public class MasterRoom implements Room {
 
-    Communicator communicator;
-    SongQueueList queueList;
-    SongHistory history;
-    RoomType type = RoomType.MASTER;
+    private final Communicator communicator;
+    private final SongQueueList queueList;
+    private final SongHistory history;
+    private static final RoomType type = RoomType.MASTER;
 
     public MasterRoom(Communicator com) {
         this.communicator = com;
+        queueList = new SongQueueList();
+        history = new SongHistory();
+
         com.getIncomingMessages().observeForever(new Observer<Queue<CommandMessage>>() {
             @Override
             public void onChanged(@Nullable Queue<CommandMessage> commandMessages) {
