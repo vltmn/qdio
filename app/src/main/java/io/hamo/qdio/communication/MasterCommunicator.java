@@ -10,6 +10,7 @@ import com.google.android.gms.nearby.connection.ConnectionsClient;
 import com.google.android.gms.nearby.connection.Payload;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Queue;
 
@@ -29,6 +30,7 @@ public class MasterCommunicator implements Communicator {
         this.payloadQueue = payloadQueue;
         this.endpoints = endpoints;
         this.messages = new MutableLiveData<>();
+        this.messages.setValue(new ArrayDeque<CommandMessage>());
         this.connectionsClient = connectionsClient;
         payloadQueue.observeForever(new Observer<Queue<Payload>>() {
             @Override

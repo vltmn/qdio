@@ -46,7 +46,7 @@ public class WelcomeActivity extends Activity {
     }
 
     private static String getRandomRoomName() {
-        return String.valueOf(Math.floor(3 * Math.random()));
+        return String.valueOf((int)Math.floor(100 * Math.random()));
     }
 
     public void joinRoom(View view) {

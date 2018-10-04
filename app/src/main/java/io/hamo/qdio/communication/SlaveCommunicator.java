@@ -11,6 +11,7 @@ import com.google.android.gms.nearby.connection.ConnectionsClient;
 import com.google.android.gms.nearby.connection.Payload;
 import com.google.android.gms.tasks.OnSuccessListener;
 
+import java.util.ArrayDeque;
 import java.util.Queue;
 
 import io.hamo.qdio.communication.entity.CommandMessage;
@@ -31,6 +32,7 @@ public class SlaveCommunicator implements Communicator {
         this.incomingPayload = incomingPayload;
         this.masterEndpoint = masterEndpoint;
         this.messages = new MutableLiveData<>();
+        this.messages.setValue(new ArrayDeque<CommandMessage>());
         this.connectionsClient = connectionsClient;
         incomingPayload.observeForever(new Observer<Queue<Payload>>() {
             @Override
