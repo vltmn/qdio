@@ -7,30 +7,31 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 import io.hamo.qdio.music.MusicObject;
+import io.hamo.qdio.music.Track;
 
 /**
  * Holds the queue of songs as a List
  */
 public class SongQueueList {
-    private Queue<MusicObject> queueList = new ArrayDeque<>();
+    private Queue<Track> queueList = new ArrayDeque<>();
 
 
     public SongQueueList() {
     }
 
-    public void addSong(MusicObject musicObject) {
-        queueList.add(musicObject);
+    public void addSong(Track track) {
+        queueList.add(track);
     }
 
-    public MusicObject popSong() {
+    public Track popSong() {
         return queueList.poll();
     }
 
-    public MusicObject peekSong() {
+    public Track peekSong() {
         return queueList.peek();
     }
 
-    public List<MusicObject> getAsList() {
+    public List<Track> getAsList() {
         return new ArrayList<>(queueList);
     }
 
