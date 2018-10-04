@@ -40,7 +40,7 @@ public class WelcomeActivity extends Activity {
     }
 
     public void joinRoom(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, RoomDiscoveryActivity.class);
         startActivity(intent);
     }
 }
