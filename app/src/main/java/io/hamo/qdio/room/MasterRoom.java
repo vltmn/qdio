@@ -12,18 +12,23 @@ import io.hamo.qdio.SongQueueList;
 import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.communication.entity.CommandMessage;
 import io.hamo.qdio.music.Track;
+import io.hamo.qdio.playback.Player;
+import io.hamo.qdio.playback.PlayerFactory;
 
 public class MasterRoom implements Room {
 
     private final Communicator communicator;
     private final SongQueueList queueList;
     private final SongHistory history;
+    private Track currentTrack;
     private static final RoomType type = RoomType.MASTER;
+
 
     public MasterRoom(Communicator com) {
         this.communicator = com;
         queueList = new SongQueueList();
         history = new SongHistory();
+
 
         com.getIncomingMessages().observeForever(new Observer<Queue<CommandMessage>>() {
             @Override
@@ -50,11 +55,18 @@ public class MasterRoom implements Room {
                 }
             }
         });
+
     }
+
 
     @Override
     public void addToQueue(Track track) {
-        queueList.addSong(track);
+        if (queueList.peekSong() == null) {
+            currentTrack = track;
+            PlayerFactory.getPlayer().play(track);
+        } else {
+            queueList.addSong(track);
+        }
     }
 
     @Override
@@ -69,7 +81,7 @@ public class MasterRoom implements Room {
 
     @Override
     public Track getCurrentSong() {
-        return null;
+        return currentTrack;
     }
 
     @Override
