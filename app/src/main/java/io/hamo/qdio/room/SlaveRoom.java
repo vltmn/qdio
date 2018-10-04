@@ -4,11 +4,14 @@ import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Queue;
 
+import io.hamo.qdio.MusicData.MusicDataServiceFactory;
 import io.hamo.qdio.SongHistory;
 import io.hamo.qdio.SongQueueList;
 import io.hamo.qdio.communication.Communicator;
+import io.hamo.qdio.communication.JsonUtil;
 import io.hamo.qdio.communication.entity.CommandAction;
 import io.hamo.qdio.communication.entity.CommandMessage;
 import io.hamo.qdio.music.Track;
@@ -31,7 +34,7 @@ public class SlaveRoom implements Room {
                     switch (cmdMsg.getAction()){
                         case NOTIFY_UPDATE:
                             Log.i(getClass().getSimpleName(), cmdMsg.getValue());
-                            // TODO: Handle command
+                            handleNotifyUpdate(cmdMsg.getValue());
                             break;
                         case ADD_SONG:
                             break;
@@ -42,6 +45,30 @@ public class SlaveRoom implements Room {
                 }
             }
         });
+    }
+
+    private void handleNotifyUpdate(String msg){
+        SerializableRoom sRoom = JsonUtil.getInstance().deserializeRoom(msg);
+        try {
+            currentSong = MusicDataServiceFactory
+                    .getService()
+                    .getTrackFromUri(sRoom.getCurrentTrackURI())
+                    .call();
+            for (String s : sRoom.getQueueList()){
+                queueList.addSong(MusicDataServiceFactory
+                        .getService()
+                        .getTrackFromUri(s)
+                        .call());
+            }
+            for (String s : sRoom.getHistoryList()){
+                history.add(MusicDataServiceFactory
+                        .getService()
+                        .getTrackFromUri(s)
+                        .call());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -10,6 +10,8 @@ import io.hamo.qdio.MusicData.MusicDataServiceFactory;
 import io.hamo.qdio.SongHistory;
 import io.hamo.qdio.SongQueueList;
 import io.hamo.qdio.communication.Communicator;
+import io.hamo.qdio.communication.JsonUtil;
+import io.hamo.qdio.communication.entity.CommandAction;
 import io.hamo.qdio.communication.entity.CommandMessage;
 import io.hamo.qdio.music.Track;
 import io.hamo.qdio.playback.Player;
@@ -45,6 +47,7 @@ public class MasterRoom implements Room {
                             } catch (Exception e) {
                                 Log.e(getClass().getSimpleName(), e.getMessage());
                             }
+                            sendNotifyUpdate();
                             break;
                         case NOTIFY_UPDATE:
                             break;
@@ -58,6 +61,12 @@ public class MasterRoom implements Room {
 
     }
 
+    private void sendNotifyUpdate(){
+        CommandMessage notify = new CommandMessage(CommandAction.NOTIFY_UPDATE,
+                JsonUtil.getInstance().serializeRoom(
+                        new SerializableRoom(queueList, history, currentTrack)));
+        communicator.sendCommand(notify);
+    }
 
     @Override
     public void addToQueue(Track track) {

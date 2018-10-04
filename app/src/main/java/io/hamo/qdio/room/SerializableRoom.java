@@ -24,6 +24,17 @@ public class SerializableRoom {
             historyList.add(musicObject);
         }
         currentTrackURI = currentTrack.getURI();
+    }
 
+    public List<String> getQueueList() {
+        return queueList;
+    }
+
+    public List<String> getHistoryList() {
+        return historyList;
+    }
+
+    public String getCurrentTrackURI() {
+        return currentTrackURI;
     }
 }
