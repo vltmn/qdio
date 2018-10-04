@@ -19,5 +19,13 @@ public interface Player {
 
     public PlayerState getPlayerState();
 
+    void setOnSongEndCallback(OnSongEndCallback onSongEndCallback);
+
+    interface OnSongEndCallback {
+
+        Track onSongEnd();
+
+    }
+
 
 }

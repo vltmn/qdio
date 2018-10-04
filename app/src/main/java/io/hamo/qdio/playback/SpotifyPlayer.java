@@ -15,6 +15,7 @@ class SpotifyPlayer implements Player {
     private PlayerState playerState;
     private Timer t = new Timer();
     private long latestPosition;
+    private OnSongEndCallback onSongEndCallback;
 
     SpotifyPlayer(SpotifyAppRemote spotifyAppRemote) {
         this.spotifyAppRemote = spotifyAppRemote;
@@ -25,8 +26,23 @@ class SpotifyPlayer implements Player {
                 latestPosition = playerState.playbackPosition;
                 t.resetTimer();
                 currentTrack = new Track(playerState.track);
+                if (playerState.isPaused && playerState.playbackPosition==0){
+                    handleSongEnd();
+                }
             }
         });
+    }
+
+
+    private void handleSongEnd(){
+        if (onSongEndCallback == null){
+            return;
+        }
+        Track track = onSongEndCallback.onSongEnd();
+        if (track == null){
+            return;
+        }
+        play(track);
     }
 
     @Override
@@ -70,6 +86,13 @@ class SpotifyPlayer implements Player {
     @Override
     public PlayerState getPlayerState() {
         return playerState;
+    }
+
+
+    @Override
+    public void setOnSongEndCallback(OnSongEndCallback onSongEndCallback) {
+        this.onSongEndCallback = onSongEndCallback;
+
     }
 
 
