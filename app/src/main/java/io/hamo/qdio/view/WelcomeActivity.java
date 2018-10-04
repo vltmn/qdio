@@ -12,6 +12,9 @@ import android.view.View;
 
 import io.hamo.qdio.MainActivity;
 import io.hamo.qdio.R;
+import io.hamo.qdio.room.Room;
+import io.hamo.qdio.room.RoomInstanceHolder;
+import io.hamo.qdio.room.init.RoomCreationService;
 
 public class WelcomeActivity extends Activity {
 
@@ -36,7 +39,14 @@ public class WelcomeActivity extends Activity {
 
     public void createRoom(View view) {
         Intent intent = new Intent(this, MainActivity.class);
+        RoomCreationService roomCreationService = new RoomCreationService(this);
+        Room room = roomCreationService.createRoom(getRandomRoomName());
+        RoomInstanceHolder.setRoomInstance(room);
         startActivity(intent);
+    }
+
+    private static String getRandomRoomName() {
+        return String.valueOf(Math.floor(3 * Math.random()));
     }
 
     public void joinRoom(View view) {
