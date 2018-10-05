@@ -5,19 +5,19 @@ import io.hamo.qdio.music.Track;
 
 public interface Player {
 
-    public void resume();
+    void resume();
 
-    public void pause();
+    void pause();
 
-    public void seek(long ms);
+    void seek(long ms);
 
-    public void play(MusicObject obj);
+    void play(MusicObject obj);
 
-    public Track getCurrentTrack();
+    Track getCurrentTrack();
 
-    public Long getCurrentPosition();
+    Long getCurrentPosition();
 
-    public PlayerState getPlayerState();
+    PlayerState getPlayerState();
 
     void setOnSongEndCallback(OnSongEndCallback onSongEndCallback);
 
