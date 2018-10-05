@@ -4,23 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import kaaes.spotify.webapi.android.models.AlbumSimple;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
-import kaaes.spotify.webapi.android.models.Track;
-import kaaes.spotify.webapi.android.models.TrackSimple;
 
 public class Album implements MusicObject {
 
-    private String URI;
-    private String name;
-    private String imgageURL;
-    private List<String> artistURI = new ArrayList<>();
+    private final String URI;
+    private final String name;
+    private final String imageURL;
+    private final List<String> artistURI = new ArrayList<>();
 
 
-    public Album(kaaes.spotify.webapi.android.models.Album album){
-        this.URI=album.uri;
-        this.name=album.name;
-        this.imgageURL=album.images != null && album.images.size() > 0 ?
+    public Album(kaaes.spotify.webapi.android.models.Album album) {
+        this.URI = album.uri;
+        this.name = album.name;
+        this.imageURL = album.images != null && album.images.size() > 0 ?
                 album.images.get(0).url : null;
         if (album.artists != null) {
             for (ArtistSimple a : album.artists) {
@@ -28,6 +25,12 @@ public class Album implements MusicObject {
             }
         }
 
+    }
+
+    public Album(com.spotify.protocol.types.Album album) {
+        this.URI = album.uri;
+        this.name = album.name;
+        this.imageURL = null;
     }
 
     @Override
@@ -39,8 +42,8 @@ public class Album implements MusicObject {
         return name;
     }
 
-    public String getImgageURL() {
-        return imgageURL;
+    public String getImageURL() {
+        return imageURL;
     }
 
     public List<String> getArtistURI() {
@@ -54,13 +57,13 @@ public class Album implements MusicObject {
         Album album = (Album) o;
         return Objects.equals(URI, album.URI) &&
                 Objects.equals(name, album.name) &&
-                Objects.equals(imgageURL, album.imgageURL) &&
+                Objects.equals(imageURL, album.imageURL) &&
                 Objects.equals(artistURI, album.artistURI);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(URI, name, imgageURL, artistURI);
+        return Objects.hash(URI, name, imageURL, artistURI);
     }
 }

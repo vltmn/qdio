@@ -6,18 +6,18 @@ import kaaes.spotify.webapi.android.models.ArtistSimple;
 
 public class Artist implements MusicObject {
 
-    private String URI;
-    private String name;
+    private final String URI;
+    private final String name;
 
-    public Artist(com.spotify.protocol.types.Artist artist){
+    public Artist(com.spotify.protocol.types.Artist artist) {
         this.URI = artist.uri;
         this.name = artist.name;
     }
 
 
-    public Artist(ArtistSimple artist){
-        this.URI=artist.uri;
-        this.name=artist.name;
+    public Artist(ArtistSimple artist) {
+        this.URI = artist.uri;
+        this.name = artist.name;
     }
 
     public String getName() {
