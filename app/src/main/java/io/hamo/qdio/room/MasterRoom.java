@@ -58,6 +58,15 @@ public class MasterRoom implements Room {
                 }
             }
         });
+        PlayerFactory.getPlayer().setOnSongEndCallback(new Player.OnSongEndCallback() {
+            @Override
+            public Track onSongEnd() {
+                history.add(currentTrack);
+                Track nextTrack = queueList.popSong();
+                currentTrack = nextTrack;
+                return nextTrack;
+            }
+        });
 
     }
 
