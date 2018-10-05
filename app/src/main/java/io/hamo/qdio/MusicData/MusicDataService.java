@@ -19,4 +19,6 @@ public interface MusicDataService {
     Callable<Album> getAlbumFromUri(String albumUri);
 
     Callable<Track> getTrackFromUri(String trackUri);
+
+    Callable<Map<String, Track>> getTracksFromUris(List<String> tracks);
 }

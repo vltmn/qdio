@@ -138,6 +138,28 @@ class SpotifyMusicDataService implements MusicDataService {
         };
     }
 
+    @Override
+    public Callable<Map<String, Track>> getTracksFromUris(List<String> tracks) {
+        final Map<String, AsyncTask<String, Void, Track>> taskMap = new HashMap<>();
+        for (String uri : tracks) {
+            taskMap.put(uri, new GetTrackAsyncTask(spotifyService));
+        }
+        return new Callable<Map<String, Track>>() {
+            @Override
+            public Map<String, Track> call() throws Exception {
+                Map<String, Track> toReturn = new HashMap<>();
+                for (Map.Entry<String, AsyncTask<String, Void, Track>> taskEntry : taskMap.entrySet()) {
+                    taskEntry.getValue().execute(taskEntry.getKey());
+                }
+
+                for (Map.Entry<String, AsyncTask<String, Void, Track>> taskEntry : taskMap.entrySet()) {
+                    toReturn.put(taskEntry.getKey(), taskEntry.getValue().get());
+                }
+                return toReturn;
+            }
+        };
+    }
+
     private static class GetAlbumAsyncTask extends AsyncTask<String, Void, Album> {
         private final SpotifyService spotifyService;
 
