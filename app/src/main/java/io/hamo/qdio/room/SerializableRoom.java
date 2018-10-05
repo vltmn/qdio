@@ -17,11 +17,11 @@ public class SerializableRoom {
     public SerializableRoom(SongQueueList songQueueList,
                             SongHistory historyList,
                             Track currentTrack) {
-        for(MusicObject musicObject : songQueueList.getAsList()) {
-            queueList.add(musicObject.getURI());
+        for(Track track : songQueueList.getAsList()) {
+            queueList.add(track.getURI());
         }
-        for(MusicObject musicObject : historyList.getPlaybackHistory()) {
-            historyList.add(musicObject);
+        for(Track track: historyList.getPlaybackHistory()) {
+            historyList.add(track);
         }
         currentTrackURI = currentTrack.getURI();
     }
