@@ -11,15 +11,14 @@ import java.io.InputStream;
 public class ImageFetchTask extends AsyncTask<String, Void, Bitmap> {
 
     protected Bitmap doInBackground(String... urls) {
-        String urldisplay = urls[0];
-        Bitmap mIcon11 = null;
+        String urlShow = urls[0];
+        Bitmap bitmap = null;
         try {
-            InputStream in = new java.net.URL(urldisplay).openStream();
-            mIcon11 = BitmapFactory.decodeStream(in);
+            InputStream inputStream = new java.net.URL(urlShow).openStream();
+            bitmap = BitmapFactory.decodeStream(inputStream);
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
-            e.printStackTrace();
         }
-        return mIcon11;
+        return bitmap;
     }
 }
