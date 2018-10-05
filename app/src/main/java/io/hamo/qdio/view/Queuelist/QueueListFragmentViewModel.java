@@ -1,4 +1,4 @@
-package io.hamo.qdio.view.Quelist;
+package io.hamo.qdio.view.Queuelist;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -7,7 +7,6 @@ import android.os.Handler;
 
 import java.util.List;
 
-import io.hamo.qdio.music.MusicObject;
 import io.hamo.qdio.music.Track;
 import io.hamo.qdio.room.RoomInstanceHolder;
 
