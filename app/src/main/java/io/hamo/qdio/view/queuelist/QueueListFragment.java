@@ -1,4 +1,4 @@
-package io.hamo.qdio.view.Queuelist;
+package io.hamo.qdio.view.queuelist;
 
 import android.arch.lifecycle.Observer;
 import android.os.Bundle;
