@@ -52,19 +52,18 @@ public class MasterRoomTest {
 
     @Test
     public void addToQueue() {
+        MasterRoom masterRoom = new MasterRoom(communicator);
         Track t1 = new Track(MusicData.getInstance().getTestTrack());
         Track t2 = new Track(MusicData.getInstance().getTestTrack());
-        getRoom().addToQueue(t1);
-        assertEquals(t1, getRoom().getCurrentSong());
-        getRoom().addToQueue(t2);
-        assertEquals(getRoom().getQueueList().peekSong(), t2 );
-
-
+        masterRoom.addToQueue(t1);
+        assertEquals(t1, masterRoom.getCurrentSong());
+        masterRoom.addToQueue(t2);
+        assertEquals(masterRoom.getQueueList().peekSong(), t2 );
     }
 
     @Test
     public void getQueueList() {
-        
+
     }
 
     @Test
