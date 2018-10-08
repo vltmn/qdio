@@ -20,16 +20,13 @@ import io.hamo.qdio.playback.PlayerFactory;
 public class MasterRoom implements Room {
 
     private final Communicator communicator;
-    private final SongQueueList queueList;
-    private final SongHistory history;
-    private Track currentTrack;
+    private final RoomData roomData;
     private static final RoomType type = RoomType.MASTER;
 
 
     public MasterRoom(Communicator com) {
         this.communicator = com;
-        queueList = new SongQueueList();
-        history = new SongHistory();
+        roomData = new RoomData();
 
 
         com.getIncomingMessages().observeForever(new Observer<Queue<CommandMessage>>() {
@@ -58,48 +55,52 @@ public class MasterRoom implements Room {
                 }
             }
         });
-        PlayerFactory.getPlayer().setOnSongEndCallback(new Player.OnSongEndCallback() {
-            @Override
-            public Track onSongEnd() {
-                history.add(currentTrack);
-                Track nextTrack = queueList.popSong();
-                currentTrack = nextTrack;
-                return nextTrack;
-            }
-        });
+        //PlayerFactory.getPlayer().setOnSongEndCallback(new Player.OnSongEndCallback() {
+        //    @Override
+        //    public Track onSongEnd() {
+        //        history.add(currentTrack);
+        //        Track nextTrack = queueList.popSong();
+        //        currentTrack = nextTrack;
+        //        return nextTrack;
+        //    }
+        //});
 
     }
 
     private void sendNotifyUpdate(){
         CommandMessage notify = new CommandMessage(CommandAction.NOTIFY_UPDATE,
                 JsonUtil.getInstance().serializeRoom(
-                        new SerializableRoom(queueList, history, currentTrack)));
+                        new SerializableRoom(
+                                roomData.getQueueList(),
+                                roomData.getHistory(),
+                                roomData.getCurrentTrack())
+                ));
         communicator.sendCommand(notify);
     }
 
     @Override
     public void addToQueue(Track track) {
-        if (queueList.peekSong() == null && currentTrack == null) {
-            currentTrack = track;
+        if (roomData.getQueueList().peekSong() == null && roomData.getCurrentTrack() == null) {
+            roomData.setCurrentTrack(track);
             PlayerFactory.getPlayer().play(track);
         } else {
-            queueList.addSong(track);
+            roomData.addToQueue(track);
         }
     }
 
     @Override
     public SongQueueList getQueueList() {
-        return queueList;
+        return roomData.getQueueList();
     }
 
     @Override
     public SongHistory getHistory() {
-        return history;
+        return roomData.getHistory();
     }
 
     @Override
     public Track getCurrentSong() {
-        return currentTrack;
+        return roomData.getCurrentTrack();
     }
 
     @Override
