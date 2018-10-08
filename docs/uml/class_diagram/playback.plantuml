@@ -1,0 +1,37 @@
+@startuml
+class ConnectFragment
+interface Player {
+    + void resume()
+    + void pause()
+    + void seek(long)
+    + void play(MusicObject )
+    + Track getCurrentTrack()
+    + Long getCurrentPosition()
+    + PlayerState getPlayerState()
+    + void setOnSongEndCallBack(setOnSongEndCallBack)
+}
+
+interface OnSongEndCallback {
+    + Track onSongEnd()
+}
+class PlayerFactory {
+    {static} + void instantiatePlayer(SpotifyAppRemote)
+    {static} + Player getPlayer()
+    {static} + LiveData<Boolean> getIsInstantiated()
+}
+enum PlayerState {
+    PLAYING, PAUSED, STOPPED
+}
+
+class SpotifyPlayer
+
+SpotifyPlayer --|> Player
+PlayerFactory ..> Player
+PlayerState <. Player
+PlayerState <- SpotifyPlayer
+PlayerFactory --> SpotifyPlayer
+Player .> OnSongEndCallback
+SpotifyPlayer --> OnSongEndCallback
+ConnectFragment .> PlayerFactory
+
+@enduml
