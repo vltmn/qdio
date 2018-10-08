@@ -1,0 +1,32 @@
+@startuml
+
+class MusicDataServiceFactory {
+    + {static}MusicDataService getService();
+}
+
+class SpotifyMusicDataSerivce
+
+interface MusicDataService {
+    + Callable<List<Track>> searchForTrack(String query)
+    + Callable<Map<String, Artist>> getArtistsFromUris(List<String> artists)
+    + Callable<Artist> getArtist(String artistUri)
+    + Callable<Album> getAlbumFromUri(String albumUri)
+    + Callable<Track> getTrackFromUri(String trackUri)
+    + Callable<Map<String, Track>> getTracksFromUris(List<String> tracks)
+}
+
+package auth {
+    class AccessTokenGenerator {
+        {static} + String getNewToken
+    }
+    class SpotifyAuthHelper {
+        + String getAccessToken
+    }
+    AccessTokenGenerator ..> SpotifyAuthHelper
+}
+
+MusicDataServiceFactory ..> AccessTokenGenerator
+SpotifyMusicDataSerivce ..> AccessTokenGenerator
+MusicDataService <|-- SpotifyMusicDataSerivce
+MusicDataServiceFactory ..> SpotifyMusicDataSerivce
+@enduml
