@@ -37,7 +37,7 @@ public class AlbumTest {
         testImg.url = "TEST123";
         fromApi.images.add(testImg);
         io.hamo.qdio.music.Album converted = new io.hamo.qdio.music.Album(fromApi);
-        assertEquals(converted.getImgageURL(), fromApi.images.get(0).url);
+        assertEquals(converted.getImageURL(), fromApi.images.get(0).url);
     }
 
     @Test
