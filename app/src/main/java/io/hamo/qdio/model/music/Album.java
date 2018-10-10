@@ -11,26 +11,20 @@ public class Album implements MusicObject {
     private final String URI;
     private final String name;
     private final String imageURL;
-    private final List<String> artistURI = new ArrayList<>();
+    private final List<String> artistURI;
 
-
-    public Album(kaaes.spotify.webapi.android.models.Album album) {
-        this.URI = album.uri;
-        this.name = album.name;
-        this.imageURL = album.images != null && album.images.size() > 0 ?
-                album.images.get(0).url : null;
-        if (album.artists != null) {
-            for (ArtistSimple a : album.artists) {
-                this.artistURI.add(a.uri);
-            }
-        }
-
+    public Album(String URI, String name) {
+        this.URI = URI;
+        this.name = name;
+        imageURL = null;
+        artistURI = new ArrayList<>();
     }
 
-    public Album(com.spotify.protocol.types.Album album) {
-        this.URI = album.uri;
-        this.name = album.name;
-        this.imageURL = null;
+    public Album(String URI, String name, String imageURL, List<String> artistURI) {
+        this.URI = URI;
+        this.name = name;
+        this.imageURL = imageURL;
+        this.artistURI = artistURI;
     }
 
     @Override

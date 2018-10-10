@@ -10,49 +10,19 @@ public class Track implements MusicObject {
 
     private final String URI;
     private final String albumURI;
-    private final List<Artist> artists = new ArrayList<>();
+    private final List<Artist> artists;
     private final long durationMs;
     private final String name;
     private final String imageURL;
 
-    public Track(com.spotify.protocol.types.Track track) {
-        this.URI = track.uri;
-        if (track.album != null) {
-            this.albumURI = track.album.uri;
-        } else {
-            this.albumURI = null;
-        }
-        if (track.artists != null) {
-            for (com.spotify.protocol.types.Artist a : track.artists) {
-                this.artists.add(new Artist(a));
-            }
-        }
-        this.durationMs = track.duration;
-        this.name = track.name;
-        this.imageURL = track.imageUri.raw;
-
+    public Track(String URI, String albumURI, List<Artist> artists, long durationMs, String name, String imageURL) {
+        this.URI = URI;
+        this.albumURI = albumURI;
+        this.artists = artists;
+        this.durationMs = durationMs;
+        this.name = name;
+        this.imageURL = imageURL;
     }
-
-
-    public Track(kaaes.spotify.webapi.android.models.Track track) {
-        this.URI = track.uri;
-        if (track.album != null) {
-            this.albumURI = track.album.uri;
-        } else {
-            this.albumURI = null;
-        }
-        if (track.artists != null) {
-            for (ArtistSimple a : track.artists) {
-                this.artists.add(new Artist(a));
-            }
-        }
-        this.durationMs = track.duration_ms;
-        this.name = track.name;
-
-        this.imageURL = track.album != null && track.album.images != null && track.album.images.size() > 0 ?
-                track.album.images.get(0).url : null;
-    }
-
 
     public String getAlbumURI() {
         return albumURI;

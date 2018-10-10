@@ -9,15 +9,9 @@ public class Artist implements MusicObject {
     private final String URI;
     private final String name;
 
-    public Artist(com.spotify.protocol.types.Artist artist) {
-        this.URI = artist.uri;
-        this.name = artist.name;
-    }
-
-
-    public Artist(ArtistSimple artist) {
-        this.URI = artist.uri;
-        this.name = artist.name;
+    public Artist(String URI, String name) {
+        this.URI = URI;
+        this.name = name;
     }
 
     public String getName() {

@@ -62,7 +62,7 @@ class SpotifyMusicDataService implements MusicDataService {
             TracksPager tracksPager = spotifyService.searchTracks(query);
             List<Track> tracks = new ArrayList<>();
             for (kaaes.spotify.webapi.android.models.Track t : tracksPager.tracks.items) {
-                tracks.add(new Track(t));
+                tracks.add(MusicObjectFactory.createTrack(t));
             }
             return tracks;
         }
@@ -101,7 +101,7 @@ class SpotifyMusicDataService implements MusicDataService {
         protected Artist doInBackground(String... strings) {
             String toGet = strings[0];
             kaaes.spotify.webapi.android.models.Artist artist = spotifyService.getArtist(toGet);
-            return new Artist(artist);
+            return MusicObjectFactory.createArtist(artist);
         }
     }
 
@@ -171,7 +171,7 @@ class SpotifyMusicDataService implements MusicDataService {
         protected Album doInBackground(String... strings) {
             String albumUri = strings[0];
             kaaes.spotify.webapi.android.models.Album album = spotifyService.getAlbum(albumUri);
-            return new Album(album);
+            return MusicObjectFactory.createAlbum(album);
         }
     }
 
@@ -186,7 +186,7 @@ class SpotifyMusicDataService implements MusicDataService {
         protected Track doInBackground(String... strings) {
             String trackUri = strings[0];
             kaaes.spotify.webapi.android.models.Track track = spotifyService.getTrack(parseUri(trackUri));
-            return new Track(track);
+            return MusicObjectFactory.createTrack(track);
         }
     }
 

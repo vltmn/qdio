@@ -5,6 +5,7 @@ import android.util.Log;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.protocol.client.Subscription;
 
+import io.hamo.qdio.information.MusicObjectFactory;
 import io.hamo.qdio.model.music.MusicObject;
 import io.hamo.qdio.model.music.Track;
 
@@ -25,7 +26,7 @@ class SpotifyPlayer implements Player {
                 Log.w(getClass().getSimpleName(), playerState.toString(), null);
                 latestPosition = playerState.playbackPosition;
                 t.resetTimer();
-                currentTrack = new Track(playerState.track);
+                currentTrack = MusicObjectFactory.createTrack(playerState.track);
                 if (playerState.isPaused && playerState.playbackPosition==0){
                     handleSongEnd();
                 }
