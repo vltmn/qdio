@@ -12,7 +12,6 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.hamo.qdio.MainActivity;
 import io.hamo.qdio.room.RoomInstanceHolder;
 import io.hamo.qdio.room.init.RoomDiscoveryService;
 

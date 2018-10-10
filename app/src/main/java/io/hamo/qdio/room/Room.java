@@ -1,8 +1,9 @@
 package io.hamo.qdio.room;
 
-import io.hamo.qdio.SongHistory;
-import io.hamo.qdio.SongQueueList;
-import io.hamo.qdio.music.Track;
+import io.hamo.qdio.model.SongHistory;
+import io.hamo.qdio.model.SongQueueList;
+import io.hamo.qdio.model.music.Track;
+import io.hamo.qdio.model.room.RoomType;
 
 /**
  * Serves as a middle hand between Rooms and their communicators. The different Rooms observes incoming CommandMessages via ICommunicator.

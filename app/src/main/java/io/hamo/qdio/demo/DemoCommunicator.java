@@ -1,14 +1,12 @@
 package io.hamo.qdio.demo;
 
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
-import android.widget.ImageView;
 
 import java.util.Queue;
 
 import io.hamo.qdio.communication.Communicator;
-import io.hamo.qdio.communication.entity.CommandMessage;
+import io.hamo.qdio.model.communication.CommandMessage;
 
 public class DemoCommunicator implements Communicator {
     private final LiveData<Queue<CommandMessage>> incomingMessages;

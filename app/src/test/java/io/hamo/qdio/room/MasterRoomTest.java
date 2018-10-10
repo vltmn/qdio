@@ -9,19 +9,17 @@ import org.junit.Test;
 import org.junit.rules.TestRule;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import java.sql.DriverManager;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
 import io.hamo.qdio.TestUtil.MusicData;
 import io.hamo.qdio.communication.Communicator;
-import io.hamo.qdio.communication.entity.CommandMessage;
-import io.hamo.qdio.music.Track;
+import io.hamo.qdio.model.communication.CommandMessage;
+import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.playback.Player;
 import io.hamo.qdio.playback.PlayerFactory;
 

@@ -1,7 +1,7 @@
 package io.hamo.qdio.playback;
 
-import io.hamo.qdio.music.MusicObject;
-import io.hamo.qdio.music.Track;
+import io.hamo.qdio.model.music.MusicObject;
+import io.hamo.qdio.model.music.Track;
 
 public interface Player {
 

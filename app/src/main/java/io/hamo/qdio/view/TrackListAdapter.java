@@ -11,8 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import io.hamo.qdio.R;
-import io.hamo.qdio.music.Artist;
-import io.hamo.qdio.music.Track;
+import io.hamo.qdio.model.music.Artist;
+import io.hamo.qdio.model.music.Track;
 
 public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> {
     private final OnListItemClickedListener onResultItemListener;

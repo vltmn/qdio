@@ -5,8 +5,8 @@ import android.util.Log;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.protocol.client.Subscription;
 
-import io.hamo.qdio.music.MusicObject;
-import io.hamo.qdio.music.Track;
+import io.hamo.qdio.model.music.MusicObject;
+import io.hamo.qdio.model.music.Track;
 
 class SpotifyPlayer implements Player {
 

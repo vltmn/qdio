@@ -4,17 +4,19 @@ import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import java.util.List;
 import java.util.Queue;
 
-import io.hamo.qdio.MusicData.MusicDataServiceFactory;
-import io.hamo.qdio.SongHistory;
-import io.hamo.qdio.SongQueueList;
+import io.hamo.qdio.information.MusicDataServiceFactory;
+import io.hamo.qdio.model.SongHistory;
+import io.hamo.qdio.model.SongQueueList;
 import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.communication.JsonUtil;
-import io.hamo.qdio.communication.entity.CommandAction;
-import io.hamo.qdio.communication.entity.CommandMessage;
-import io.hamo.qdio.music.Track;
+import io.hamo.qdio.model.communication.CommandAction;
+import io.hamo.qdio.model.communication.CommandMessage;
+import io.hamo.qdio.model.music.Track;
+import io.hamo.qdio.model.room.RoomData;
+import io.hamo.qdio.model.room.RoomType;
+import io.hamo.qdio.model.room.SerializableRoom;
 
 public class SlaveRoom implements Room {
 

@@ -3,12 +3,10 @@ package io.hamo.qdio;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import io.hamo.qdio.TestUtil.MusicData;
-import io.hamo.qdio.music.MusicObject;
-import io.hamo.qdio.music.Track;
+import io.hamo.qdio.model.SongHistory;
+import io.hamo.qdio.model.music.Track;
 
 import static org.junit.Assert.*;
 

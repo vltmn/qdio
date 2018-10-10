@@ -1,7 +1,6 @@
 package io.hamo.qdio.view;
 
 import android.Manifest;
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,7 +15,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import io.hamo.qdio.MainActivity;
 import io.hamo.qdio.R;
 import io.hamo.qdio.playback.ConnectFragment;
 import io.hamo.qdio.playback.PlayerFactory;

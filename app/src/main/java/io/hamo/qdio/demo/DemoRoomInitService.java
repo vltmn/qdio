@@ -12,7 +12,7 @@ import java.util.Queue;
 
 import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.communication.JsonUtil;
-import io.hamo.qdio.communication.entity.CommandMessage;
+import io.hamo.qdio.model.communication.CommandMessage;
 import io.hamo.qdio.room.MasterRoom;
 import io.hamo.qdio.room.Room;
 import io.hamo.qdio.room.SlaveRoom;

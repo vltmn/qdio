@@ -5,7 +5,7 @@ import android.arch.lifecycle.LiveData;
 
 import java.util.Queue;
 
-import io.hamo.qdio.communication.entity.CommandMessage;
+import io.hamo.qdio.model.communication.CommandMessage;
 
 /**
  *Manages communication between Master and Slave via Room services from Master– and SlaveRoom

@@ -1,10 +1,9 @@
 package io.hamo.qdio.communication;
 
-import com.google.android.gms.nearby.connection.Strategy;
 import com.google.gson.Gson;
 
-import io.hamo.qdio.communication.entity.CommandMessage;
-import io.hamo.qdio.room.SerializableRoom;
+import io.hamo.qdio.model.communication.CommandMessage;
+import io.hamo.qdio.model.room.SerializableRoom;
 
 /**
  * Converts CommandMessage using Gson to Java object when communicating between Slave and Master

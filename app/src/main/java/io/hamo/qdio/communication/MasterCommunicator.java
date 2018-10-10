@@ -14,7 +14,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 import java.util.Queue;
 
-import io.hamo.qdio.communication.entity.CommandMessage;
+import io.hamo.qdio.model.communication.CommandMessage;
 
 /**
  * Managing communication from hosts to all units connected to its room
