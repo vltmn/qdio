@@ -21,7 +21,7 @@ public class SerializableRoom {
             queueList.add(track.getURI());
         }
         for(Track track: historyList.getPlaybackHistory()) {
-            historyList.add(track);
+            this.historyList.add(track.getURI());
         }
         currentTrackURI = currentTrack.getURI();
     }
