@@ -13,7 +13,8 @@ public class SerializableRoom {
     private final List<String> historyList = new ArrayList<>();
     private final String currentTrackURI;
 
-    public SerializableRoom(SongQueueList songQueueList,
+
+    private SerializableRoom(SongQueueList songQueueList,
                             SongHistory historyList,
                             Track currentTrack) {
         for(Track track : songQueueList.getAsList()) {
@@ -24,6 +25,11 @@ public class SerializableRoom {
         }
         currentTrackURI = currentTrack.getURI();
     }
+    public SerializableRoom(RoomData roomData) {
+        this(roomData.getQueueList(), roomData.getHistory(), roomData.getCurrentTrack());
+
+    }
+
 
     public List<String> getQueueList() {
         return queueList;

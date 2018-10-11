@@ -1,5 +1,7 @@
 package io.hamo.qdio.room;
 
+import java.util.List;
+
 import io.hamo.qdio.model.SongHistory;
 import io.hamo.qdio.model.SongQueueList;
 import io.hamo.qdio.model.music.Track;
@@ -13,9 +15,9 @@ public interface Room {
 
     void addToQueue(Track track);
 
-    SongQueueList getQueueList();
+    List<Track> getQueueList();
 
-    SongHistory getHistory();
+    List<Track> getHistory();
 
     Track getCurrentSong();
 

@@ -23,7 +23,7 @@ public class QueueListFragmentViewModel extends ViewModel {
     private Runnable fetchUpdate = new Runnable() {
         @Override
         public void run() {
-            queueList.postValue(RoomInstanceHolder.getRoomInstance().getQueueList().getAsList());
+            queueList.postValue(RoomInstanceHolder.getRoomInstance().getQueueList());
             handler.postDelayed(fetchUpdate, UPDATE_DELAY);
         }
     };

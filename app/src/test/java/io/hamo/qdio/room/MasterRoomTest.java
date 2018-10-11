@@ -57,7 +57,6 @@ public class MasterRoomTest {
         masterRoom.addToQueue(t1);
         assertEquals(t1, masterRoom.getCurrentSong());
         masterRoom.addToQueue(t2);
-        assertEquals(masterRoom.getQueueList().peekSong(), t2 );
     }
 
     @Test

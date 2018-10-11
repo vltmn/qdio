@@ -4,11 +4,10 @@ import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Queue;
 
 import io.hamo.qdio.information.MusicDataServiceFactory;
-import io.hamo.qdio.model.SongHistory;
-import io.hamo.qdio.model.SongQueueList;
 import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.communication.JsonUtil;
 import io.hamo.qdio.model.communication.CommandAction;
@@ -61,8 +60,8 @@ public class MasterRoom implements Room {
         PlayerFactory.getPlayer().setOnSongEndCallback(new Player.OnSongEndCallback() {
             @Override
             public Track onSongEnd() {
-                roomData.getHistory().add(roomData.getCurrentTrack());
-                Track nextTrack = roomData.getQueueList().popSong();
+                roomData.addToHistory(roomData.getCurrentTrack());
+                Track nextTrack = roomData.popSongFromQueue();
                 roomData.setCurrentTrack(nextTrack);
                 return nextTrack;
             }
@@ -73,17 +72,13 @@ public class MasterRoom implements Room {
     private void sendNotifyUpdate(){
         CommandMessage notify = new CommandMessage(CommandAction.NOTIFY_UPDATE,
                 JsonUtil.getInstance().serializeRoom(
-                        new SerializableRoom(
-                                roomData.getQueueList(),
-                                roomData.getHistory(),
-                                roomData.getCurrentTrack())
-                ));
+                        new SerializableRoom(roomData)));
         communicator.sendCommand(notify);
     }
 
     @Override
     public void addToQueue(Track track) {
-        if (roomData.getQueueList().peekSong() == null && roomData.getCurrentTrack() == null) {
+        if (roomData.peepSongFromQueue() == null && roomData.getCurrentTrack() == null) {
             roomData.setCurrentTrack(track);
             PlayerFactory.getPlayer().play(track);
         } else {
@@ -92,13 +87,13 @@ public class MasterRoom implements Room {
     }
 
     @Override
-    public SongQueueList getQueueList() {
-        return roomData.getQueueList();
+    public List<Track> getQueueList() {
+        return roomData.getQueueAsList();
     }
 
     @Override
-    public SongHistory getHistory() {
-        return roomData.getHistory();
+    public List<Track> getHistory() {
+        return roomData.getHistoryAsList();
     }
 
     @Override
@@ -110,4 +105,6 @@ public class MasterRoom implements Room {
     public RoomType getType() {
         return type;
     }
+
+
 }

@@ -4,11 +4,11 @@ import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.util.List;
 import java.util.Queue;
 
 import io.hamo.qdio.information.MusicDataServiceFactory;
 import io.hamo.qdio.model.SongHistory;
-import io.hamo.qdio.model.SongQueueList;
 import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.communication.JsonUtil;
 import io.hamo.qdio.model.communication.CommandAction;
@@ -56,13 +56,13 @@ public class SlaveRoom implements Room {
                     .getTrackFromUri(sRoom.getCurrentTrackURI())
                     .call());
             for (String s : sRoom.getQueueList()){
-                roomData.getQueueList().addSong(MusicDataServiceFactory
+                roomData.addToQueue(MusicDataServiceFactory
                         .getService()
                         .getTrackFromUri(s)
                         .call());
             }
             for (String s : sRoom.getHistoryList()){
-                roomData.getHistory().add(MusicDataServiceFactory
+                roomData.addToHistory(MusicDataServiceFactory
                         .getService()
                         .getTrackFromUri(s)
                         .call());
@@ -80,13 +80,13 @@ public class SlaveRoom implements Room {
     }
 
     @Override
-    public SongQueueList getQueueList() {
-        return roomData.getQueueList();
+    public List<Track> getQueueList() {
+        return roomData.getQueueAsList();
     }
 
     @Override
-    public SongHistory getHistory() {
-        return roomData.getHistory();
+    public List<Track> getHistory() {
+        return roomData.getHistoryAsList();
     }
 
     @Override
