@@ -41,7 +41,7 @@ class SpotifyAuthHelper {
             return toReturn;
 
         } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
+            Log.e(getClass().getSimpleName(), e.getLocalizedMessage(), e);
         }
         return null;
     }
