@@ -63,6 +63,7 @@ public class MasterRoom implements Room {
                 roomData.addToHistory(roomData.getCurrentTrack());
                 Track nextTrack = roomData.popSongFromQueue();
                 roomData.setCurrentTrack(nextTrack);
+                sendNotifyUpdate();
                 return nextTrack;
             }
         });
@@ -84,6 +85,7 @@ public class MasterRoom implements Room {
         } else {
             roomData.addToQueue(track);
         }
+        sendNotifyUpdate();
     }
 
     @Override
