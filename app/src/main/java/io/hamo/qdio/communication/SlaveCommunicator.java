@@ -4,11 +4,13 @@ package io.hamo.qdio.communication;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.google.android.gms.nearby.connection.ConnectionsClient;
 import com.google.android.gms.nearby.connection.Payload;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayDeque;
@@ -65,7 +67,13 @@ public class SlaveCommunicator implements Communicator {
                     public void onSuccess(Void aVoid) {
                         Log.i(getClass().getSimpleName(), "transfer succeeded");
                     }
-                });
+                })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e(getClass().getSimpleName(), "transfer failed");
+            }
+        });
     }
 
 }

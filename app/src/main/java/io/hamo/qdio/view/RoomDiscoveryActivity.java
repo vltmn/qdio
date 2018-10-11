@@ -11,6 +11,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 public class RoomDiscoveryActivity extends ListActivity{
@@ -27,11 +28,11 @@ public class RoomDiscoveryActivity extends ListActivity{
                 android.R.layout.simple_list_item_1,
                 listItems);
         setListAdapter(adapter);
-        viewModel.getAvailableRooms().observeForever(new Observer<List<String>>() {
+        viewModel.getAvailableRooms().observeForever(new Observer<Map<String, String>>() {
             @Override
-            public void onChanged(@Nullable List<String> strings) {
+            public void onChanged(@Nullable Map<String, String> stringStringMap) {
                 listItems.clear();
-                listItems.addAll(strings);
+                listItems.addAll(stringStringMap.values());
                 adapter.notifyDataSetChanged();
             }
         });

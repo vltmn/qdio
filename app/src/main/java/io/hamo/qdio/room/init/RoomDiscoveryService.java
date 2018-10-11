@@ -22,7 +22,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 
 import io.hamo.qdio.communication.Communicator;
@@ -31,12 +33,12 @@ import io.hamo.qdio.room.Room;
 import io.hamo.qdio.room.SlaveRoom;
 
 public class RoomDiscoveryService {
-    private final MutableLiveData<List<String>> endpointsAvailable = new MutableLiveData<>();
+    private final MutableLiveData<Map<String, String>> endpointsAvailable = new MutableLiveData<>();
     private final Context context;
 
     public RoomDiscoveryService(Context context) {
         this.context = context.getApplicationContext();
-        endpointsAvailable.setValue(new ArrayList<String>());
+        endpointsAvailable.setValue(new HashMap<String, String>());
     }
 
     public void startDiscovering() {
@@ -45,14 +47,14 @@ public class RoomDiscoveryService {
             @Override
             public void onEndpointFound(@NonNull String endpointId, @NonNull DiscoveredEndpointInfo discoveredEndpointInfo) {
                 String endpointName = discoveredEndpointInfo.getEndpointName();
-                List<String> endpoints = endpointsAvailable.getValue();
-                endpoints.add(endpointName);
+                Map<String, String> endpoints = endpointsAvailable.getValue();
+                endpoints.put(endpointId, endpointName);
                 endpointsAvailable.postValue(endpoints);
             }
 
             @Override
             public void onEndpointLost(@NonNull String endpointId) {
-                List<String> endpoints = endpointsAvailable.getValue();
+                Map<String, String> endpoints = endpointsAvailable.getValue();
                 endpoints.remove(endpointId);
                 endpointsAvailable.postValue(endpoints);
             }
@@ -74,13 +76,13 @@ public class RoomDiscoveryService {
                 });
     }
 
-    public LiveData<List<String>> getEndpointsAvailable() {
+    public LiveData<Map<String, String>> getEndpointsAvailable() {
         return endpointsAvailable;
     }
 
     protected MutableLiveData<Queue<Payload>> connectToMaster(final String endpointId) {
-        List<String> endpoints = endpointsAvailable.getValue();
-        if (!endpoints.contains(endpointId)) {
+        Map<String, String> endpoints = endpointsAvailable.getValue();
+        if (!endpoints.containsKey(endpointId)) {
             throw new RuntimeException("Tried to connect to an endpoint that does not exist");
         }
         final MutableLiveData<Queue<Payload>> incomingPayloadQueue = new MutableLiveData<>();
