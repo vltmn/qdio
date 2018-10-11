@@ -21,6 +21,7 @@ import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.information.MusicObjectFactory;
 import io.hamo.qdio.model.communication.CommandMessage;
 import io.hamo.qdio.model.music.Track;
+import io.hamo.qdio.model.room.RoomData;
 import io.hamo.qdio.playback.Player;
 import io.hamo.qdio.playback.PlayerFactory;
 
@@ -54,18 +55,16 @@ public class MasterRoomTest {
         MasterRoom masterRoom = new MasterRoom(communicator);
         Track t1 = MusicObjectFactory.createTrack(MusicData.getInstance().getTestTrack());
         Track t2 = MusicObjectFactory.createTrack(MusicData.getInstance().getTestTrack());
+        Track t3 = MusicObjectFactory.createTrack(MusicData.getInstance().getTestTrack());
+        Track t4 = MusicObjectFactory.createTrack(MusicData.getInstance().getTestTrack());
         masterRoom.addToQueue(t1);
         assertEquals(t1, masterRoom.getCurrentSong());
         masterRoom.addToQueue(t2);
-    }
+        masterRoom.addToQueue(t3);
+        masterRoom.addToQueue(t4);
+        assertTrue(!masterRoom.getQueueList().isEmpty());
+        assertEquals(3, masterRoom.getQueueList().size());
 
-    @Test
-    public void getQueueList() {
-
-    }
-
-    @Test
-    public void getHistory() {
     }
 
     @Test

@@ -52,7 +52,7 @@ public class RoomData {
         return queueList.popSong();
     }
 
-    public Track peepSongFromQueue() {
+    public Track peekSongFromQueue() {
         return queueList.peekSong();
     }
 

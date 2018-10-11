@@ -79,7 +79,7 @@ public class MasterRoom implements Room {
 
     @Override
     public void addToQueue(Track track) {
-        if (roomData.peepSongFromQueue() == null && roomData.getCurrentTrack() == null) {
+        if (roomData.peekSongFromQueue() == null && roomData.getCurrentTrack() == null) {
             roomData.setCurrentTrack(track);
             PlayerFactory.getPlayer().play(track);
         } else {
