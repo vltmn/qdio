@@ -42,7 +42,6 @@ public class PlayingStatusFragment extends Fragment {
             @Override
             public void onChanged(@Nullable Long aLong) {
                 seekBar.setProgress(aLong.intValue());
-
             }
         });
 
@@ -108,6 +107,28 @@ public class PlayingStatusFragment extends Fragment {
             buttonContainer.setVisibility(View.GONE);
             seekBar.setVisibility(View.GONE);
         }
+        else{
+            seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+                @Override
+                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                    if(fromUser) {
+                        viewModel.onSeekbarDrag(progress);
+                    }
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar seekBar) {
+
+                }
+
+                @Override
+                public void onStopTrackingTouch(SeekBar seekBar) {
+                    int progress = seekBar.getProgress();
+                    viewModel.onSeekbarDrag(progress);
+                }
+            });
+        }
+
 
         return view;
 

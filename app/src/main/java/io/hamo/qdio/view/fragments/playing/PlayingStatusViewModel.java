@@ -86,6 +86,10 @@ public class PlayingStatusViewModel extends ViewModel {
         return isPlaying;
     }
 
+    public void onSeekbarDrag(int ms){
+        PlayerFactory.getPlayer().seek(ms);
+    }
+
     public void playBtnClicked(){
         if (isPlaying.getValue()){
             PlayerFactory.getPlayer().pause();
