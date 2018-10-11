@@ -2,8 +2,6 @@ package io.hamo.qdio.model.music;
 
 import java.util.Objects;
 
-import kaaes.spotify.webapi.android.models.ArtistSimple;
-
 public class Artist implements MusicObject {
 
     private final String URI;

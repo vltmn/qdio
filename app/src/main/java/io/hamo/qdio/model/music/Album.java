@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import kaaes.spotify.webapi.android.models.ArtistSimple;
-
 public class Album implements MusicObject {
 
     private final String URI;
