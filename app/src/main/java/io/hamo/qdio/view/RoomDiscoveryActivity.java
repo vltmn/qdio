@@ -12,27 +12,22 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.hamo.qdio.room.RoomInstanceHolder;
-import io.hamo.qdio.room.init.RoomDiscoveryService;
 
 public class RoomDiscoveryActivity extends ListActivity{
 
+    private RoomDiscoveryViewModel viewModel;
     private List<String> listItems = new ArrayList<>();
-
     private ArrayAdapter<String> adapter;
-
-    private RoomDiscoveryService discoveryService;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        viewModel = new RoomDiscoveryViewModel(this);
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 listItems);
         setListAdapter(adapter);
-        discoveryService = new RoomDiscoveryService(this);
-        discoveryService.startDiscovering();
-        discoveryService.getEndpointsAvailable().observeForever(new Observer<List<String>>() {
+        viewModel.getAvailableRooms().observeForever(new Observer<List<String>>() {
             @Override
             public void onChanged(@Nullable List<String> strings) {
                 listItems.clear();
@@ -45,7 +40,7 @@ public class RoomDiscoveryActivity extends ListActivity{
     @Override
     public void onListItemClick(ListView l, View v, int position, long id){
         super.onListItemClick(l, v, position, id);
-        RoomInstanceHolder.setRoomInstance(discoveryService.connectToRoom(listItems.get(position)));
+        viewModel.connectToRoom(listItems.get(position));
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
