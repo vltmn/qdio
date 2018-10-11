@@ -14,6 +14,7 @@ import java.util.Map;
 import io.hamo.qdio.TestUtil.MusicData;
 import io.hamo.qdio.model.music.Artist;
 import io.hamo.qdio.model.music.Track;
+import io.hamo.qdio.model.music.Album;
 import kaaes.spotify.webapi.android.SpotifyApi;
 import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.Pager;
@@ -90,7 +91,14 @@ public class SpotifyMusicDataServiceTest {
     }
 
     @Test
-    public void getAlbumFromUri() {
+    public void getAlbumFromUri() throws Exception {
+        kaaes.spotify.webapi.android.models.Album apiAlbum = MusicData.getInstance().getTestAlbum();
+        Album a = MusicObjectFactory.createAlbum(apiAlbum);
+        String aUri = a.getURI();
+        when(spotifyService.getAlbum(aUri)).thenReturn(apiAlbum);
+        Album fromService = spotifyMusicDataService.getAlbumFromUri(aUri).call();
+
+        assertEquals(a, fromService);
     }
 
     @Test
