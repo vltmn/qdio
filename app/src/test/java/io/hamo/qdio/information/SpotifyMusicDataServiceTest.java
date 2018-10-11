@@ -41,7 +41,7 @@ public class SpotifyMusicDataServiceTest {
     public void searchForTrack() throws Exception {
 
         kaaes.spotify.webapi.android.models.Track tApi = MusicData.getInstance().getTestTrack();
-        Track t = new Track(tApi);
+        Track t = MusicObjectFactory.createTrack(tApi);
         String query = t.getName();
         assertEquals(query, tApi.name);
 
@@ -58,8 +58,8 @@ public class SpotifyMusicDataServiceTest {
     public void getArtistsFromUris() throws Exception {
         kaaes.spotify.webapi.android.models.Artist aApi = MusicData.getInstance().getTestArtist();
         kaaes.spotify.webapi.android.models.Artist bApi = MusicData.getInstance().getTestArtist();
-        Artist a = new Artist(aApi);
-        Artist b = new Artist(bApi);
+        Artist a = MusicObjectFactory.createArtist(aApi);
+        Artist b = MusicObjectFactory.createArtist(bApi);
         String aURI = a.getURI();
         String bURI = b.getURI();
         when(spotifyService.getArtist(aURI)).thenReturn(aApi);
@@ -81,7 +81,7 @@ public class SpotifyMusicDataServiceTest {
     @Test
     public void getArtist() throws Exception {
         kaaes.spotify.webapi.android.models.Artist apiArtist = MusicData.getInstance().getTestArtist();
-        Artist a = new Artist(apiArtist);
+        Artist a = MusicObjectFactory.createArtist(apiArtist);
         String  aURI = a.getURI();
         when(spotifyService.getArtist(aURI)).thenReturn(apiArtist);
         Artist fromService = spotifyMusicDataService.getArtist(aURI).call();

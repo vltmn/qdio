@@ -18,6 +18,7 @@ import java.util.Queue;
 
 import io.hamo.qdio.TestUtil.MusicData;
 import io.hamo.qdio.communication.Communicator;
+import io.hamo.qdio.information.MusicObjectFactory;
 import io.hamo.qdio.model.communication.CommandMessage;
 import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.playback.Player;
@@ -51,8 +52,8 @@ public class MasterRoomTest {
     @Test
     public void addToQueue() {
         MasterRoom masterRoom = new MasterRoom(communicator);
-        Track t1 = new Track(MusicData.getInstance().getTestTrack());
-        Track t2 = new Track(MusicData.getInstance().getTestTrack());
+        Track t1 = MusicObjectFactory.createTrack(MusicData.getInstance().getTestTrack());
+        Track t2 = MusicObjectFactory.createTrack(MusicData.getInstance().getTestTrack());
         masterRoom.addToQueue(t1);
         assertEquals(t1, masterRoom.getCurrentSong());
         masterRoom.addToQueue(t2);

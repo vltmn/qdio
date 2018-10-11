@@ -2,12 +2,15 @@ package io.hamo.qdio.TestUtil;
 
 import com.github.javafaker.Faker;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 
 import kaaes.spotify.webapi.android.models.Album;
 import kaaes.spotify.webapi.android.models.Artist;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
+import kaaes.spotify.webapi.android.models.Image;
 import kaaes.spotify.webapi.android.models.Track;
 
 public class MusicData {
@@ -40,6 +43,8 @@ public class MusicData {
         album.name = faker.rockBand().name();
         album.id = faker.idNumber().valid();
         album.uri = album.id;
+        album.images = new ArrayList<>();
+        album.images.add(getTestImage());
         return album;
     }
 
@@ -49,5 +54,13 @@ public class MusicData {
         artist.id = faker.idNumber().valid();
         artist.uri = artist.id;
         return artist;
+    }
+
+    public Image getTestImage() {
+        Image img = new Image();
+        img.height = 50;
+        img.width = 50;
+        img.url = "http://test.com/img.png";
+        return img;
     }
 }

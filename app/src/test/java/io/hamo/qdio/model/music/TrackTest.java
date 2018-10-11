@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import io.hamo.qdio.TestUtil.MusicData;
+import io.hamo.qdio.information.MusicObjectFactory;
 import kaaes.spotify.webapi.android.models.Album;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
 import kaaes.spotify.webapi.android.models.Image;
@@ -16,12 +18,8 @@ public class TrackTest {
 
     @Test
     public void getAlbumURI() {
-        Album api = new Album();
-        api.uri = "TEST";
-        Track fromApi = new Track();
-        fromApi.album = api;
-        fromApi.album.uri = "TEST123";
-        io.hamo.qdio.model.music.Track converted = new io.hamo.qdio.model.music.Track(fromApi);
+        Track fromApi = MusicData.getInstance().getTestTrack();
+        io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
         assertEquals(converted.getAlbumURI(), fromApi.album.uri);
     }
 
@@ -35,16 +33,16 @@ public class TrackTest {
         a2.uri = "TEST2";
         fromApi.artists.add(a1);
         fromApi.artists.add(a2);
-        io.hamo.qdio.model.music.Track converted = new io.hamo.qdio.model.music.Track(fromApi);
-        assertTrue(converted.getArtists().contains(new Artist(fromApi.artists.get(0))));
-        assertTrue(converted.getArtists().contains(new Artist(fromApi.artists.get(1))));
+        io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
+        assertTrue(converted.getArtists().contains(MusicObjectFactory.createArtist(fromApi.artists.get(0))));
+        assertTrue(converted.getArtists().contains(MusicObjectFactory.createArtist(fromApi.artists.get(1))));
     }
 
     @Test
     public void getDurationMs() {
         Track fromApi = new Track();
         fromApi.duration_ms=1000;
-        io.hamo.qdio.model.music.Track converted = new io.hamo.qdio.model.music.Track(fromApi);
+        io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
         assertEquals(converted.getDurationMs(), fromApi.duration_ms);
 
     }
@@ -53,7 +51,7 @@ public class TrackTest {
     public void getName() {
         Track fromApi = new Track();
         fromApi.name = "TEST123";
-        io.hamo.qdio.model.music.Track converted = new io.hamo.qdio.model.music.Track(fromApi);
+        io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
         assertEquals(converted.getName(), fromApi.name);
 
     }
@@ -62,7 +60,7 @@ public class TrackTest {
     public void getURI() {
         Track fromApi = new Track();
         fromApi.uri = "TEST123";
-        io.hamo.qdio.model.music.Track converted = new io.hamo.qdio.model.music.Track(fromApi);
+        io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
         assertEquals(converted.getURI(), fromApi.uri);
 
     }
@@ -79,7 +77,7 @@ public class TrackTest {
         fromApi.album=api;
         fromApi.album.images=api.images;
 
-        io.hamo.qdio.model.music.Track converted = new io.hamo.qdio.model.music.Track(fromApi);
+        io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
         assertEquals(converted.getImageURL(), fromApi.album.images.get(0).url);
 
     }

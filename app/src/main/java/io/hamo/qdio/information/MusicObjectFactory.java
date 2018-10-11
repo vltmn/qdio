@@ -58,7 +58,7 @@ public class MusicObjectFactory {
         if (track.name == null) {
             throw new RuntimeException("Value is null");
         }
-        if (track.album.images != null && track.album.images.size() > 0) {
+        if (track.album.images == null || track.album.images.size() == 0) {
             throw new RuntimeException("Value is null");
         }
         String URI = track.uri;
@@ -118,7 +118,7 @@ public class MusicObjectFactory {
         if (album.name == null) {
             throw new RuntimeException("Value is null");
         }
-        if (album.images == null && album.images.size() > 0) {
+        if (album.images == null || album.images.size() == 0) {
             throw new RuntimeException("Value is null");
         }
         if (album.artists == null) {

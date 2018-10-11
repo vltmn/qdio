@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import io.hamo.qdio.information.MusicObjectFactory;
 import kaaes.spotify.webapi.android.models.Album;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
 import kaaes.spotify.webapi.android.models.Image;
@@ -16,7 +17,7 @@ public class AlbumTest {
     public void getURI() {
         Album fromApi = new Album();
         fromApi.uri = "TEST123";
-        io.hamo.qdio.model.music.Album converted = new io.hamo.qdio.model.music.Album(fromApi);
+        io.hamo.qdio.model.music.Album converted = MusicObjectFactory.createAlbum(fromApi);
         assertEquals(converted.getURI(), fromApi.uri);
     }
 
@@ -24,7 +25,7 @@ public class AlbumTest {
     public void getName() {
         Album fromApi = new Album();
         fromApi.name = "TEST123";
-        io.hamo.qdio.model.music.Album converted = new io.hamo.qdio.model.music.Album(fromApi);
+        io.hamo.qdio.model.music.Album converted = MusicObjectFactory.createAlbum(fromApi);
         assertEquals(converted.getName(), fromApi.name);
     }
 
@@ -35,7 +36,7 @@ public class AlbumTest {
         Image testImg = new Image();
         testImg.url = "TEST123";
         fromApi.images.add(testImg);
-        io.hamo.qdio.model.music.Album converted = new io.hamo.qdio.model.music.Album(fromApi);
+        io.hamo.qdio.model.music.Album converted = MusicObjectFactory.createAlbum(fromApi);
         assertEquals(converted.getImageURL(), fromApi.images.get(0).url);
     }
 
@@ -49,7 +50,7 @@ public class AlbumTest {
         a2.uri = "TEST2";
         fromApi.artists.add(a1);
         fromApi.artists.add(a2);
-        io.hamo.qdio.model.music.Album converted = new io.hamo.qdio.model.music.Album(fromApi);
+        io.hamo.qdio.model.music.Album converted = MusicObjectFactory.createAlbum(fromApi);
         assertTrue(converted.getArtistURI().contains(fromApi.artists.get(0).uri));
         assertTrue(converted.getArtistURI().contains(fromApi.artists.get(1).uri));
     }
