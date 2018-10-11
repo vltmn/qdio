@@ -82,7 +82,7 @@ public class SpotifyMusicDataServiceTest {
     public void getArtist() throws Exception {
         kaaes.spotify.webapi.android.models.Artist apiArtist = MusicData.getInstance().getTestArtist();
         Artist a = MusicObjectFactory.createArtist(apiArtist);
-        String  aURI = a.getURI();
+        String aURI = a.getURI();
         when(spotifyService.getArtist(aURI)).thenReturn(apiArtist);
         Artist fromService = spotifyMusicDataService.getArtist(aURI).call();
 
@@ -91,5 +91,39 @@ public class SpotifyMusicDataServiceTest {
 
     @Test
     public void getAlbumFromUri() {
+    }
+
+    @Test
+    public void getTrackFromUri() throws Exception {
+        kaaes.spotify.webapi.android.models.Track apiTrack = MusicData.getInstance().getTestTrack();
+        Track t = MusicObjectFactory.createTrack(apiTrack);
+        String tURI = t.getURI();
+        when(spotifyService.getTrack(tURI)).thenReturn(apiTrack);
+        Track fromService = spotifyMusicDataService.getTrackFromUri(tURI).call();
+
+        assertEquals(t, fromService);
+    }
+
+    @Test
+    public void getTracksFromUris() throws Exception {
+        kaaes.spotify.webapi.android.models.Track aApi = MusicData.getInstance().getTestTrack();
+        kaaes.spotify.webapi.android.models.Track bApi = MusicData.getInstance().getTestTrack();
+        Track a = MusicObjectFactory.createTrack(aApi);
+        Track b = MusicObjectFactory.createTrack(bApi);
+        String aURI = a.getURI();
+        String bURI = b.getURI();
+        when(spotifyService.getTrack(aURI)).thenReturn(aApi);
+        when(spotifyService.getTrack(bURI)).thenReturn(bApi);
+
+        Map<String, Track> gotFromApi = spotifyMusicDataService.getTracksFromUris(Arrays.asList(aURI, bURI)).call();
+        assertTrue(gotFromApi.containsKey(aURI));
+        assertTrue(gotFromApi.containsKey(bURI));
+
+        Track aFromApi = gotFromApi.get(aURI);
+        Track bFromApi = gotFromApi.get(bURI);
+        assertEquals(aFromApi, a);
+        assertEquals(bFromApi, b);
+        assertNotEquals(aFromApi, b);
+        assertNotEquals(bFromApi, a);
     }
 }
