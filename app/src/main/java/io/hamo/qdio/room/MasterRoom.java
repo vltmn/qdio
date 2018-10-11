@@ -17,6 +17,7 @@ import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.model.room.RoomData;
 import io.hamo.qdio.model.room.RoomType;
 import io.hamo.qdio.model.room.SerializableRoom;
+import io.hamo.qdio.playback.Player;
 import io.hamo.qdio.playback.PlayerFactory;
 
 public class MasterRoom implements Room {
@@ -57,15 +58,15 @@ public class MasterRoom implements Room {
                 }
             }
         });
-        //PlayerFactory.getPlayer().setOnSongEndCallback(new Player.OnSongEndCallback() {
-        //    @Override
-        //    public Track onSongEnd() {
-        //        history.add(currentTrack);
-        //        Track nextTrack = queueList.popSong();
-        //        currentTrack = nextTrack;
-        //        return nextTrack;
-        //    }
-        //});
+        PlayerFactory.getPlayer().setOnSongEndCallback(new Player.OnSongEndCallback() {
+            @Override
+            public Track onSongEnd() {
+                roomData.getHistory().add(roomData.getCurrentTrack());
+                Track nextTrack = roomData.getQueueList().popSong();
+                roomData.setCurrentTrack(nextTrack);
+                return nextTrack;
+            }
+        });
 
     }
 

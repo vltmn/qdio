@@ -33,6 +33,9 @@ public class SearchFragment extends Fragment {
     private ProgressBar progressBar;
     private TrackListAdapter.OnListItemClickedListener onResultItemListener;
 
+    public SearchFragment(){
+    }
+
 
     @Override
     public void onAttach(Context context) {

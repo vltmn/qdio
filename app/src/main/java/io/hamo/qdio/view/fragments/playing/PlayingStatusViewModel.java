@@ -22,9 +22,8 @@ public class PlayingStatusViewModel extends ViewModel {
     private final MutableLiveData<Long> currentPosition;
     private final MutableLiveData<Bitmap> currentAlbumImage;
     private final MutableLiveData<Boolean> isPlaying;
-    private Track track;
 
-    //private final MutableLiveData<PlayerState> currentPlayerState;
+
     private Handler handler = new Handler();
 
     public PlayingStatusViewModel() {
@@ -33,41 +32,43 @@ public class PlayingStatusViewModel extends ViewModel {
         currentAlbumImage = new MutableLiveData<>();
         isPlaying = new MutableLiveData<>();
 
-        //TODO change this (when acces to room)
 
-        try {
-           //track = MusicDataServiceFactory.getService().getTrackFromUri("spotify:track:6gPqBegU4aDWoSYXeCyURA").call();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         handler.postDelayed(runnableCode, 10000);
     }
 
     private Runnable runnableCode = new Runnable() {
         @Override
         public void run() {
-            if (RoomInstanceHolder.getRoomInstance().getType().equals(RoomType.MASTER)) {
-                Long currentPos = PlayerFactory.getPlayer().getCurrentPosition();
-                currentPosition.postValue(currentPos);
-                isPlaying.postValue(PlayerFactory.getPlayer().getPlayerState() == PlayerState.PLAYING);
-            }
-            if (track.equals(currentlyPlayingTrack.getValue())){
-                return;
-            }
-            currentlyPlayingTrack.postValue(track);
-            try {
-                ImageFetchTask getImageFromUriTask = new ImageFetchTask();
-                String albumUri = track.getImageURL();
-                Bitmap b = getImageFromUriTask.execute(albumUri).get();
-                currentAlbumImage.postValue(b);
-
-            } catch (Exception e) {
-                Log.e(getClass().getSimpleName(), "Could not get bitmap from image", e);
-            }
+            updateThread();
             handler.postDelayed(this, STATUS_POLL_INTERVAL);
         }
     };
 
+
+    public void updateThread(){
+        Track track = RoomInstanceHolder.getRoomInstance().getCurrentSong();
+        if (RoomInstanceHolder.getRoomInstance().getType().equals(RoomType.MASTER)) {
+            Long currentPos = PlayerFactory.getPlayer().getCurrentPosition();
+            currentPosition.postValue(currentPos);
+            isPlaying.postValue(PlayerFactory.getPlayer().getPlayerState() == PlayerState.PLAYING);
+        }
+        if (track == null){
+            return;
+        }
+        if (track.equals(currentlyPlayingTrack.getValue())){
+            return;
+        }
+        currentlyPlayingTrack.postValue(track);
+        try {
+            ImageFetchTask getImageFromUriTask = new ImageFetchTask();
+            String albumUri = track.getImageURL();
+            Bitmap b = getImageFromUriTask.execute(albumUri).get();
+            currentAlbumImage.postValue(b);
+
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), "Could not get bitmap from image", e);
+        }
+    }
 
     public LiveData<Bitmap> getCurrentAlbumImage() {
         return currentAlbumImage;
