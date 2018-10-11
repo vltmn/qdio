@@ -1,0 +1,13 @@
+@startuml
+class WelcomActivity {
+    + void createRoom(View view)
+    + void joinRoom(View view)
+    - String getRandomRoomName()
+}
+class MainActivity {
+    + void onSearchResultItemClicked(Track t)
+}
+
+class RoomDiscoveryActivity 
+
+@enduml
