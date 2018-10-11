@@ -26,10 +26,10 @@ enum PlayerState {
 class SpotifyPlayer
 
 SpotifyPlayer --|> Player
-PlayerFactory ..> Player
+PlayerFactory --> Player
 PlayerState <. Player
 PlayerState <- SpotifyPlayer
-PlayerFactory --> SpotifyPlayer
+PlayerFactory ..> SpotifyPlayer
 Player .> OnSongEndCallback
 SpotifyPlayer --> OnSongEndCallback
 ConnectFragment .> PlayerFactory

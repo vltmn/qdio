@@ -1,0 +1,22 @@
+@startuml
+interface Communicator {
+    + LiveData<Queue<CommandMessage>> getIncomingMessages()
+    + void sendCommand(CommandMessage commandMessage)
+}
+
+class JsonUtil {
+    + CommandMessage deserializeCommandMessage(String msg)
+    + String serializeCommandMessage(CommandMessage msg)'
+    + SerializableRoom deserializeRoom(String msg)
+    + String serializeRoom(SerializableRoom serializableRoom)
+    {static} + JsonUtil getInstance()
+}
+
+class MasterCommunicator
+class SlaveCommunicator
+
+Communicator <|-- MasterCommunicator
+Communicator <|-- SlaveCommunicator
+MasterCommunicator ..> JsonUtil
+SlaveCommunicator ..> JsonUtil
+@enduml

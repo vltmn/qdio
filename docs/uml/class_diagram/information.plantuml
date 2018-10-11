@@ -22,10 +22,11 @@ package auth {
     class SpotifyAuthHelper {
         + String getAccessToken
     }
-    AccessTokenGenerator ..> SpotifyAuthHelper
+    AccessTokenGenerator --> SpotifyAuthHelper
 }
+class ImageFetchTask
 
-MusicDataServiceFactory ..> AccessTokenGenerator
+MusicDataServiceFactory --> AccessTokenGenerator
 SpotifyMusicDataSerivce ..> AccessTokenGenerator
 MusicDataService <|-- SpotifyMusicDataSerivce
 MusicDataServiceFactory ..> SpotifyMusicDataSerivce

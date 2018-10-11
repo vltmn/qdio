@@ -1,0 +1,86 @@
+@startuml
+class SongHistory {
+    + List<Track> getPlayBackHistory()
+    + void add(Track track)ƒ
+}
+class SongQueueList {
+    + void addSong(Track track)
+    + Track popSong()
+    + Track peekSong()
+    + List<Track> getAsList()
+}
+package communication {
+    enum CommandAction {
+        ADD_SONG, NOTIFY_UPDATE
+    }
+
+    class CommandMessage {
+        + CommandAction getAction()
+        + String getValue()
+    }
+}
+
+package music {
+    class Album {
+        + String getURI()
+        + String getName()
+        + String getImageURL()
+        + List<String> getArtistURI()
+    }
+
+    class Artist{
+        + String getName()
+        + String getURI()
+    }
+
+    class Track {
+        + String getAlbumURI()
+        + long getDurationMs()
+        + String getName()
+        + String getImageURL()
+        + List<Artist> getArtists()
+        + String getURI()
+    }
+
+    interface MusicObject {
+        + String getURI()
+        + String getName()
+    }
+}
+
+package room {
+    class RoomData {
+        + void addToQueue(Track track)
+        + SongQueueList getQueueList()
+        + SongHistory getHistory()
+        + Track getCurrentTrack()
+        + void setCurrentTrack(Track track)
+    }
+    enum RoomType {
+        MASTER, SLAVE
+    }
+    class SerializableRoom {
+        + List<String> getQueueList()
+        + List<String> getHistoryList()
+        + String getCurrentTrackURI()
+    }
+}
+
+MusicObject <|-- Track
+MusicObject <|-- Album
+MusicObject <|-- Artist
+SongHistory --> Track
+SongQueueList --> Track
+Track -> Artist
+Album o- Track
+
+CommandMessage --> CommandAction
+
+RoomData --> Track
+RoomData --o SongHistory
+RoomData --o SongQueueList
+SerializableRoom ..> Track
+SerializableRoom ..> SongQueueList
+SerializableRoom ..> SongHistory
+
+@enduml

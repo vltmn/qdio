@@ -1,0 +1,40 @@
+@startuml
+interface Room {
+    + void addToQueue(Track track)
+    + SongQueueList getQueueList()
+    + SongHistory getHistory()
+    + Track getCurrentSong()
+    + RoomType getType()
+}
+
+class MasterRoom
+class SlaveRoom
+class RoomInstanceHolder {
+    {static} + Room getRoomInstance()
+    {static} + void setRoomInstance(Room room)
+}
+
+package init {
+    class RoomCreationService {
+        + Room createRoom(String roomName)
+    }
+    class RoomDiscoveryService {
+        + void startDiscovering()
+        + LiveData<List<String>> getEndpointsAvailable()
+        + Room connectToRoom(String endpointId)
+    }
+    class RoomPayloadCallback {
+        + void onPayloadReceived(String endpoint, Payload payload)
+    }
+}
+
+RoomCreationService --> Room
+RoomDiscoveryService --> Room
+RoomCreationService ..> MasterRoom
+RoomDiscoveryService ..> SlaveRoom
+RoomCreationService ..> RoomPayloadCallback
+RoomDiscoveryService ..> RoomPayloadCallback
+MasterRoom --|> Room
+SlaveRoom --|> Room
+RoomInstanceHolder --> Room
+@enduml

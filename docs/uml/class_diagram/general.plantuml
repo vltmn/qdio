@@ -1,0 +1,17 @@
+@startuml
+package communication
+package information
+package model
+package playback
+package room
+
+room --> information
+room --> model
+room --> communication
+room --> playback
+communication --> model
+information --> model
+playback --> model
+playback ..> information
+
+@enduml
