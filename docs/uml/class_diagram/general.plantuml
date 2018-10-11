@@ -9,9 +9,9 @@ room --> information
 room --> model
 room --> communication
 room --> playback
-communication --> model
-information --> model
-playback --> model
-playback ..> information
+communication -> model
+information -> model
+playback -> model
+playback .> information
 
 @enduml
