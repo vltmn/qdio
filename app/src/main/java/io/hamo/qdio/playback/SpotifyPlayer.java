@@ -3,7 +3,9 @@ package io.hamo.qdio.playback;
 import android.util.Log;
 
 import com.spotify.android.appremote.api.SpotifyAppRemote;
+import com.spotify.protocol.client.CallResult;
 import com.spotify.protocol.client.Subscription;
+import com.spotify.protocol.types.Empty;
 
 import io.hamo.qdio.information.MusicObjectFactory;
 import io.hamo.qdio.model.music.MusicObject;
@@ -22,25 +24,37 @@ class SpotifyPlayer implements Player {
         this.spotifyAppRemote = spotifyAppRemote;
         spotifyAppRemote.getPlayerApi().subscribeToPlayerState().setEventCallback(new Subscription.EventCallback<com.spotify.protocol.types.PlayerState>() {
             @Override
-            public void onEvent(com.spotify.protocol.types.PlayerState playerState) {
-                Log.w(getClass().getSimpleName(), playerState.toString(), null);
-                latestPosition = playerState.playbackPosition;
-                t.resetTimer();
-                currentTrack = MusicObjectFactory.createTrack(playerState.track);
-                if (playerState.isPaused && playerState.playbackPosition==0){
-                    handleSongEnd();
-                }
+            public void onEvent(com.spotify.protocol.types.PlayerState state) {
+                Log.w(getClass().getSimpleName(), state.toString(), null);
+                updateWithNewState(state);
+
             }
         });
     }
 
+    private void updateWithNewState(com.spotify.protocol.types.PlayerState state) {
+        //update position
+        latestPosition = state.playbackPosition;
+        t.resetTimer();
 
-    private void handleSongEnd(){
-        if (onSongEndCallback == null){
+        //update current track
+        currentTrack = MusicObjectFactory.createTrack(state.track);
+        playerState = state.isPaused ? PlayerState.PAUSED : PlayerState.PLAYING;
+
+        if(playerState == PlayerState.PAUSED && latestPosition == 0) {
+            handleSongEnd();
+        }
+
+    }
+
+
+    private void handleSongEnd() {
+        if (onSongEndCallback == null) {
             return;
         }
         Track track = onSongEndCallback.onSongEnd();
-        if (track == null){
+        if (track == null) {
+
             return;
         }
         play(track);
@@ -66,8 +80,9 @@ class SpotifyPlayer implements Player {
 
 
     @Override
-    public void play(MusicObject obj) {
+    public void play(final MusicObject obj) {
         spotifyAppRemote.getPlayerApi().play(obj.getURI());
+
         playerState = PlayerState.PLAYING;
     }
 
@@ -80,7 +95,7 @@ class SpotifyPlayer implements Player {
 
     @Override
     public Long getCurrentPosition() {
-        return latestPosition + t.getTime();
+        return playerState == PlayerState.PAUSED ? latestPosition : latestPosition +  t.getTime();
     }
 
 
