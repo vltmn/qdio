@@ -25,22 +25,14 @@ public class TrackTest {
 
     @Test
     public void getArtistURI() {
-        Track fromApi = new Track();
-        fromApi.artists = new ArrayList<>();
-        ArtistSimple a1 = new ArtistSimple();
-        ArtistSimple a2 = new ArtistSimple();
-        a1.uri = "TEST1";
-        a2.uri = "TEST2";
-        fromApi.artists.add(a1);
-        fromApi.artists.add(a2);
+        Track fromApi = MusicData.getInstance().getTestTrack();
         io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
         assertTrue(converted.getArtists().contains(MusicObjectFactory.createArtist(fromApi.artists.get(0))));
-        assertTrue(converted.getArtists().contains(MusicObjectFactory.createArtist(fromApi.artists.get(1))));
     }
 
     @Test
     public void getDurationMs() {
-        Track fromApi = new Track();
+        Track fromApi = MusicData.getInstance().getTestTrack();
         fromApi.duration_ms=1000;
         io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
         assertEquals(converted.getDurationMs(), fromApi.duration_ms);
@@ -49,7 +41,7 @@ public class TrackTest {
 
     @Test
     public void getName() {
-        Track fromApi = new Track();
+        Track fromApi = MusicData.getInstance().getTestTrack();
         fromApi.name = "TEST123";
         io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
         assertEquals(converted.getName(), fromApi.name);
@@ -58,7 +50,7 @@ public class TrackTest {
 
     @Test
     public void getURI() {
-        Track fromApi = new Track();
+        Track fromApi = MusicData.getInstance().getTestTrack();
         fromApi.uri = "TEST123";
         io.hamo.qdio.model.music.Track converted = MusicObjectFactory.createTrack(fromApi);
         assertEquals(converted.getURI(), fromApi.uri);
@@ -67,13 +59,13 @@ public class TrackTest {
 
     @Test
     public void getImageURL() {
-        Album api = new Album();
+        Album api = MusicData.getInstance().getTestAlbum();
         Image testImg = new Image();
         testImg.url = "TEST123";
         api.images = new ArrayList<Image>();
         api.images.add(testImg);
 
-        Track fromApi = new Track();
+        Track fromApi = MusicData.getInstance().getTestTrack();
         fromApi.album=api;
         fromApi.album.images=api.images;
 
