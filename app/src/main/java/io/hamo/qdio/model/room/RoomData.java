@@ -56,4 +56,14 @@ public class RoomData {
         return queueList.peekSong();
     }
 
+    public void clearQueue() {
+        while(queueList.peekSong() != null) {
+            queueList.popSong();
+        }
+    }
+
+    public void clearHistory() {
+        history.clear();
+    }
+
 }

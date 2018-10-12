@@ -19,5 +19,7 @@ public class SongHistory {
         playbackHistory.add(track);
     }
 
-
+    public void clear() {
+        playbackHistory.clear();
+    }
 }
