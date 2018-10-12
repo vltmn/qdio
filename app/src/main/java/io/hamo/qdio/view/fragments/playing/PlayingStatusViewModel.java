@@ -45,7 +45,7 @@ public class PlayingStatusViewModel extends ViewModel {
     };
 
 
-    public void updateThread(){
+    private void updateThread(){
         Track track = RoomInstanceHolder.getRoomInstance().getCurrentSong();
         if (RoomInstanceHolder.getRoomInstance().getType().equals(RoomType.MASTER)) {
             Long currentPos = PlayerFactory.getPlayer().getCurrentPosition();
