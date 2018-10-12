@@ -4,6 +4,7 @@ package information
 package model
 package playback
 package room
+package view
 
 room --> information
 room --> model
@@ -13,5 +14,10 @@ communication -> model
 information -> model
 playback -> model
 playback .> information
+
+view ..> room
+view ..> playback
+view ..> information
+view ..> model
 
 @enduml
