@@ -71,7 +71,7 @@ public class SlaveCommunicator implements Communicator {
         .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.e(getClass().getSimpleName(), "transfer failed");
+                Log.e(getClass().getSimpleName(), "transfer failed", e);
             }
         });
     }
