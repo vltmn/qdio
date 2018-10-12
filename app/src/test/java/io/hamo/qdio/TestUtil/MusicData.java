@@ -30,7 +30,7 @@ public class MusicData {
         t.album = album;
         t.artists = album.artists;
         t.name = faker.howIMetYourMother().catchPhrase();
-        t.duration_ms = faker.number().randomNumber();
+        t.duration_ms = faker.number().randomNumber() + 1;
         t.id = faker.idNumber().valid();
         t.uri = t.id;
         return t;
