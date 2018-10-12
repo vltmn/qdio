@@ -111,9 +111,6 @@ public class PlayingStatusFragment extends Fragment {
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if(fromUser) {
-                        viewModel.onSeekbarDrag(progress);
-                    }
                 }
 
                 @Override
