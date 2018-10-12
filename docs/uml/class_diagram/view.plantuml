@@ -10,4 +10,36 @@ class MainActivity {
 
 class RoomDiscoveryActivity 
 
+class RoomDiscoveryViewModel
+
+RoomDiscoveryActivity -> RoomDiscoveryViewModel
+
+class TrackListAdapter {
+    {static} class ViewHolder
+}
+
+package fragments {
+    package playing {
+        class PlayingStatusFragment
+        class PlayingStatusViewModel
+        PlayingStatusFragment -> PlayingStatusViewModel
+    }
+    package queuelist {
+        class QueueListFragment
+        class QueueListFragmentViewModel
+        QueueListFragment -> QueueListFragmentViewModel
+    }
+    package search {
+        class SearchFragment
+        class SearchFragmentViewModel 
+        SearchFragment -> SearchFragmentViewModel
+    }
+}
+
+SearchFragment --> TrackListAdapter
+QueueListFragment --> TrackListAdapter
+
+MainActivity --> QueueListFragment
+MainActivity --> PlayingStatusFragment
+MainActivity --> SearchFragment
 @enduml
