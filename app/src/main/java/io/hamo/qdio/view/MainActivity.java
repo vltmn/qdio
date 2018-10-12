@@ -8,11 +8,12 @@ import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.room.RoomInstanceHolder;
 
 public class MainActivity extends FragmentActivity implements TrackListAdapter.OnListItemClickedListener{
-
+    private FloatingActionButton fab;
     private View mainWrapper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -21,12 +22,12 @@ public class MainActivity extends FragmentActivity implements TrackListAdapter.O
 
 
         final View searchFragmentWrapper = findViewById(R.id.searchFragmentWrapper);
+        fab = findViewById(R.id.floatingActionButton);
 
-
-        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fab.hide();
                 searchFragmentWrapper.bringToFront();
             }
         });
@@ -35,11 +36,9 @@ public class MainActivity extends FragmentActivity implements TrackListAdapter.O
 
     @Override
     public void onSearchResultItemClicked(Track t) {
+        fab.show();
         RoomInstanceHolder.getRoomInstance().addToQueue(t);
         mainWrapper.bringToFront();
     }
 
-    public void hideSearchView(View view){
-
-    }
 }
