@@ -55,15 +55,15 @@ public class SlaveRoom implements Room {
                     .getService()
                     .getTrackFromUri(sRoom.getCurrentTrackURI())
                     .call());
+            roomData.clearQueue();
+            roomData.clearHistory();
             for (String s : sRoom.getQueueList()){
-                roomData.clearQueue();
                 roomData.addToQueue(MusicDataServiceFactory
                         .getService()
                         .getTrackFromUri(s)
                         .call());
             }
             for (String s : sRoom.getHistoryList()){
-                roomData.clearHistory();
                 roomData.addToHistory(MusicDataServiceFactory
                         .getService()
                         .getTrackFromUri(s)
