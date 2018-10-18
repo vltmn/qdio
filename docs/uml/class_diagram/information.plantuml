@@ -17,10 +17,10 @@ interface MusicDataService {
 
 package auth {
     class AccessTokenGenerator {
-        {static} + String getNewToken
+        {static} + String getNewToken()
     }
     class SpotifyAuthHelper {
-        + String getAccessToken
+        + String getAccessToken()
     }
     AccessTokenGenerator --> SpotifyAuthHelper
 }
