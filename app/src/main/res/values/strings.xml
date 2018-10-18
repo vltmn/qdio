@@ -3,4 +3,5 @@
     <string name="search_for_music">Sök på musik</string>
     <string name="create_room">Skapa ett rum</string>
     <string name="join_room">Anslut till rum</string>
+    <string name="track">Track</string>
 </resources>

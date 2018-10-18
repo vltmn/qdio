@@ -1,24 +1,24 @@
 package android.os;
 
 
-public abstract class AsyncTask<Params, Progress, Result> {
-    Result result;
+public abstract class AsyncTask<A, B, C> {
+    C result;
 
-    protected abstract Result doInBackground(Params... params);
+    protected abstract C doInBackground(A... params);
 
-    protected void onPostExecute(Result result) {
+    protected void onPostExecute(C result) {
         this.result = result;
     }
 
-    public Result get() {
+    public C get() {
         return result;
     }
 
-    protected void onProgressUpdate(Progress... values) {
+    protected void onProgressUpdate(B... values) {
     }
 
-    public AsyncTask<Params, Progress, Result> execute(Params... params) {
-        Result result = doInBackground(params);
+    public AsyncTask<A, B, C> execute(A... params) {
+        C result = doInBackground(params);
         onPostExecute(result);
         return this;
     }

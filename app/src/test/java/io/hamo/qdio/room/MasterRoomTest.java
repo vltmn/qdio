@@ -16,12 +16,11 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import java.util.ArrayDeque;
 import java.util.Queue;
 
-import io.hamo.qdio.TestUtil.MusicData;
+import io.hamo.qdio.testutil.MusicData;
 import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.information.MusicObjectFactory;
 import io.hamo.qdio.model.communication.CommandMessage;
 import io.hamo.qdio.model.music.Track;
-import io.hamo.qdio.model.room.RoomData;
 import io.hamo.qdio.playback.Player;
 import io.hamo.qdio.playback.PlayerFactory;
 
@@ -72,7 +71,6 @@ public class MasterRoomTest {
     }
 
     private MasterRoom getRoom() {
-        MasterRoom masterRoom = new MasterRoom(communicator);
-        return masterRoom;
+        return new MasterRoom(communicator);
     }
 }

@@ -18,6 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <fragment
+            android:id="@+id/searchFragment"
             android:name="io.hamo.qdio.view.fragments.search.SearchFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

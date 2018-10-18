@@ -4,10 +4,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
-import io.hamo.qdio.TestUtil.MusicData;
+import io.hamo.qdio.testutil.MusicData;
 import io.hamo.qdio.information.MusicObjectFactory;
 import kaaes.spotify.webapi.android.models.Album;
-import kaaes.spotify.webapi.android.models.ArtistSimple;
 import kaaes.spotify.webapi.android.models.Image;
 
 import static org.junit.Assert.*;

@@ -191,8 +191,7 @@ class SpotifyMusicDataService implements MusicDataService {
     }
 
     private static String parseUri(String wholeId){
-        String parsedUri = wholeId.substring(wholeId.lastIndexOf(':')+1);
-        return parsedUri;
+        return wholeId.substring(wholeId.lastIndexOf(':')+1);
     }
 
 }

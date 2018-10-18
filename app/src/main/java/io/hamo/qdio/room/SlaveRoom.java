@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Queue;
 
 import io.hamo.qdio.information.MusicDataServiceFactory;
-import io.hamo.qdio.model.SongHistory;
 import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.communication.JsonUtil;
 import io.hamo.qdio.model.communication.CommandAction;
@@ -70,7 +69,7 @@ public class SlaveRoom implements Room {
                         .call());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(getClass().getSimpleName(), "Could not handel update", e);
         }
     }
 

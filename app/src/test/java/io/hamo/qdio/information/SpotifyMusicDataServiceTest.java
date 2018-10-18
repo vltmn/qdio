@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import io.hamo.qdio.TestUtil.MusicData;
+import io.hamo.qdio.testutil.MusicData;
 import io.hamo.qdio.model.music.Artist;
 import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.model.music.Album;

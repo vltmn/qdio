@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import java.util.Arrays;
 
-import io.hamo.qdio.TestUtil.MusicData;
+import io.hamo.qdio.testutil.MusicData;
 import io.hamo.qdio.information.MusicObjectFactory;
 import io.hamo.qdio.model.SongHistory;
 import io.hamo.qdio.model.music.Track;

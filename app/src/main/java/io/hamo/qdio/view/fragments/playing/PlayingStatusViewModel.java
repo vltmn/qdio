@@ -101,12 +101,7 @@ public class PlayingStatusViewModel extends ViewModel {
     }
 
     public boolean getIsMasterRoom(){
-        if (RoomInstanceHolder.getRoomInstance().getType().equals(RoomType.MASTER)){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return RoomInstanceHolder.getRoomInstance().getType().equals(RoomType.MASTER);
     }
 
 }

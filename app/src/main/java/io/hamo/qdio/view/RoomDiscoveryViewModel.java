@@ -7,8 +7,6 @@ import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import io.hamo.qdio.room.RoomInstanceHolder;

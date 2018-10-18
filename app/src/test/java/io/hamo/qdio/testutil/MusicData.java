@@ -1,11 +1,9 @@
-package io.hamo.qdio.TestUtil;
+package io.hamo.qdio.testutil;
 
 import com.github.javafaker.Faker;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 
 import kaaes.spotify.webapi.android.models.Album;
 import kaaes.spotify.webapi.android.models.Artist;

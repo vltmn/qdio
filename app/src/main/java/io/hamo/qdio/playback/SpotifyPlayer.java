@@ -3,9 +3,7 @@ package io.hamo.qdio.playback;
 import android.util.Log;
 
 import com.spotify.android.appremote.api.SpotifyAppRemote;
-import com.spotify.protocol.client.CallResult;
 import com.spotify.protocol.client.Subscription;
-import com.spotify.protocol.types.Empty;
 
 import io.hamo.qdio.information.MusicObjectFactory;
 import io.hamo.qdio.model.music.MusicObject;

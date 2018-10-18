@@ -2,7 +2,7 @@ package io.hamo.qdio.model.music;
 
 import org.junit.Test;
 
-import io.hamo.qdio.TestUtil.MusicData;
+import io.hamo.qdio.testutil.MusicData;
 import io.hamo.qdio.information.MusicObjectFactory;
 import kaaes.spotify.webapi.android.models.Artist;
 

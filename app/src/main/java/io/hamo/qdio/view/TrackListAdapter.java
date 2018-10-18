@@ -25,8 +25,7 @@ public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.View
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View inflated = inflater.inflate(R.layout.search_result_item, viewGroup, false);
-        ViewHolder vh = new ViewHolder(inflated);
-        return vh;
+        return new ViewHolder(inflated);
     }
 
     @Override
