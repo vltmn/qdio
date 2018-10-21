@@ -100,7 +100,7 @@ public class PlayingStatusViewModel extends ViewModel {
 
     }
 
-    public boolean getIsMasterRoom(){
+    public boolean isMasterRoom(){
         return RoomInstanceHolder.getRoomInstance().getType().equals(RoomType.MASTER);
     }
 

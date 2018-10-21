@@ -102,7 +102,7 @@ public class PlayingStatusFragment extends Fragment {
                 viewModel.playBtnClicked();
             }
         });
-        if (!viewModel.getIsMasterRoom()){
+        if (!viewModel.isMasterRoom()){
             View buttonContainer = view.findViewById(R.id.buttonContainer);
             buttonContainer.setVisibility(View.GONE);
             seekBar.setVisibility(View.GONE);
