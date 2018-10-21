@@ -23,8 +23,6 @@ public class SearchFragmentViewModel extends ViewModel {
         public void onChanged(@Nullable String s) {
             try {
                 List<Track> tracks = MusicDataServiceFactory.getService().searchForTrack(s).call();
-                List<String> toSet = new ArrayList<>();
-
                 trackList.setValue(tracks);
             } catch (Exception e) {
                 Log.e(getClass().getCanonicalName(), e.getLocalizedMessage());
