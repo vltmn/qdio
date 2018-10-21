@@ -11,6 +11,10 @@ import io.hamo.qdio.model.room.RoomType;
  */
 public interface Room {
 
+    /**
+     * Adds a track to queue unless currentTrack == null. Then track starts playing
+     * @param track
+     */
     void addToQueue(Track track);
 
     List<Track> getQueueList();
