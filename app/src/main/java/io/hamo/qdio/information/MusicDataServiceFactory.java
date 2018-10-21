@@ -3,9 +3,16 @@ package io.hamo.qdio.information;
 import io.hamo.qdio.information.auth.AccessTokenGenerator;
 import kaaes.spotify.webapi.android.SpotifyApi;
 
+/**
+ * Factory to get a musicdataservice
+ */
 public class MusicDataServiceFactory {
     private static MusicDataService serviceImpl;
 
+    /**
+     * Get an instance of musicdataservice
+     * @return the instance
+     */
     public static MusicDataService getService() {
         if(serviceImpl == null) {
             SpotifyApi spotifyApi = new SpotifyApi();

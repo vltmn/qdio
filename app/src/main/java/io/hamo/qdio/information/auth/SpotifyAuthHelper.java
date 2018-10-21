@@ -18,8 +18,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+/**
+ * Helper class to get a spotify access token
+ * Hidden access since nothing except AccessTokenGenerator should use this
+ */
 class SpotifyAuthHelper {
 
+    /**
+     * Get a new access token
+     * @return the access token
+     */
     public String getAccessToken() {
 
         String url = "https://accounts.spotify.com/api/token";

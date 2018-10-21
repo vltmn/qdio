@@ -8,6 +8,11 @@ import java.util.Queue;
 import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.model.communication.CommandMessage;
 
+/**
+ * Communicator to use when using the application in the emulator.
+ * This way you can send commands to the application using broadcasted intents containing JSON commandmessages.
+ * See the DemoRoomInitService for usage
+ */
 public class DemoCommunicator implements Communicator {
     private final LiveData<Queue<CommandMessage>> incomingMessages;
 

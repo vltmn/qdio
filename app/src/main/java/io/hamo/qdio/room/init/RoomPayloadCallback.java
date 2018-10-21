@@ -10,6 +10,9 @@ import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
 
 import java.util.Queue;
 
+/**
+ * Payload callback tghat puts the transferred payloads in a LiveData queue and notifys the observers
+ */
 public class RoomPayloadCallback extends PayloadCallback {
     private final MutableLiveData<Queue<Payload>> incomingQueue;
 

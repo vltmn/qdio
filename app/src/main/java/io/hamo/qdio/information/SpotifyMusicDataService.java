@@ -18,6 +18,9 @@ import kaaes.spotify.webapi.android.SpotifyService;
 
 import kaaes.spotify.webapi.android.models.TracksPager;
 
+/**
+ * Implementation of the MusicDataService interface using the spotify APIs
+ */
 class SpotifyMusicDataService implements MusicDataService {
     private SpotifyService spotifyService;
     private final SpotifyApi spotifyApi;
