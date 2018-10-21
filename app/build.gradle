@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply from: '../config/quality/quality.gradle'
 def secretPropertiesFile = rootProject.file("secrets.properties")
 def secretProperties = new Properties()
 if(secretPropertiesFile.exists()){
