@@ -7,21 +7,21 @@ import android.util.Log;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 public class PlayerFactory {
-    private static SpotifyPlayer spotifyPlayer;
+    private static Player player;
     private static MutableLiveData<Boolean> isInstantiated = new MutableLiveData<>();
 
     public static void instantiatePlayer(SpotifyAppRemote spotifyAppRemote) {
-        spotifyPlayer = new SpotifyPlayer(spotifyAppRemote);
+        player = new SpotifyPlayer(spotifyAppRemote);
         isInstantiated.setValue(true);
     }
 
     public static Player getPlayer() {
-        if(spotifyPlayer == null) {
+        if(player == null) {
             String message = "Spotify Player has not yet been instantiated, use the connect fragment to instantiate it";
             Log.e(PlayerFactory.class.getSimpleName(), message);
             throw new RuntimeException(message);
         }
-        return spotifyPlayer;
+        return player;
     }
 
     public static LiveData<Boolean> getIsInstantiated() {
