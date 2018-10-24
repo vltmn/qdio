@@ -22,6 +22,10 @@ import io.hamo.qdio.room.Room;
 import io.hamo.qdio.room.RoomInstanceHolder;
 import io.hamo.qdio.room.init.RoomCreationService;
 
+/**
+ * The first activity shwon when the application is launched
+ * User gets choice to either create a room or join an existing room
+ */
 public class WelcomeActivity extends FragmentActivity {
     private ProgressBar roomConnectProgress;
     private LinearLayout buttonGroup;

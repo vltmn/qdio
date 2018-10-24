@@ -6,6 +6,9 @@ import io.hamo.qdio.model.SongHistory;
 import io.hamo.qdio.model.SongQueueList;
 import io.hamo.qdio.model.music.Track;
 
+/**
+ * Contains and handles all the data used in any of the two room types
+ */
 public class RoomData {
 
     private final SongQueueList queueList;

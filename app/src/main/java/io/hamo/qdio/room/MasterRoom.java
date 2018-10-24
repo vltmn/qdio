@@ -26,7 +26,8 @@ public class MasterRoom implements Room {
     private static final RoomType type = RoomType.MASTER;
 
     /**
-     * Observes incoming CommandMessage from Communicator/slaves and depending on CommandAction it either adds song to queue or breaks if bad command
+     * Observes incoming CommandMessage from Communicator/slaves and depending on CommandAction
+     * it either adds song to queue or breaks if bad command
      */
     public MasterRoom(Communicator com) {
         this.communicator = com;

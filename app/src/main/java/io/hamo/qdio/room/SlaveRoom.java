@@ -23,6 +23,10 @@ public class SlaveRoom implements Room {
     private final RoomData roomData;
     private static final RoomType type = RoomType.SLAVE;
 
+    /**
+     * Observes incoming CommandMessage from Communicator/host and depending on CommandAction
+     * it either updates roomData or breaks if bad command
+     */
     public SlaveRoom(Communicator com){
         roomData = new RoomData();
         this.communicator = com;

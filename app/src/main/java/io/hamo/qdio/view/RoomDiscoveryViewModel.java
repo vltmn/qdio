@@ -12,6 +12,9 @@ import java.util.Map;
 import io.hamo.qdio.room.RoomInstanceHolder;
 import io.hamo.qdio.room.init.RoomDiscoveryService;
 
+/**
+ * ViewModel for the RoomDiscoveryActivity, uses the RoomDiscoveryService to search for rooms and connect to them
+ */
 public class RoomDiscoveryViewModel extends ViewModel {
 
     private RoomDiscoveryService discoveryService;

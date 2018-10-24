@@ -8,8 +8,15 @@ import io.hamo.qdio.model.music.Artist;
 import io.hamo.qdio.model.music.Track;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
 
+/**
+ * Factory to create MusicObject
+ */
 public class MusicObjectFactory {
 
+    /**
+     * Creates a Qdio implementation of Track based on Spotify remote API Track implementation
+     * @return a Track object
+     */
     public static Track createTrack(com.spotify.protocol.types.Track track) {
         if (track.uri == null) {
             throw new RuntimeException("Track uri is null");
@@ -42,6 +49,10 @@ public class MusicObjectFactory {
         return new Track(URI, albumURI, artists, durationMs, name, imageURL);
     }
 
+    /**
+     * Creates a Qdio implementation of Track based on Spotify web API Track implementation
+     * @return a Track object
+     */
     public static Track createTrack(kaaes.spotify.webapi.android.models.Track track) {
         if (track.uri == null) {
             throw new RuntimeException("Track URI is null");
@@ -75,6 +86,10 @@ public class MusicObjectFactory {
         return new Track(URI, albumURI, artists, durationMs, name, imageURL);
     }
 
+    /**
+     * Creates a Qdio implementation of Artist based on Spotify remote API Artist implementation
+     * @return a Artist object
+     */
     public static Artist createArtist(com.spotify.protocol.types.Artist artist) {
         if (artist.uri == null) {
             throw new RuntimeException("Artist uri is null");
@@ -87,6 +102,10 @@ public class MusicObjectFactory {
         return new Artist(URI, name);
     }
 
+    /**
+     * Creates a Qdio implementation of Artist based on Spotify web API Artist implementation
+     * @return a Artist object
+     */
     public static Artist createArtist(ArtistSimple artist) {
         if (artist.uri == null) {
             throw new RuntimeException("Artist uri is null");
@@ -99,6 +118,10 @@ public class MusicObjectFactory {
         return new Artist(URI, name);
     }
 
+    /**
+     * Creates a Qdio implementation of Album based on Spotify remote API Album implementation
+     * @return a Album object
+     */
     public static Album createAlbum(com.spotify.protocol.types.Album album) {
         if (album.uri == null) {
             throw new RuntimeException("Album uri is null");
@@ -111,6 +134,10 @@ public class MusicObjectFactory {
         return new Album(URI, name);
     }
 
+    /**
+     * Creates a Qdio implementation of Album based on Spotify web API Album implementation
+     * @return a Album object
+     */
     public static Album createAlbum(kaaes.spotify.webapi.android.models.Album album) {
         if (album.uri == null) {
             throw new RuntimeException("Album Uri is null");

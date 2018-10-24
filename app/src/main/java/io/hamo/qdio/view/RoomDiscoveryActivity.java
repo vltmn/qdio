@@ -13,7 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * Simple ListActivity only containing a list which updates when new available rooms are discovered
+ * Clicking a room in the list connects to room
+ */
 public class RoomDiscoveryActivity extends ListActivity{
 
     private RoomDiscoveryViewModel viewModel;
