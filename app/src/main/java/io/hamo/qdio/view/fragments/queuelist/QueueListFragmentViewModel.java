@@ -10,6 +10,11 @@ import java.util.List;
 import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.room.RoomInstanceHolder;
 
+/**
+ * Uses thread to update queuelist. Thread overwrites values with UPDATE_DELAY as delay time in ms.
+ * getQueueList returns the updated queuelist to be used by the QueueListFragment
+ */
+
 public class QueueListFragmentViewModel extends ViewModel {
     private final MutableLiveData<List<Track>> queueList;
     private Handler handler = new Handler();

@@ -19,6 +19,11 @@ import io.hamo.qdio.R;
 import io.hamo.qdio.model.music.Artist;
 import io.hamo.qdio.model.music.Track;
 
+/**
+ * Listens on values from the PlayignStatusViewModel and sets them to be represented
+ * in the GUI
+ */
+
 public class PlayingStatusFragment extends Fragment {
 
     private PlayingStatusViewModel viewModel;

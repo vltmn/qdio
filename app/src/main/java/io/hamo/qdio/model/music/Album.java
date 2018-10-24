@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class represnts a album. It is immutable.
+ */
 public class Album implements MusicObject {
 
     private final String URI;
@@ -11,6 +14,11 @@ public class Album implements MusicObject {
     private final String imageURL;
     private final List<String> artistURI;
 
+    /**
+     * Constructor album only for uri and string
+     * @param URI String
+     * @param name String
+     */
     public Album(String URI, String name) {
         this.URI = URI;
         this.name = name;
@@ -18,6 +26,13 @@ public class Album implements MusicObject {
         artistURI = new ArrayList<>();
     }
 
+    /**
+     * Constructor for album with uri, name, imageURL and artistURI
+     * @param URI String
+     * @param name String
+     * @param imageURL Srting
+     * @param artistURI List<String>
+     */
     public Album(String URI, String name, String imageURL, List<String> artistURI) {
         this.URI = URI;
         this.name = name;
@@ -34,10 +49,18 @@ public class Album implements MusicObject {
         return name;
     }
 
+    /**
+     * gives the url to the image (album cover image)
+     * @return imageURL String
+     */
     public String getImageURL() {
         return imageURL;
     }
 
+    /**
+     * gives a list of artist
+     * @return Arraylist
+     */
     public List<String> getArtistURI() {
         return artistURI;
     }

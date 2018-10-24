@@ -9,6 +9,10 @@ import io.hamo.qdio.information.MusicObjectFactory;
 import io.hamo.qdio.model.music.MusicObject;
 import io.hamo.qdio.model.music.Track;
 
+/**
+ * Handles functionality for the music playing on the device
+ */
+
 class SpotifyPlayer implements Player {
 
     private SpotifyAppRemote spotifyAppRemote;

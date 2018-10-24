@@ -2,6 +2,9 @@ package io.hamo.qdio.model.music;
 
 import java.util.Objects;
 
+/**
+ * This class represents an Artist. It is immutable
+ */
 public class Artist implements MusicObject {
 
     private final String URI;

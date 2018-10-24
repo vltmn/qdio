@@ -10,6 +10,9 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 import io.hamo.qdio.BuildConfig;
 
+/**
+ * Creates an authentication to the spotify appremote as a headless fragment
+ */
 
 public class ConnectFragment extends Fragment {
 

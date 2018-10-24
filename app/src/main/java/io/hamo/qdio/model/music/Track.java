@@ -3,6 +3,10 @@ package io.hamo.qdio.model.music;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class represents a track. It is immutable.
+ */
+
 public class Track implements MusicObject {
 
     private final String URI;
@@ -21,10 +25,18 @@ public class Track implements MusicObject {
         this.imageURL = imageURL;
     }
 
+    /**
+     * Gives the uri to the album the track is contained by
+     * @return String uri
+     */
     public String getAlbumURI() {
         return albumURI;
     }
 
+    /**
+     * Gives the duration of the track
+     * @return duration in milliseconds as a long
+     */
     public long getDurationMs() {
         return durationMs;
     }
@@ -34,10 +46,18 @@ public class Track implements MusicObject {
         return name;
     }
 
+    /**
+     * Gives the url to the Image connected with track
+     * @return string
+     */
     public String getImageURL() {
         return imageURL;
     }
 
+    /**
+     * gives a list containg the artist or artists that are included in the track
+     * @return
+     */
     public List<Artist> getArtists() {
         return artists;
     }

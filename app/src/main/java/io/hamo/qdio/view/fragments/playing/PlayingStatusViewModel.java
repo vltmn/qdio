@@ -15,6 +15,12 @@ import io.hamo.qdio.room.RoomInstanceHolder;
 import io.hamo.qdio.model.room.RoomType;
 import io.hamo.qdio.information.ImageFetchTask;
 
+/**
+ * A viewmodel in the model-view-viewmodel pattern. Uses a thread to check every STATUS_POLL_INTERVAL
+ * ( 500 ms ) for playingstatus values (instance varibles) and updates values to pass to the
+ * playingfragment.
+ */
+
 public class PlayingStatusViewModel extends ViewModel {
 
     private static final int STATUS_POLL_INTERVAL = 500;
@@ -44,9 +50,14 @@ public class PlayingStatusViewModel extends ViewModel {
         }
     };
 
+    /**
+     * Sets values that will be represented in playingstatus. Differentiates between master
+     * and slave room through type on roominstanceholder. Used in runnable every 500ms
+     */
 
-    private void updateThread(){
+    public void updateThread(){
         Track track = RoomInstanceHolder.getRoomInstance().getCurrentSong();
+        //values only used for master room
         if (RoomInstanceHolder.getRoomInstance().getType().equals(RoomType.MASTER)) {
             Long currentPos = PlayerFactory.getPlayer().getCurrentPosition();
             currentPosition.postValue(currentPos);
@@ -97,7 +108,6 @@ public class PlayingStatusViewModel extends ViewModel {
         else {
             PlayerFactory.getPlayer().resume();
         }
-
     }
 
     public boolean isMasterRoom(){

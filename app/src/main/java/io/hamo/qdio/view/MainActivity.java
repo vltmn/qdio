@@ -13,7 +13,11 @@ import io.hamo.qdio.R;
 import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.room.RoomInstanceHolder;
 
-public class MainActivity extends FragmentActivity implements TrackListAdapter.OnListItemClickedListener {
+/**
+ * Uses the queue, playing and search fragments to dispplay them to the GUI
+ */
+
+public class MainActivity extends FragmentActivity implements TrackListAdapter.OnListItemClickedListener{
     private FloatingActionButton fab;
     private View mainWrapper;
 
