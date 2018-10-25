@@ -53,6 +53,11 @@ public class PlayingStatusFragment extends Fragment {
         viewModel.getCurrentlyPlayingTrack().observe(this, new Observer<Track>() {
             @Override
             public void onChanged(@Nullable Track track) {
+                if(track == null) {
+                    artistName.setText("");
+                    trackName.setText(R.string.NO_SONG);
+                    return;
+                }
                 StringBuilder sb = new StringBuilder();
                 for (Artist a : track.getArtists()){
                     if(track.getArtists().indexOf(a) != 0){
@@ -62,6 +67,7 @@ public class PlayingStatusFragment extends Fragment {
                 }
                 artistName.setText(sb.toString());
                 seekBar.setMax((int) track.getDurationMs());
+                trackName.setText(track.getName());
             }
         });
 
@@ -74,13 +80,6 @@ public class PlayingStatusFragment extends Fragment {
                 else {
                     playPauseBtn.setImageResource(android.R.drawable.ic_media_play);
                 }
-            }
-        });
-
-        viewModel.getCurrentlyPlayingTrack().observe(this, new Observer<Track>() {
-            @Override
-            public void onChanged(@Nullable Track track) {
-                trackName.setText(track.getName());
             }
         });
 
@@ -135,4 +134,5 @@ public class PlayingStatusFragment extends Fragment {
         return view;
 
     }
+
 }

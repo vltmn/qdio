@@ -37,9 +37,7 @@ public class PlayingStatusViewModel extends ViewModel {
         currentPosition = new MutableLiveData<>();
         currentAlbumImage = new MutableLiveData<>();
         isPlaying = new MutableLiveData<>();
-
-
-        handler.postDelayed(runnableCode, 10000);
+        handler.post(runnableCode);
     }
 
     private Runnable runnableCode = new Runnable() {
@@ -63,7 +61,13 @@ public class PlayingStatusViewModel extends ViewModel {
             currentPosition.postValue(currentPos);
             isPlaying.postValue(PlayerFactory.getPlayer().getPlayerState() == PlayerState.PLAYING);
         }
+        if(track == null && currentlyPlayingTrack.getValue() == null) {
+            return;
+        }
         if (track == null){
+            //handle null track
+            currentlyPlayingTrack.postValue(null);
+            currentAlbumImage.postValue(null);
             return;
         }
         if (track.equals(currentlyPlayingTrack.getValue())){

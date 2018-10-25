@@ -29,7 +29,7 @@
                 android:id="@+id/trackName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/track"
+                android:text="@string/NO_SONG"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -37,7 +37,7 @@
                 android:id="@+id/artistName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Artist" />
+                android:text="" />
         </LinearLayout>
     </LinearLayout>
 
@@ -45,6 +45,7 @@
         android:id="@+id/seekBar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+
         android:layout_weight="1" />
 
     <LinearLayout
@@ -59,7 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            app:srcCompat="@android:drawable/ic_media_play" />
+
+            android:src="@android:drawable/ic_media_play" />
 
         <ImageButton
             android:id="@+id/nextBtn"
@@ -67,6 +69,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@android:color/transparent"
-            app:srcCompat="@android:drawable/ic_media_next" />
+            android:src="@android:drawable/ic_media_next" />
     </LinearLayout>
 </LinearLayout>
