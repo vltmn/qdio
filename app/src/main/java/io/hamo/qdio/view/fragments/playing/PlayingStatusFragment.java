@@ -32,6 +32,7 @@ public class PlayingStatusFragment extends Fragment {
     private TextView artistName;
     private SeekBar seekBar;
     private ImageButton playPauseBtn;
+    private ImageButton nextBtn;
 
     @Override
     public void onAttach(Context context) {
@@ -100,6 +101,13 @@ public class PlayingStatusFragment extends Fragment {
         albumImage = (ImageView) view.findViewById(R.id.albumImage);
         seekBar = (SeekBar) view.findViewById(R.id.seekBar);
         playPauseBtn = (ImageButton) view.findViewById(R.id.playPauseBtn);
+        nextBtn = view.findViewById(R.id.nextBtn);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.nextBtnClicked();
+            }
+        });
         playPauseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

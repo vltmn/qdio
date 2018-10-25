@@ -53,7 +53,7 @@ public class PlayingStatusViewModel extends ViewModel {
      * and slave room through type on roominstanceholder. Used in runnable every 500ms
      */
 
-    public void updateThread(){
+    public void updateThread() {
         Track track = RoomInstanceHolder.getRoomInstance().getCurrentSong();
         //values only used for master room
         if (RoomInstanceHolder.getRoomInstance().getType().equals(RoomType.MASTER)) {
@@ -61,16 +61,16 @@ public class PlayingStatusViewModel extends ViewModel {
             currentPosition.postValue(currentPos);
             isPlaying.postValue(PlayerFactory.getPlayer().getPlayerState() == PlayerState.PLAYING);
         }
-        if(track == null && currentlyPlayingTrack.getValue() == null) {
+        if (track == null && currentlyPlayingTrack.getValue() == null) {
             return;
         }
-        if (track == null){
+        if (track == null) {
             //handle null track
             currentlyPlayingTrack.postValue(null);
             currentAlbumImage.postValue(null);
             return;
         }
-        if (track.equals(currentlyPlayingTrack.getValue())){
+        if (track.equals(currentlyPlayingTrack.getValue())) {
             return;
         }
         currentlyPlayingTrack.postValue(track);
@@ -97,24 +97,27 @@ public class PlayingStatusViewModel extends ViewModel {
         return currentPosition;
     }
 
-    public MutableLiveData<Boolean> getIsPlaying(){
+    public MutableLiveData<Boolean> getIsPlaying() {
         return isPlaying;
     }
 
-    public void onSeekbarDrag(int ms){
+    public void onSeekbarDrag(int ms) {
         PlayerFactory.getPlayer().seek(ms);
     }
 
-    public void playBtnClicked(){
-        if (isPlaying.getValue()){
+    public void playBtnClicked() {
+        if (isPlaying.getValue()) {
             PlayerFactory.getPlayer().pause();
-        }
-        else {
+        } else {
             PlayerFactory.getPlayer().resume();
         }
     }
 
-    public boolean isMasterRoom(){
+    public void nextBtnClicked() {
+        PlayerFactory.getPlayer().nextTrack();
+    }
+
+    public boolean isMasterRoom() {
         return RoomInstanceHolder.getRoomInstance().getType().equals(RoomType.MASTER);
     }
 

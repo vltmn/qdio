@@ -56,6 +56,10 @@ class SpotifyPlayer implements Player {
         }
         Track track = onSongEndCallback.onSongEnd();
         if (track == null) {
+            if(playerState != PlayerState.PAUSED) {
+                seek(0);
+                pause();
+            }
 
             return;
         }
