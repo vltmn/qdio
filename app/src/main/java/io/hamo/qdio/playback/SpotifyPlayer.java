@@ -44,13 +44,13 @@ class SpotifyPlayer implements Player {
         playerState = state.isPaused ? PlayerState.PAUSED : PlayerState.PLAYING;
 
         if(playerState == PlayerState.PAUSED && latestPosition == 0) {
-            handleSongEnd();
+            playNextTrack();
         }
 
     }
 
 
-    private void handleSongEnd() {
+    private void playNextTrack() {
         if (onSongEndCallback == null) {
             return;
         }
@@ -86,6 +86,11 @@ class SpotifyPlayer implements Player {
         spotifyAppRemote.getPlayerApi().play(obj.getURI());
 
         playerState = PlayerState.PLAYING;
+    }
+
+    @Override
+    public void nextTrack() {
+        playNextTrack();
     }
 
 

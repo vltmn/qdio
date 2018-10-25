@@ -31,6 +31,11 @@ public interface Player {
     void play(MusicObject obj);
 
     /**
+     * Skips to the next track in the queue
+     */
+    void nextTrack();
+
+     /**
      * Fetching the track that is playing
      * @return trackobject
      */
