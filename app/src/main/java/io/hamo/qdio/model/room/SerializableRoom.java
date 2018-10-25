@@ -15,16 +15,17 @@ public class SerializableRoom {
 
 
     private SerializableRoom(SongQueueList songQueueList,
-                            SongHistory historyList,
-                            Track currentTrack) {
-        for(Track track : songQueueList.getAsList()) {
+                             SongHistory historyList,
+                             Track currentTrack) {
+        for (Track track : songQueueList.getAsList()) {
             queueList.add(track.getURI());
         }
-        for(Track track: historyList.getPlaybackHistory()) {
+        for (Track track : historyList.getPlaybackHistory()) {
             this.historyList.add(track.getURI());
         }
-        currentTrackURI = currentTrack.getURI();
+        currentTrackURI = currentTrack == null ? null : currentTrack.getURI();
     }
+
     public SerializableRoom(RoomData roomData) {
         this(roomData.getQueueList(), roomData.getHistory(), roomData.getCurrentTrack());
 
