@@ -16,6 +16,9 @@ public class SongHistory {
     }
 
     public void add(Track track) {
+        if (track == null) {
+            return;
+        }
         playbackHistory.add(track);
     }
 
