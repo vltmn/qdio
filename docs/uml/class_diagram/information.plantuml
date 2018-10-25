@@ -4,7 +4,7 @@ class MusicDataServiceFactory {
     + {static}MusicDataService getService();
 }
 
-class SpotifyMusicDataSerivce
+class  SpotifyMusicDataSerivce
 
 interface MusicDataService {
     + Callable<List<Track>> searchForTrack(String query)
@@ -25,9 +25,19 @@ package auth {
     AccessTokenGenerator --> SpotifyAuthHelper
 }
 class ImageFetchTask
+class MusicObjectFactory {
+    {static} + Track createTrack(com.spotify.protocol.types.Track track)
+    {static} + Track createTrack(kaes.spotify.webapi.android.models.Track track)
+    {static} + Artist createArtist(com.spotify.protocol.types.Artist artist)
+    {static} + Artist createArtist(ArtistSimple artist)
+    {static} + Album createAlbum(com.spotify.protocol.types.Album album)
+    {static} + Album createAlbum(kaaes.spotify.webapi.android.models.Album album)
+}
 
-MusicDataServiceFactory --> AccessTokenGenerator
+MusicDataServiceFactory ..> AccessTokenGenerator
+SpotifyMusicDataSerivce ..> MusicObjectFactory
 SpotifyMusicDataSerivce ..> AccessTokenGenerator
 MusicDataService <|-- SpotifyMusicDataSerivce
 MusicDataServiceFactory ..> SpotifyMusicDataSerivce
+MusicDataServiceFactory -> MusicDataService
 @enduml

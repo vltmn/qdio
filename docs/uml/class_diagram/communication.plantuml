@@ -6,7 +6,7 @@ interface Communicator {
 
 class JsonUtil {
     + CommandMessage deserializeCommandMessage(String msg)
-    + String serializeCommandMessage(CommandMessage msg)'
+    + String serializeCommandMessage(CommandMessage msg)
     + SerializableRoom deserializeRoom(String msg)
     + String serializeRoom(SerializableRoom serializableRoom)
     {static} + JsonUtil getInstance()
