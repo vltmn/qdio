@@ -1,5 +1,5 @@
 @startuml
-class WelcomActivity {
+class WelcomeActivity {
     + void createRoom(View view)
     + void joinRoom(View view)
     - String getRandomRoomName()
@@ -12,7 +12,7 @@ class RoomDiscoveryActivity
 
 class RoomDiscoveryViewModel
 
-RoomDiscoveryActivity -> RoomDiscoveryViewModel
+RoomDiscoveryActivity --> RoomDiscoveryViewModel
 
 class TrackListAdapter {
     {static} class ViewHolder
@@ -38,7 +38,8 @@ package fragments {
 
 SearchFragment --> TrackListAdapter
 QueueListFragment --> TrackListAdapter
-
+WelcomeActivity .> MainActivity
+WelcomeActivity .> RoomDiscoveryActivity
 MainActivity --> QueueListFragment
 MainActivity --> PlayingStatusFragment
 MainActivity --> SearchFragment
