@@ -54,10 +54,15 @@ public class SlaveRoom implements Room {
     private void handleNotifyUpdate(String msg){
         SerializableRoom sRoom = JsonUtil.getInstance().deserializeRoom(msg);
         try {
-            roomData.setCurrentTrack(MusicDataServiceFactory
-                    .getService()
-                    .getTrackFromUri(sRoom.getCurrentTrackURI())
-                    .call());
+            if(sRoom.getCurrentTrackURI() == null) {
+                roomData.setCurrentTrack(null);
+            } else {
+                roomData.setCurrentTrack(MusicDataServiceFactory
+                        .getService()
+                        .getTrackFromUri(sRoom.getCurrentTrackURI())
+                        .call());
+            }
+
             roomData.clearQueue();
             roomData.clearHistory();
             for (String s : sRoom.getQueueList()){
