@@ -11,6 +11,12 @@ import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.room.RoomInstanceHolder;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
  * Uses thread to update queuelist. Thread overwrites values with UPDATE_DELAY as delay time in ms.
  * getQueueList returns the updated queuelist to be used by the QueueListFragment
  */

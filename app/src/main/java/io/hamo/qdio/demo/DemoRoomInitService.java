@@ -18,6 +18,12 @@ import io.hamo.qdio.room.Room;
 import io.hamo.qdio.room.SlaveRoom;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Class for testing the domain w/o dependency on android hardware (nearby communications depends on bluetooth, which doesn't work in emulator)
  * <p>
  * This class may receive commands via intents sent with Intent.ACTION_SEND action and Intent.EXTRA_TEXT as a json string containing the command message

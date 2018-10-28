@@ -25,7 +25,16 @@ import io.hamo.qdio.R;
 import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.view.TrackListAdapter;
 
-
+/**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
+ * Fragment for showing the search view, will display a search bar with auto updating results when changeing the search query
+ * expects the parent activity to implement the TrackListAdapter.OnListItemClickedListener interface
+ */
 public class SearchFragment extends Fragment {
     private SearchFragmentViewModel viewModel;
     private TrackListAdapter adapter;
@@ -33,7 +42,7 @@ public class SearchFragment extends Fragment {
     private ProgressBar progressBar;
     private TrackListAdapter.OnListItemClickedListener onResultItemListener;
 
-    public SearchFragment(){
+    public SearchFragment() {
     }
 
 
@@ -42,7 +51,7 @@ public class SearchFragment extends Fragment {
         super.onAttach(context);
         try {
             onResultItemListener = (TrackListAdapter.OnListItemClickedListener) context;
-        } catch(ClassCastException cce) {
+        } catch (ClassCastException cce) {
             throw new ClassCastException(context.toString() + " must implement " + TrackListAdapter.OnListItemClickedListener.class.getSimpleName());
         }
     }
@@ -101,7 +110,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if(newState != RecyclerView.SCROLL_STATE_DRAGGING) return;
+                if (newState != RecyclerView.SCROLL_STATE_DRAGGING) return;
                 View view = getView();
                 if (view != null) {
                     InputMethodManager imm = (InputMethodManager) Objects.requireNonNull(getContext()).getSystemService(Context.INPUT_METHOD_SERVICE);

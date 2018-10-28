@@ -8,6 +8,12 @@ import java.util.Queue;
 import io.hamo.qdio.model.music.Track;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Holds the queue of songs as a List
  */
 public class SongQueueList {

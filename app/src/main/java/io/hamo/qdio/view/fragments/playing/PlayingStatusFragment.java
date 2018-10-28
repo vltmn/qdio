@@ -20,8 +20,13 @@ import io.hamo.qdio.model.music.Artist;
 import io.hamo.qdio.model.music.Track;
 
 /**
- * Listens on values from the PlayignStatusViewModel and sets them to be represented
- * in the GUI
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ * Fragment to show the playing status of the current room
  */
 
 public class PlayingStatusFragment extends Fragment {
@@ -54,14 +59,14 @@ public class PlayingStatusFragment extends Fragment {
         viewModel.getCurrentlyPlayingTrack().observe(this, new Observer<Track>() {
             @Override
             public void onChanged(@Nullable Track track) {
-                if(track == null) {
+                if (track == null) {
                     artistName.setText("");
                     trackName.setText(R.string.NO_SONG);
                     return;
                 }
                 StringBuilder sb = new StringBuilder();
-                for (Artist a : track.getArtists()){
-                    if(track.getArtists().indexOf(a) != 0){
+                for (Artist a : track.getArtists()) {
+                    if (track.getArtists().indexOf(a) != 0) {
                         sb.append(", ");
                     }
                     sb.append(a.getName());
@@ -75,10 +80,9 @@ public class PlayingStatusFragment extends Fragment {
         viewModel.getIsPlaying().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean aBoolean) {
-                if (aBoolean){
+                if (aBoolean) {
                     playPauseBtn.setImageResource(android.R.drawable.ic_media_pause);
-                }
-                else {
+                } else {
                     playPauseBtn.setImageResource(android.R.drawable.ic_media_play);
                 }
             }
@@ -96,8 +100,8 @@ public class PlayingStatusFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_playing_status, container, false);
-        trackName = (TextView)view.findViewById(R.id.trackName);
-        artistName = (TextView)view.findViewById(R.id.artistName);
+        trackName = (TextView) view.findViewById(R.id.trackName);
+        artistName = (TextView) view.findViewById(R.id.artistName);
         albumImage = (ImageView) view.findViewById(R.id.albumImage);
         seekBar = (SeekBar) view.findViewById(R.id.seekBar);
         playPauseBtn = (ImageButton) view.findViewById(R.id.playPauseBtn);
@@ -114,12 +118,11 @@ public class PlayingStatusFragment extends Fragment {
                 viewModel.playBtnClicked();
             }
         });
-        if (!viewModel.isMasterRoom()){
+        if (!viewModel.isMasterRoom()) {
             View buttonContainer = view.findViewById(R.id.buttonContainer);
             buttonContainer.setVisibility(View.GONE);
             seekBar.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                 @Override
                 public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {

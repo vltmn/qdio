@@ -11,6 +11,12 @@ import com.spotify.android.appremote.api.SpotifyAppRemote;
 import io.hamo.qdio.BuildConfig;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Creates an authentication to the spotify appremote as a headless fragment
  */
 

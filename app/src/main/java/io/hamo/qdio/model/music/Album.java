@@ -5,6 +5,12 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
  * This class represnts a album. It is immutable.
  */
 public class Album implements MusicObject {
@@ -16,7 +22,8 @@ public class Album implements MusicObject {
 
     /**
      * Constructor album only for uri and string
-     * @param URI String
+     *
+     * @param URI  String
      * @param name String
      */
     public Album(String URI, String name) {
@@ -28,9 +35,10 @@ public class Album implements MusicObject {
 
     /**
      * Constructor for album with uri, name, imageURL and artistURI
-     * @param URI String
-     * @param name String
-     * @param imageURL Srting
+     *
+     * @param URI       String
+     * @param name      String
+     * @param imageURL  Srting
      * @param artistURI List<String>
      */
     public Album(String URI, String name, String imageURL, List<String> artistURI) {
@@ -51,6 +59,7 @@ public class Album implements MusicObject {
 
     /**
      * gives the url to the image (album cover image)
+     *
      * @return imageURL String
      */
     public String getImageURL() {
@@ -59,6 +68,7 @@ public class Album implements MusicObject {
 
     /**
      * gives a list of artist
+     *
      * @return Arraylist
      */
     public List<String> getArtistURI() {

@@ -14,10 +14,16 @@ import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.room.RoomInstanceHolder;
 
 /**
- * Uses the queue, playing and search fragments to dispplay them to the GUI
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ * Uses the queue, playing and search fragments to display them to the GUI
  */
 
-public class MainActivity extends FragmentActivity implements TrackListAdapter.OnListItemClickedListener{
+public class MainActivity extends FragmentActivity implements TrackListAdapter.OnListItemClickedListener {
     private FloatingActionButton fab;
     private View mainWrapper;
 

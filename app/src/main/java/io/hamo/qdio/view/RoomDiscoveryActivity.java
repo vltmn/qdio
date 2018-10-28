@@ -14,17 +14,23 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Simple ListActivity only containing a list which updates when new available rooms are discovered
  * Clicking a room in the list connects to room
  */
-public class RoomDiscoveryActivity extends ListActivity{
+public class RoomDiscoveryActivity extends ListActivity {
 
     private RoomDiscoveryViewModel viewModel;
     private List<String> listItems = new ArrayList<>();
     private ArrayAdapter<String> adapter;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new RoomDiscoveryViewModel(this);
         adapter = new ArrayAdapter<>(this,
@@ -42,7 +48,7 @@ public class RoomDiscoveryActivity extends ListActivity{
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id){
+    public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
         viewModel.connectToRoom(listItems.get(position));
         Intent intent = new Intent(this, MainActivity.class);

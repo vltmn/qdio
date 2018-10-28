@@ -9,12 +9,19 @@ import io.hamo.qdio.model.music.Track;
 import kaaes.spotify.webapi.android.models.ArtistSimple;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Factory to create MusicObject
  */
 public class MusicObjectFactory {
 
     /**
      * Creates a Qdio implementation of Track based on Spotify remote API Track implementation
+     *
      * @return a Track object
      */
     public static Track createTrack(com.spotify.protocol.types.Track track) {
@@ -51,6 +58,7 @@ public class MusicObjectFactory {
 
     /**
      * Creates a Qdio implementation of Track based on Spotify web API Track implementation
+     *
      * @return a Track object
      */
     public static Track createTrack(kaaes.spotify.webapi.android.models.Track track) {
@@ -88,6 +96,7 @@ public class MusicObjectFactory {
 
     /**
      * Creates a Qdio implementation of Artist based on Spotify remote API Artist implementation
+     *
      * @return a Artist object
      */
     public static Artist createArtist(com.spotify.protocol.types.Artist artist) {
@@ -104,6 +113,7 @@ public class MusicObjectFactory {
 
     /**
      * Creates a Qdio implementation of Artist based on Spotify web API Artist implementation
+     *
      * @return a Artist object
      */
     public static Artist createArtist(ArtistSimple artist) {
@@ -120,6 +130,7 @@ public class MusicObjectFactory {
 
     /**
      * Creates a Qdio implementation of Album based on Spotify remote API Album implementation
+     *
      * @return a Album object
      */
     public static Album createAlbum(com.spotify.protocol.types.Album album) {
@@ -136,6 +147,7 @@ public class MusicObjectFactory {
 
     /**
      * Creates a Qdio implementation of Album based on Spotify web API Album implementation
+     *
      * @return a Album object
      */
     public static Album createAlbum(kaaes.spotify.webapi.android.models.Album album) {

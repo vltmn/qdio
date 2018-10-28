@@ -13,7 +13,15 @@ import java.util.List;
 import io.hamo.qdio.information.MusicDataServiceFactory;
 import io.hamo.qdio.model.music.Track;
 
-
+/**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ * View model for the searchfragment, gets results when the search query has changed after 500ms
+ */
 public class SearchFragmentViewModel extends ViewModel {
     public static final long SEARCH_DELAY = 500;
 

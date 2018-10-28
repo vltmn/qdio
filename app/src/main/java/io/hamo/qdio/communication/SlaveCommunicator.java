@@ -19,6 +19,12 @@ import java.util.Queue;
 import io.hamo.qdio.model.communication.CommandMessage;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ * 
  * Managing communication from guests to host
  */
 public class SlaveCommunicator implements Communicator {
@@ -26,7 +32,6 @@ public class SlaveCommunicator implements Communicator {
     private final MutableLiveData<Queue<Payload>> incomingPayload;
     private final String masterEndpoint;
     private final ConnectionsClient connectionsClient;
-
 
 
     public SlaveCommunicator(
@@ -68,12 +73,12 @@ public class SlaveCommunicator implements Communicator {
                         Log.i(getClass().getSimpleName(), "transfer succeeded");
                     }
                 })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e(getClass().getSimpleName(), "transfer failed", e);
-            }
-        });
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e(getClass().getSimpleName(), "transfer failed", e);
+                    }
+                });
     }
 
 }

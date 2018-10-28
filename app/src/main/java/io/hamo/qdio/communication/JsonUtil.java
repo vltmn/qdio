@@ -6,6 +6,12 @@ import io.hamo.qdio.model.communication.CommandMessage;
 import io.hamo.qdio.model.room.SerializableRoom;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Converts CommandMessage using Gson to Java object when communicating between Slave and Master
  */
 public class JsonUtil {
@@ -33,7 +39,7 @@ public class JsonUtil {
         return gson.toJson(serializableRoom);
     }
 
-    public static JsonUtil getInstance(){
+    public static JsonUtil getInstance() {
         if (instance == null) {
             instance = new JsonUtil(new Gson());
         }

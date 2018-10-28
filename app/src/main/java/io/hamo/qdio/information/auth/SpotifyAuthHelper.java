@@ -19,6 +19,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Helper class to get a spotify access token
  * Hidden access since nothing except AccessTokenGenerator should use this
  */
@@ -26,6 +32,7 @@ class SpotifyAuthHelper {
 
     /**
      * Get a new access token
+     *
      * @return the access token
      */
     public String getAccessToken() {
@@ -67,11 +74,11 @@ class SpotifyAuthHelper {
             Call c = calls[0];
             try {
                 Response response = c.execute();
-                if(!response.isSuccessful()) throw new IOException(response.message());
+                if (!response.isSuccessful()) throw new IOException(response.message());
                 String json = response.body().string();
-                if(json == null) throw new IOException(response.message());
+                if (json == null) throw new IOException(response.message());
                 JsonParser parser = new JsonParser();
-                JsonObject object = (JsonObject)parser.parse(json);
+                JsonObject object = (JsonObject) parser.parse(json);
                 JsonPrimitive access_token = (JsonPrimitive) object.get("access_token");
                 return access_token.getAsString();
             } catch (IOException e) {

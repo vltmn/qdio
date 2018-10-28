@@ -4,6 +4,12 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
  * This class represents a track. It is immutable.
  */
 
@@ -27,6 +33,7 @@ public class Track implements MusicObject {
 
     /**
      * Gives the uri to the album the track is contained by
+     *
      * @return String uri
      */
     public String getAlbumURI() {
@@ -35,6 +42,7 @@ public class Track implements MusicObject {
 
     /**
      * Gives the duration of the track
+     *
      * @return duration in milliseconds as a long
      */
     public long getDurationMs() {
@@ -48,6 +56,7 @@ public class Track implements MusicObject {
 
     /**
      * Gives the url to the Image connected with track
+     *
      * @return string
      */
     public String getImageURL() {
@@ -56,6 +65,7 @@ public class Track implements MusicObject {
 
     /**
      * gives a list containg the artist or artists that are included in the track
+     *
      * @return
      */
     public List<Artist> getArtists() {

@@ -9,12 +9,19 @@ import io.hamo.qdio.model.music.Artist;
 import io.hamo.qdio.model.music.Track;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Service for fetching information from the Spotify Web APIs
  */
 public interface MusicDataService {
 
     /**
      * Search the music library by using a query
+     *
      * @param query the query to search with, may be a track name, artist name or album naem
      * @return a callable that returns a list of the tracks that matches the query
      */
@@ -22,6 +29,7 @@ public interface MusicDataService {
 
     /**
      * Get a list of artists from a list of artist URIs.
+     *
      * @param artists a list of artist URIs
      * @return a callable that returns a map with the artist URI and corresponding information from the music library
      */
@@ -29,6 +37,7 @@ public interface MusicDataService {
 
     /**
      * Get a single artist by using an URI
+     *
      * @param artistUri the artist URI to get information for
      * @return a callable that returns the information from the music library
      */
@@ -36,6 +45,7 @@ public interface MusicDataService {
 
     /**
      * Get a single album from an URI
+     *
      * @param albumUri the album URI to get information for
      * @return a callable that returns the album found
      */
@@ -43,6 +53,7 @@ public interface MusicDataService {
 
     /**
      * Get a single track by a URI
+     *
      * @param trackUri the track URI to get information for
      * @return a callable that returns the information found about the track
      */
@@ -50,6 +61,7 @@ public interface MusicDataService {
 
     /**
      * Get multiple tracks by URIs
+     *
      * @param tracks the URIs to get tracks for
      * @return a callable that returns a map with the track uri and the corresponding information
      */

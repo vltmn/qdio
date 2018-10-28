@@ -2,6 +2,13 @@ package io.hamo.qdio.room;
 
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ *
  * returns the current room instance or throws an exception if no room is yet instantiated.
  */
 public class RoomInstanceHolder {
@@ -10,8 +17,7 @@ public class RoomInstanceHolder {
     public static Room getRoomInstance() {
         if (roomInstance == null) {
             throw new RuntimeException("No room exists");
-        }
-        else {
+        } else {
             return roomInstance;
         }
     }

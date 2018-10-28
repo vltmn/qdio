@@ -13,6 +13,12 @@ import io.hamo.qdio.room.RoomInstanceHolder;
 import io.hamo.qdio.room.init.RoomDiscoveryService;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
  * ViewModel for the RoomDiscoveryActivity, uses the RoomDiscoveryService to search for rooms and connect to them
  */
 public class RoomDiscoveryViewModel extends ViewModel {

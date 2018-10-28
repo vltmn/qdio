@@ -9,6 +9,12 @@ import io.hamo.qdio.communication.Communicator;
 import io.hamo.qdio.model.communication.CommandMessage;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Communicator to use when using the application in the emulator.
  * This way you can send commands to the application using broadcasted intents containing JSON commandmessages.
  * See the DemoRoomInitService for usage

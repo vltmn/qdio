@@ -14,6 +14,15 @@ import io.hamo.qdio.R;
 import io.hamo.qdio.model.music.Artist;
 import io.hamo.qdio.model.music.Track;
 
+/**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
+ * A Recyclerview adapter to display a track with track name and artist name
+ */
 public class TrackListAdapter extends RecyclerView.Adapter<TrackListAdapter.ViewHolder> {
     private final OnListItemClickedListener onResultItemListener;
     private List<Track> data;

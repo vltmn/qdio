@@ -19,6 +19,12 @@ import kaaes.spotify.webapi.android.SpotifyService;
 import kaaes.spotify.webapi.android.models.TracksPager;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
  * Implementation of the MusicDataService interface using the spotify APIs
  */
 class SpotifyMusicDataService implements MusicDataService {
@@ -193,8 +199,8 @@ class SpotifyMusicDataService implements MusicDataService {
         }
     }
 
-    private static String parseUri(String wholeId){
-        return wholeId.substring(wholeId.lastIndexOf(':')+1);
+    private static String parseUri(String wholeId) {
+        return wholeId.substring(wholeId.lastIndexOf(':') + 1);
     }
 
 }

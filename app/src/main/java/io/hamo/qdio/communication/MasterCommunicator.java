@@ -17,6 +17,12 @@ import java.util.Queue;
 import io.hamo.qdio.model.communication.CommandMessage;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Managing communication from hosts to all units connected to its room
  */
 public class MasterCommunicator implements Communicator {

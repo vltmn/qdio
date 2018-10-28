@@ -10,7 +10,13 @@ import io.hamo.qdio.model.music.MusicObject;
 import io.hamo.qdio.model.music.Track;
 
 /**
- * Handles functionality for the music playing on the device
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
+ * Implements the Player interface using spotify music
  */
 
 class SpotifyPlayer implements Player {
@@ -43,7 +49,7 @@ class SpotifyPlayer implements Player {
         currentTrack = MusicObjectFactory.createTrack(state.track);
         playerState = state.isPaused ? PlayerState.PAUSED : PlayerState.PLAYING;
 
-        if(playerState == PlayerState.PAUSED && latestPosition == 0) {
+        if (playerState == PlayerState.PAUSED && latestPosition == 0) {
             playNextTrack();
         }
 
@@ -56,7 +62,7 @@ class SpotifyPlayer implements Player {
         }
         Track track = onSongEndCallback.onSongEnd();
         if (track == null) {
-            if(playerState != PlayerState.PAUSED) {
+            if (playerState != PlayerState.PAUSED) {
                 seek(0);
                 pause();
             }
@@ -106,7 +112,7 @@ class SpotifyPlayer implements Player {
 
     @Override
     public Long getCurrentPosition() {
-        return playerState == PlayerState.PAUSED ? latestPosition : latestPosition +  t.getTime();
+        return playerState == PlayerState.PAUSED ? latestPosition : latestPosition + t.getTime();
     }
 
 

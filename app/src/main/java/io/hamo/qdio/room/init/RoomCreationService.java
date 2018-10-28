@@ -27,6 +27,15 @@ import io.hamo.qdio.communication.MasterCommunicator;
 import io.hamo.qdio.room.MasterRoom;
 import io.hamo.qdio.room.Room;
 
+/**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ * Uses the Google nearby Connections Library to instantiate a room and a communicator
+ */
 public class RoomCreationService {
     private static final String ROOM_ID = "TEST";
     private final List<String> endpointsConnected = new ArrayList<>();
@@ -52,7 +61,6 @@ public class RoomCreationService {
 
             @Override
             public void onConnectionResult(@NonNull String endpointId, @NonNull ConnectionResolution connectionResolution) {
-                //TODO handle connectionsresolution
                 switch (connectionResolution.getStatus().getStatusCode()) {
                     case ConnectionsStatusCodes.STATUS_OK:
                         Log.i(getClass().getSimpleName(), "Connected");
@@ -85,6 +93,12 @@ public class RoomCreationService {
         return incomingPayloadQueue;
     }
 
+    /**
+     * Create a master room with the specified ID
+     *
+     * @param myId the id to create
+     * @return the room that was created
+     */
     public Room createRoom(final String myId) {
         MutableLiveData<Queue<Payload>> payloadQueue = createRoomInternal(myId);
         ConnectionsClient connectionsClient = Nearby.getConnectionsClient(context);

@@ -7,6 +7,15 @@ import android.util.Log;
 
 import java.io.InputStream;
 
+/**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ * Async task to get a bitmap from an URL
+ */
 public class ImageFetchTask extends AsyncTask<String, Void, Bitmap> {
 
     protected Bitmap doInBackground(String... urls) {

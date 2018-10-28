@@ -30,6 +30,15 @@ import io.hamo.qdio.communication.SlaveCommunicator;
 import io.hamo.qdio.room.Room;
 import io.hamo.qdio.room.SlaveRoom;
 
+/**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
+ * Used to discover open rooms and connecting to these
+ */
 public class RoomDiscoveryService {
     private final MutableLiveData<Map<String, String>> endpointsAvailable = new MutableLiveData<>();
     private final Context context;
@@ -39,6 +48,9 @@ public class RoomDiscoveryService {
         endpointsAvailable.setValue(new HashMap<String, String>());
     }
 
+    /**
+     * Start discovering rooms, they are exposed through the getEndpointsAvailable method
+     */
     public void startDiscovering() {
         EndpointDiscoveryCallback endpointDiscoveryCallback = new EndpointDiscoveryCallback() {
 
@@ -74,6 +86,11 @@ public class RoomDiscoveryService {
                 });
     }
 
+    /**
+     * get the available rooms
+     *
+     * @return a livedata of a map consisting of the room name as key and the room ID as the value
+     */
     public LiveData<Map<String, String>> getEndpointsAvailable() {
         return endpointsAvailable;
     }
@@ -95,7 +112,6 @@ public class RoomDiscoveryService {
 
             @Override
             public void onConnectionResult(@NonNull String s, @NonNull ConnectionResolution connectionResolution) {
-                //TODO handle connectionsresolution
                 switch (connectionResolution.getStatus().getStatusCode()) {
                     case ConnectionsStatusCodes.STATUS_OK:
                         Log.i(getClass().getSimpleName(), "Connected");
@@ -117,7 +133,6 @@ public class RoomDiscoveryService {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.i(getClass().getSimpleName(), "Successfully Connected to: " + endpointId);
-                        //TODO instantiate room and set toreturn to the value
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -130,6 +145,12 @@ public class RoomDiscoveryService {
         return incomingPayloadQueue;
     }
 
+    /**
+     * Connect to a specified room by id
+     *
+     * @param endpointId the id of the room to connect tio
+     * @return a freshly instantiated slaveroom with a connection to the room with the id supplied
+     */
     public Room connectToRoom(final String endpointId) {
         MutableLiveData<Queue<Payload>> queueMutableLiveData = connectToMaster(endpointId);
         ConnectionsClient connectionsClient = Nearby.getConnectionsClient(context);

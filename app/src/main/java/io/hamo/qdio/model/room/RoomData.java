@@ -7,6 +7,12 @@ import io.hamo.qdio.model.SongQueueList;
 import io.hamo.qdio.model.music.Track;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * Contains and handles all the data used in any of the two room types
  */
 public class RoomData {
@@ -20,7 +26,7 @@ public class RoomData {
         this.history = new SongHistory();
     }
 
-    public void addToQueue(Track track){
+    public void addToQueue(Track track) {
         queueList.addSong(track);
     }
 
@@ -43,6 +49,7 @@ public class RoomData {
     public void addToHistory(Track track) {
         history.add(track);
     }
+
     public List<Track> getQueueAsList() {
         return queueList.getAsList();
     }
@@ -60,7 +67,7 @@ public class RoomData {
     }
 
     public void clearQueue() {
-        while(queueList.peekSong() != null) {
+        while (queueList.peekSong() != null) {
             queueList.popSong();
         }
     }

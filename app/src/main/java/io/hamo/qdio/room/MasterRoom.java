@@ -19,6 +19,15 @@ import io.hamo.qdio.model.room.SerializableRoom;
 import io.hamo.qdio.playback.Player;
 import io.hamo.qdio.playback.PlayerFactory;
 
+/**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ * Room implementation in the case of a master
+ */
 public class MasterRoom implements Room {
 
     private final Communicator communicator;
@@ -73,7 +82,7 @@ public class MasterRoom implements Room {
 
     }
 
-    private void sendNotifyUpdate(){
+    private void sendNotifyUpdate() {
         CommandMessage notify = new CommandMessage(CommandAction.NOTIFY_UPDATE,
                 JsonUtil.getInstance().serializeRoom(
                         new SerializableRoom(roomData)));

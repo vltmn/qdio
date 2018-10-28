@@ -23,6 +23,12 @@ import io.hamo.qdio.room.RoomInstanceHolder;
 import io.hamo.qdio.room.init.RoomCreationService;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * The first activity shwon when the application is launched
  * User gets choice to either create a room or join an existing room
  */
@@ -55,7 +61,7 @@ public class WelcomeActivity extends FragmentActivity {
         roomConnectProgress.setVisibility(View.VISIBLE);
         Fragment connectFragment = new ConnectFragment();
         getSupportFragmentManager().beginTransaction()
-            .add(connectFragment, ConnectFragment.TAG).commit();
+                .add(connectFragment, ConnectFragment.TAG).commit();
 
         final Intent intent = new Intent(this, MainActivity.class);
         final RoomCreationService roomCreationService = new RoomCreationService(this);
@@ -73,7 +79,7 @@ public class WelcomeActivity extends FragmentActivity {
     }
 
     private static String getRandomRoomName() {
-        return String.valueOf((int)Math.floor(100 * Math.random()));
+        return String.valueOf((int) Math.floor(100 * Math.random()));
     }
 
     public void joinRoom(View view) {

@@ -3,6 +3,12 @@ package io.hamo.qdio.model.music;
 import java.util.Objects;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  * This class represents an Artist. It is immutable
  */
 public class Artist implements MusicObject {

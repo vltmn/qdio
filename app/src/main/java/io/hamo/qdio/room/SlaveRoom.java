@@ -17,6 +17,15 @@ import io.hamo.qdio.model.room.RoomData;
 import io.hamo.qdio.model.room.RoomType;
 import io.hamo.qdio.model.room.SerializableRoom;
 
+/**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ * Room implementation for slaves
+ */
 public class SlaveRoom implements Room {
 
     private final Communicator communicator;
@@ -27,34 +36,34 @@ public class SlaveRoom implements Room {
      * Observes incoming CommandMessage from Communicator/host and depending on CommandAction
      * it either updates roomData or breaks if bad command
      */
-    public SlaveRoom(Communicator com){
+    public SlaveRoom(Communicator com) {
         roomData = new RoomData();
         this.communicator = com;
         com.getIncomingMessages().observeForever(new Observer<Queue<CommandMessage>>() {
             @Override
             public void onChanged(@Nullable Queue<CommandMessage> commandMessages) {
-                while(!commandMessages.isEmpty()){
+                while (!commandMessages.isEmpty()) {
                     CommandMessage cmdMsg = commandMessages.poll();
-                    switch (cmdMsg.getAction()){
+                    switch (cmdMsg.getAction()) {
                         case NOTIFY_UPDATE:
                             Log.i(getClass().getSimpleName(), cmdMsg.getValue());
                             handleNotifyUpdate(cmdMsg.getValue());
                             break;
                         case ADD_SONG:
                             break;
-                            default:
-                                Log.w(getClass().getSimpleName(), "Bad command message");
-                                break;
+                        default:
+                            Log.w(getClass().getSimpleName(), "Bad command message");
+                            break;
                     }
                 }
             }
         });
     }
 
-    private void handleNotifyUpdate(String msg){
+    private void handleNotifyUpdate(String msg) {
         SerializableRoom sRoom = JsonUtil.getInstance().deserializeRoom(msg);
         try {
-            if(sRoom.getCurrentTrackURI() == null) {
+            if (sRoom.getCurrentTrackURI() == null) {
                 roomData.setCurrentTrack(null);
             } else {
                 roomData.setCurrentTrack(MusicDataServiceFactory
@@ -65,13 +74,13 @@ public class SlaveRoom implements Room {
 
             roomData.clearQueue();
             roomData.clearHistory();
-            for (String s : sRoom.getQueueList()){
+            for (String s : sRoom.getQueueList()) {
                 roomData.addToQueue(MusicDataServiceFactory
                         .getService()
                         .getTrackFromUri(s)
                         .call());
             }
-            for (String s : sRoom.getHistoryList()){
+            for (String s : sRoom.getHistoryList()) {
                 roomData.addToHistory(MusicDataServiceFactory
                         .getService()
                         .getTrackFromUri(s)

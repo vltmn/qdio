@@ -20,8 +20,13 @@ import io.hamo.qdio.model.music.Track;
 import io.hamo.qdio.view.TrackListAdapter;
 
 /**
- * Fragment for queuelist. Observes quelist from the queuefragmentviewmodel and sets data to be
- * represented in the queuelistfragment GUI
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ * Fragment for displaying the queuelist as a simple list of the songs queued
  */
 
 public class QueueListFragment extends Fragment {

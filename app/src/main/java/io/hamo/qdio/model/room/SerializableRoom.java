@@ -7,7 +7,16 @@ import io.hamo.qdio.model.SongHistory;
 import io.hamo.qdio.model.SongQueueList;
 import io.hamo.qdio.model.music.Track;
 
-
+/**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
+ * This is used to represent a 'thin' class that should be used for transfer.
+ * A complete RoomData object may be generated from this and an internet connection.
+ */
 public class SerializableRoom {
     private final List<String> queueList = new ArrayList<>();
     private final List<String> historyList = new ArrayList<>();

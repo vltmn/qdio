@@ -11,6 +11,12 @@ import com.google.android.gms.nearby.connection.PayloadTransferUpdate;
 import java.util.Queue;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
  * Payload callback tghat puts the transferred payloads in a LiveData queue and notifys the observers
  */
 public class RoomPayloadCallback extends PayloadCallback {

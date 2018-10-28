@@ -8,6 +8,12 @@ import java.util.Queue;
 import io.hamo.qdio.model.communication.CommandMessage;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ *
+ *
  *Manages communication between Master and Slave via Room services from Master– and SlaveRoom
  */
 public interface Communicator {

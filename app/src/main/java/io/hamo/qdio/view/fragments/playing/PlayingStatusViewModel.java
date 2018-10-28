@@ -16,6 +16,12 @@ import io.hamo.qdio.model.room.RoomType;
 import io.hamo.qdio.information.ImageFetchTask;
 
 /**
+ * @author Melker Veltman
+ * @author Hugo Cliffordson
+ * @author Oskar Wallgren
+ * @author Alrik Kjellberg
+ * <p>
+ * <p>
  * A viewmodel in the model-view-viewmodel pattern. Uses a thread to check every STATUS_POLL_INTERVAL
  * ( 500 ms ) for playingstatus values (instance varibles) and updates values to pass to the
  * playingfragment.
